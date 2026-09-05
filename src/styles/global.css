@@ -56,6 +56,8 @@ p{margin:0 0 1rem}
 .btn-outline:hover{background:rgba(255,255,255,.12)}
 .btn-outline-navy{border-color:var(--navy);color:var(--navy);background:transparent}
 .btn-outline-navy:hover{background:var(--navy);color:#fff}
+.btn-outline-teal{border-color:var(--aqua-2);color:var(--aqua-2);background:transparent}
+.btn-outline-teal:hover{background:var(--aqua-2);color:#fff}
 .btn-block{width:100%}
 .btn-lg{padding:16px 32px;font-size:1.05rem}
 
@@ -124,6 +126,27 @@ p{margin:0 0 1rem}
 .card ul li{display:flex;gap:10px;margin-bottom:10px;color:var(--muted);font-size:.95rem}
 .card ul li svg{flex-shrink:0;color:var(--aqua-2);margin-top:3px}
 
+/* Pasos (Como funciona, simplificado) */
+.step-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:32px 28px;box-shadow:var(--shadow);height:100%;text-align:center;
+}
+.step-number{
+  display:inline-flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:50%;
+  background:linear-gradient(135deg,var(--aqua) 0%,var(--aqua-2) 100%);
+  color:#fff;font-weight:800;font-size:1.15rem;margin-bottom:16px;
+}
+.step-card h4{margin-bottom:8px}
+
+/* Beneficios simplificados */
+.benefit-card{
+  background:#fff;border:1px solid var(--border);border-radius:var(--radius);
+  padding:32px 28px;box-shadow:var(--shadow);height:100%;text-align:center;
+}
+.benefit-card .icon-tile{margin-inline:auto}
+.benefit-card h5{margin-bottom:8px}
+
 /* Feature list (why automate) */
 .feature-row{display:grid;grid-template-columns:1.05fr 1fr;gap:56px;align-items:center}
 .feature-row > div > h2{margin-bottom:32px}
@@ -146,10 +169,16 @@ p{margin:0 0 1rem}
   background:#fff;border:2px solid var(--border);border-radius:var(--radius);
   padding:40px 32px;text-align:center;box-shadow:var(--shadow);
 }
-.price-card.featured{border-color:var(--navy)}
+.price-card.featured{border-color:var(--aqua);position:relative}
+.price-card.featured::before{
+  content:'Más elegido';position:absolute;top:-14px;left:50%;transform:translateX(-50%);
+  background:linear-gradient(90deg,var(--aqua) 0%,var(--aqua-2) 100%);color:#063f3d;
+  font-size:.75rem;font-weight:700;letter-spacing:.02em;padding:6px 16px;border-radius:999px;
+  box-shadow:0 6px 16px rgba(0,209,193,.35);
+}
 .price-card .price{font-size:2.4rem;font-weight:800;color:var(--navy);margin:14px 0 8px}
 .price-card .price span{font-size:1rem;font-weight:500;color:var(--muted)}
-.price-card .icon-big{font-size:2.2rem;color:var(--navy);margin-bottom:10px}
+.price-card .icon-big{font-size:2.2rem;color:var(--aqua-2);margin-bottom:10px}
 
 /* FAQ accordion */
 .faq{max-width:820px;margin:0 auto}
@@ -158,14 +187,16 @@ p{margin:0 0 1rem}
   width:100%;text-align:left;background:none;border:0;padding:20px 24px;font-weight:700;
   font-size:1.02rem;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;
 }
-.faq-q .chev{transition:transform .2s ease;flex-shrink:0}
-.faq-item.open .faq-q .chev{transform:rotate(180deg)}
+.faq-q .chev{transition:transform .2s ease,color .2s ease;flex-shrink:0}
+.faq-item.open .faq-q .chev{transform:rotate(180deg);color:var(--aqua-2)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease}
 .faq-a-inner{padding:0 24px 20px;color:var(--muted)}
 .faq-item.open .faq-a{max-height:400px}
+.faq-item.open{border-color:var(--aqua)}
+.faq-item.open .faq-q{color:var(--navy)}
 
 /* Contact */
-.contact-panel{background:var(--bg-light);border-radius:20px;padding:48px;max-width:760px;margin:0 auto}
+.contact-panel{background:var(--bg-light);border:1px solid var(--border);border-radius:20px;padding:48px;max-width:760px;margin:0 auto;box-shadow:0 4px 20px rgba(10,37,64,.04)}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 @media (max-width:640px){.form-grid{grid-template-columns:1fr}}
 .form-grid .full{grid-column:1/-1}
