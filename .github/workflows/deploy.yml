@@ -4,6 +4,8 @@ name: Deploy to Hosting
 # chatbotia.cl. Antes apuntaba a diseñopaginas.cl/chatbot-ia: actualiza los
 # secrets FTP_SERVER / FTP_USERNAME / FTP_PASSWORD con los del nuevo hosting.
 on:
+  push:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
