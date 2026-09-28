@@ -18,7 +18,7 @@ QUÉ VENDEMOS
 PLANES Y PRECIOS
 - Plan Pymes y emprendimientos: $12.000 CLP al mes. Incluye 1.000 respuestas del bot al mes (unas 250 conversaciones), 1 chatbot, historial de conversaciones, aviso de contactos por correo y actualización de la información 1 vez al mes.
 - Plan Empresas: $16.000 CLP al mes. Incluye 2.000 respuestas del bot al mes (unas 500 conversaciones), hasta 2 chatbots (por ejemplo otro sitio o sucursal), historial, aviso de contactos por correo y actualizaciones de información ilimitadas.
-- Instalación: pago único de [MONTO INSTALACIÓN] (se paga una sola vez al contratar).
+- Instalación: pago único de $4.000 CLP (se paga una sola vez al contratar).
 - Pago mensual por transferencia bancaria. Se entrega boleta de honorarios.
 - Sin permanencia: se puede cancelar avisando antes del siguiente mes.
 - Queda funcionando en 24 horas después de recibir la información del negocio.
