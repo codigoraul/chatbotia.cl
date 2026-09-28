@@ -1,9 +1,10 @@
 name: Deploy to Hosting
 
+# Deploy manual (pestaña Actions > Run workflow) hasta configurar el hosting de
+# chatbotia.cl. Antes apuntaba a diseñopaginas.cl/chatbot-ia: actualiza los
+# secrets FTP_SERVER / FTP_USERNAME / FTP_PASSWORD con los del nuevo hosting.
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -25,6 +26,14 @@ jobs:
       - name: Build Astro site
         run: npm run build
 
+      - name: Crear gemini-key.php
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+        run: |
+          if [ -n "$GEMINI_API_KEY" ]; then
+            printf "<?php return '%s';\n" "$GEMINI_API_KEY" > dist/gemini-key.php
+          fi
+
       - name: Deploy to FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -32,6 +41,6 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
-          server-dir: /chatbot-ia/
+          server-dir: ./   # la cuenta FTP entra directo a /home/chatboti/public_html
           dangerous-clean-slate: false
           log-level: verbose

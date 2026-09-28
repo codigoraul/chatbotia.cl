@@ -2,49 +2,95 @@
 import '../styles/global.css';
 import DemoChatWidget from '../components/DemoChatWidget.astro';
 
-const WHATSAPP = "https://api.whatsapp.com/send?phone=56961765268&text=Hola,%20los%20contacto%20por%20consulta%20de%20Chatbot%20con%20IA%2C%20me%20gustar%C3%ADa%20cotizar%3A";
-const PHONE = "+56961765268";
+const SITE = "https://chatbotia.cl";
+const WA_NUMBER = "56961765268";
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl. Me interesa un chatbot con IA para mi negocio.")}`;
 const PHONE_DISPLAY = "+56 9 6176 5268";
 const EMAIL = "codigoraul@gmail.com";
 
+const TITLE = "Chatbot con IA para tu Negocio | Chat con IA 24/7 – Chatia";
+const DESCRIPTION = "Chatia instala un chatbot con IA en tu página web: responde a tus clientes 24/7, entrega precios y horarios y capta sus datos. Desde $12.000 al mes en Chile.";
+const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
+
+const rubros = [
+  { icon: "ti-dental", title: "Clínicas dentales", text: "Precios de tratamientos, horarios y datos para agendar.", q: "¿Cuánto cuesta una limpieza?" },
+  { icon: "ti-stethoscope", title: "Centros médicos", text: "Especialidades, previsiones y cómo pedir hora.", q: "¿Atienden con Fonasa?" },
+  { icon: "ti-home", title: "Inmobiliarias", text: "Propiedades, requisitos y coordinación de visitas.", q: "¿Qué necesito para arrendar?" },
+  { icon: "ti-shopping-cart", title: "Tiendas online", text: "Stock, despachos, medios de pago y cambios.", q: "¿Hacen envíos a regiones?" },
+  { icon: "ti-tools-kitchen-2", title: "Restaurantes", text: "Carta, horarios, reservas y delivery.", q: "¿Tienen opciones veganas?" },
+  { icon: "ti-car", title: "Talleres y automotoras", text: "Servicios, valores referenciales y disponibilidad.", q: "¿Cuánto sale una mantención?" },
+  { icon: "ti-scale", title: "Abogados y contadores", text: "Filtra consultas y agenda la primera reunión.", q: "¿Hacen trámites de herencia?" },
+  { icon: "ti-school", title: "Academias y cursos", text: "Fechas, valores, modalidad e inscripción.", q: "¿Cuándo empieza el próximo curso?" },
+];
+
 const faqs = [
   {
-    q: "¿Cómo funciona un chatbot con IA en mi sitio web?",
-    a: "Instalamos un widget de chat con inteligencia artificial en tu sitio web, entrenado con la información real de tu empresa (productos, precios, horarios, preguntas frecuentes). Responde automáticamente a tus visitantes las 24 horas y captura sus datos de contacto para que les hagas seguimiento.",
+    q: "¿Qué es un chatbot con IA?",
+    a: "Es un chat con inteligencia artificial que se instala en tu página web y conversa con tus visitantes como lo haría una persona de tu equipo. Se entrena con la información real de tu negocio (servicios, precios, horarios y preguntas frecuentes) y responde al instante, las 24 horas.",
   },
   {
-    q: "¿Cuánto cuesta un chatbot con IA para mi sitio web?",
-    a: "Tenemos dos planes fijos, sin costos ocultos: $10.000 CLP mensuales para pymes y emprendimientos, y $15.000 CLP mensuales para empresas. El pago es por transferencia bancaria.",
+    q: "¿En qué se diferencia un chat con IA de un chatbot tradicional?",
+    a: "Un chatbot tradicional funciona con menús y botones fijos: si la pregunta no calza con una opción, no sirve. Un chat con IA entiende lo que el cliente escribe con sus propias palabras y responde de forma natural, usando la información de tu negocio.",
   },
   {
-    q: "¿Más adelante puedo sumar WhatsApp?",
-    a: "Por ahora el servicio está enfocado 100% en tu sitio web. Si más adelante quieres sumar atención por WhatsApp Business, lo evaluamos como una ampliación aparte.",
+    q: "¿Cuánto cuesta un chatbot con IA para mi página web?",
+    a: "Tenemos dos planes fijos, sin costos ocultos: $12.000 CLP mensuales para pymes y emprendimientos (1.000 respuestas al mes, 1 chatbot) y $16.000 CLP mensuales para empresas (2.000 respuestas al mes, hasta 2 chatbots). La instalación es un pago único de [MONTO INSTALACIÓN]. El pago mensual es por transferencia bancaria, con boleta de honorarios, y no hay permanencia forzosa.",
   },
   {
-    q: "¿Necesito saber programar para usar el chatbot?",
-    a: "No. Nosotros configuramos el chatbot completo, entrenamos la IA con la información de tu negocio y te dejamos un panel simple para revisar conversaciones y actualizar respuestas cuando lo necesites.",
+    q: "¿Cuánto demora la instalación?",
+    a: "Una vez que nos envías la información de tu negocio, el chatbot queda instalado y respondiendo en 24 horas.",
+  },
+  {
+    q: "¿Qué cuenta como una respuesta y qué pasa si se acaban?",
+    a: "Cada mensaje que el chatbot contesta cuenta como una respuesta; una conversación típica tiene entre 3 y 5. Si se acaba el cupo del mes, el chat sigue visible e invita al visitante a dejar sus datos o escribir por WhatsApp, así no pierdes clientes. Te avisamos al llegar al 80 % y al límite, y el cupo se renueva cada mes.",
+  },
+  {
+    q: "¿Cómo recibo los contactos que capta el chatbot?",
+    a: "Cuando un visitante deja su teléfono o correo en el chat, te llega un correo con sus datos y la conversación completa, para que lo contactes.",
+  },
+  {
+    q: "¿Puedo cambiar lo que responde el chatbot?",
+    a: "Sí. Nos envías los cambios por WhatsApp o correo y actualizamos la información del bot. El plan Pymes incluye una actualización al mes y el plan Empresas, actualizaciones ilimitadas.",
+  },
+  {
+    q: "¿Se adapta a los colores de mi marca?",
+    a: "Sí. Personalizamos los colores, el nombre del asistente, el mensaje de bienvenida y el logo de tu negocio.",
+  },
+  {
+    q: "¿Necesito saber programar?",
+    a: "No. Nosotros configuramos el chatbot, lo entrenamos con la información de tu negocio y lo instalamos en tu sitio. Funciona en WordPress, sitios a medida y la mayoría de plataformas que permiten agregar un código.",
+  },
+  {
+    q: "¿Qué pasa si el chatbot no sabe una respuesta?",
+    a: "Está configurado para no inventar. Si no tiene la información, se lo dice al cliente y lo invita a dejar su nombre y contacto para que tu equipo le responda.",
+  },
+  {
+    q: "¿Funciona con WhatsApp?",
+    a: "Por ahora el servicio está enfocado en tu página web. Si más adelante quieres atención automática por WhatsApp Business, lo evaluamos como una ampliación aparte.",
   },
 ];
----
 
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="Chatbot con Inteligencia Artificial para tu sitio web en Chile: responde a tus visitantes 24/7, resuelve preguntas frecuentes y capta nuevos clientes de forma automática. Cotización gratis." />
-  <meta name="keywords" content="chatbot con ia chile, chatbot inteligencia artificial, chatbot ia sitio web, chat ia para pagina web, asistente virtual con ia, chatbot ia pymes chile" />
-  <meta property="og:type" content="website" />
-  <meta property="og:title" content="Chatbot con IA en Chile para tu Sitio Web | Atención al Cliente Automática 24/7" />
-  <meta property="og:description" content="Chatbot con Inteligencia Artificial para tu sitio web en Chile: responde a tus visitantes 24/7, resuelve preguntas frecuentes y capta nuevos clientes de forma automática." />
-  <meta property="og:locale" content="es_CL" />
-  <meta property="og:site_name" content="DiseñoPaginas.cl" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
-  <title>Chatbot con IA en Chile para tu Sitio Web | Atención al Cliente Automática 24/7</title>
-  <script type="application/ld+json" set:html={JSON.stringify({
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Chatbot con IA para páginas web",
+    "serviceType": "Chatbot con inteligencia artificial",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chatia",
+      "url": SITE,
+      "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
+      "email": EMAIL,
+      "telephone": "+56961765268",
+    },
+    "areaServed": { "@type": "Country", "name": "Chile" },
+    "offers": [
+      { "@type": "Offer", "name": "Plan Pymes", "price": "12000", "priceCurrency": "CLP" },
+      { "@type": "Offer", "name": "Plan Empresas", "price": "16000", "priceCurrency": "CLP" },
+    ],
+  },
+  {
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": faqs.map((f) => ({
@@ -52,64 +98,108 @@ const faqs = [
       "name": f.q,
       "acceptedAnswer": { "@type": "Answer", "text": f.a },
     })),
-  })} />
+  },
+];
+---
+
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION} />
+  <link rel="canonical" href={`${SITE}/`} />
+  <meta name="theme-color" content="#F5C842" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={`${SITE}/`} />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content={DESCRIPTION} />
+  <meta property="og:image" content={OG_IMAGE} />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Chatia" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </head>
 <body>
   <!-- Topbar -->
   <div class="topbar">
     <div class="container">
-      <div class="topbar-info">
-        <span><i class="ti ti-mail-filled"></i> {EMAIL}</span>
-        <span><i class="ti ti-map-pin-filled"></i> Temuco, Chile</span>
-        <span><i class="ti ti-phone"></i> {PHONE_DISPLAY}</span>
-      </div>
-      <div class="topbar-social">
-        <a href="https://www.facebook.com/PaginasChile/" target="_blank" rel="noopener" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
-        <a href="https://www.instagram.com/disenopaginas/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
-        <a href="https://www.linkedin.com/in/raul-riquelme-69a16859/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
-        <a href={WHATSAPP} target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
-      </div>
+      <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+      <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+      <span><i class="ti ti-map-pin"></i> Atendemos todo Chile</span>
     </div>
   </div>
 
   <!-- Header -->
   <header class="header-main">
     <div class="container">
-      <a href="https://diseñopaginas.cl" class="brand">
-        <img src="https://diseñopaginas.cl/assets/img/logo-disenopaginas.svg" alt="DiseñoPáginas.cl" width="216" height="73" loading="eager" />
+      <a href="/" class="brand" aria-label="Chatia, inicio">
+        <img src="/assets/img/brand/chatia-logo-h.webp" alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
       </a>
       <div class="header-cta">
         <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
-        <a href="#contacto" class="btn btn-primary">Cotización Gratis</a>
+        <a href="#contacto" class="btn btn-yellow">Cotizar gratis</a>
       </div>
     </div>
   </header>
 
-  <!-- Hero -->
+  <!-- Hero (amarillo) -->
   <section class="hero">
-    <div class="container">
-      <div class="hero-inner">
-        <span class="hero-badge"><i class="ti ti-message-chatbot"></i> Atención Automática 24/7</span>
-        <h1>Chatbot con IA <span class="accent">para tu Sitio Web</span></h1>
+    <div class="container hero-grid">
+      <div>
+        <h1>Chatbot con IA para tu negocio</h1>
         <p class="lead">
-          Instalamos un chatbot con inteligencia artificial en tu sitio web que responde a tus
-          visitantes las 24 horas del día, resuelve dudas frecuentes y capta nuevos clientes
-          automáticamente, sin que tengas que estar pendiente del celular.
+          Chatia es un chat con IA que se instala en tu página web y atiende a tus clientes
+          las 24 horas: responde sus preguntas, entrega precios y horarios, y te deja sus
+          datos listos para cerrar la venta.
         </p>
         <div class="hero-buttons">
-          <a href="#contacto" class="btn btn-aqua btn-lg">Cotización Gratuita</a>
-          <a href="#planes" class="btn btn-outline btn-lg">Ver Planes</a>
+          <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+          <a href="#planes" class="btn btn-white btn-lg">Ver planes</a>
         </div>
+        <ul class="hero-facts">
+          <li>Listo en 24 horas</li>
+          <li>Desde $12.000 al mes</li>
+          <li>Sin permanencia</li>
+        </ul>
+      </div>
+
+      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA">
+        <div class="chat-preview-head">
+          <img src="/assets/img/brand/chatia-avatar.webp" alt="" width="40" height="40" />
+          <div>
+            <strong>Asistente Clínica Dental</strong>
+            <span><span class="dot"></span> Responde al instante</span>
+          </div>
+        </div>
+        <div class="chat-preview-body">
+          <div class="cp-msg cp-user">Hola, ¿atienden los sábados? Necesito una limpieza dental</div>
+          <div class="cp-msg cp-bot">¡Hola! Sí, los sábados atendemos de 9:00 a 14:00. La limpieza dura unos 40 minutos. ¿Te ayudo a reservar una hora?</div>
+          <div class="cp-msg cp-user">Sí, el sábado en la mañana</div>
+          <div class="cp-msg cp-bot">Perfecto 😊 Déjame tu nombre y teléfono, y la clínica te confirma la hora hoy mismo.</div>
+        </div>
+        <p class="cp-note">Ejemplo de un chatbot con IA para una clínica dental</p>
       </div>
     </div>
   </section>
 
   <!-- Subnav -->
-  <nav class="subnav">
+  <nav class="subnav" aria-label="Secciones">
     <div class="container">
       <ul>
+        <li><a href="#que-es">Qué es</a></li>
         <li><a href="#como-funciona">Cómo funciona</a></li>
-        <li><a href="#beneficios">Beneficios</a></li>
+        <li><a href="#rubros">Rubros</a></li>
         <li><a href="#planes">Planes</a></li>
         <li><a href="#faq">Preguntas frecuentes</a></li>
         <li><a href="#contacto">Contacto</a></li>
@@ -117,94 +207,139 @@ const faqs = [
     </div>
   </nav>
 
-  <!-- Como funciona -->
-  <section id="como-funciona" class="section">
+  <!-- Qué es (blanco) -->
+  <section id="que-es" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>¿Qué es un chatbot con IA?</h2>
+        <p class="intro">
+          Es un asistente con inteligencia artificial que conversa con las personas que visitan
+          tu sitio. A diferencia de un formulario, responde en el momento, cuando el cliente
+          todavía tiene ganas de comprar.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-bolt"></i></span>
+            <div><strong>Responde al instante</strong><span>Con la información real de tu negocio: servicios, precios, horarios y preguntas frecuentes.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-moon"></i></span>
+            <div><strong>Atiende 24/7</strong><span>Noches, fines de semana y feriados, sin que estés pendiente del celular.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-user-plus"></i></span>
+            <div><strong>Te consigue contactos</strong><span>Toma el nombre, teléfono y consulta del cliente, y te avisa para que hagas el seguimiento.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-shield-check"></i></span>
+            <div><strong>No inventa</strong><span>Si no sabe algo, invita al cliente a dejar sus datos para que tu equipo responda.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="quote-box">
+        <h3>El cliente que no recibe respuesta, se va</h3>
+        <p>La mayoría de las personas escribe a varios negocios a la vez y se queda con el primero que responde. Si tu atención depende de que estés pendiente del celular, pierdes clientes cada noche y cada fin de semana.</p>
+        <p class="mb-0">Con un chatbot con IA, tu página web responde al segundo y trabaja como un vendedor más de tu equipo, por una fracción de su costo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona (oscuro) -->
+  <section id="como-funciona" class="band band-dark">
     <div class="container">
-      <div class="text-center mb-3" style="max-width:680px;margin-inline:auto">
+      <div class="band-head">
         <h2>Cómo funciona</h2>
-        <p class="text-muted" style="font-size:1.1rem">Tres pasos simples, sin que tengas que programar nada</p>
+        <p>Tres pasos, sin que tengas que programar nada.</p>
       </div>
-      <div class="grid grid-3 steps-grid">
-        <div class="step-card">
-          <span class="step-number">1</span>
-          <h4>Nos cuentas tu negocio</h4>
-          <p class="text-muted">Nos compartes tus productos, servicios, precios y preguntas frecuentes.</p>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Nos cuentas tu negocio</h3>
+          <p>Nos compartes tus servicios, precios, horarios y las preguntas que más te hacen.</p>
         </div>
-        <div class="step-card">
-          <span class="step-number">2</span>
-          <h4>Entrenamos tu chatbot</h4>
-          <p class="text-muted">La IA aprende de tu información real y queda lista para conversar como lo haría tu equipo.</p>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Entrenamos tu chatbot</h3>
+          <p>La IA aprende de tu información real y queda lista para conversar como lo haría tu equipo.</p>
         </div>
-        <div class="step-card">
-          <span class="step-number">3</span>
-          <h4>Queda instalado y respondiendo</h4>
-          <p class="text-muted">En 24 horas atiende a tus visitantes 24/7 y te avisa cuando alguien deja sus datos.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Beneficios -->
-  <section id="beneficios" class="section bg-light">
-    <div class="container">
-      <div class="text-center mb-3" style="max-width:680px;margin-inline:auto">
-        <h2>¿Por qué automatizar tu atención al cliente?</h2>
-      </div>
-      <div class="grid grid-3">
-        <div class="benefit-card">
-          <div class="icon-tile"><i class="ti ti-bolt"></i></div>
-          <h5>Respuestas instantáneas</h5>
-          <p class="text-muted mb-0">Tus clientes reciben respuesta al segundo, a cualquier hora.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="icon-tile"><i class="ti ti-trending-up"></i></div>
-          <h5>Más ventas</h5>
-          <p class="text-muted mb-0">Menos consultas sin responder, menos clientes que se van a la competencia.</p>
-        </div>
-        <div class="benefit-card">
-          <div class="icon-tile"><i class="ti ti-coin"></i></div>
-          <h5>Ahorra tiempo</h5>
-          <p class="text-muted mb-0">La IA resuelve lo repetitivo; tu equipo se enfoca en lo que realmente importa.</p>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Queda instalado en tu web</h3>
+          <p>En 24 horas atiende a tus visitantes y te avisa cuando alguien deja sus datos.</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Planes -->
-  <section id="planes" class="section">
+  <!-- Rubros (amarillo) -->
+  <section id="rubros" class="band band-yellow">
     <div class="container">
-      <div class="text-center mb-3" style="max-width:680px;margin-inline:auto">
-        <h2>Planes de Chatbot con IA</h2>
-        <p class="text-muted" style="font-size:1.1rem">Cada empresa es distinta: cotizamos según los canales y el volumen de conversaciones que necesites</p>
+      <div class="band-head">
+        <h2>Un chatbot que conoce tu rubro</h2>
+        <p>Lo entrenamos con las preguntas que tus clientes realmente hacen.</p>
       </div>
-      <div class="grid grid-2" style="max-width:820px;margin-inline:auto">
-        <div class="price-card">
-          <div class="icon-big"><i class="ti ti-building-store"></i></div>
-          <h4>Pymes y Emprendimientos</h4>
-          <p class="price">$10.000<span> CLP/mes</span></p>
-          <p class="text-muted">Chatbot con IA instalado en tu sitio web, entrenado con la información de tu negocio.</p>
-          <a href="#contacto" class="btn btn-outline-teal btn-block">Cotizar Plan</a>
-        </div>
-        <div class="price-card featured">
-          <div class="icon-big"><i class="ti ti-building-skyscraper"></i></div>
-          <h4>Empresas</h4>
-          <p class="price">$15.000<span> CLP/mes</span></p>
-          <p class="text-muted">Mismo servicio, pensado para negocios con mayor volumen de consultas.</p>
-          <a href="#contacto" class="btn btn-primary btn-block">Cotizar Plan</a>
-        </div>
+      <div class="rubros">
+        {rubros.map((r) => (
+          <div class="rubro">
+            <div class="bubble">{r.q}</div>
+            <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
       </div>
-      <p class="text-center text-muted mb-0" style="margin-top:28px">Pago mensual por transferencia bancaria. Sin costos ocultos ni permanencia forzosa.</p>
     </div>
   </section>
 
-  <!-- FAQ -->
-  <section id="faq" class="section bg-light">
+  <!-- Planes (blanco) -->
+  <section id="planes" class="band">
     <div class="container">
-      <h2 class="text-center mb-3">Preguntas frecuentes</h2>
+      <div class="band-head">
+        <h2>Planes y precios</h2>
+        <p>Precios fijos y claros. Elige según el volumen de consultas de tu negocio.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Pymes y emprendimientos</h3>
+          <p class="price">$12.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> 1 chatbot instalado en tu página web</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualización de la información 1 vez al mes</li>
+          </ul>
+          <a href="#contacto" class="btn btn-white btn-block" data-plan="Plan Pymes - $12.000 CLP/mes">Cotizar plan Pymes</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Más elegido</span>
+          <h3>Empresas</h3>
+          <p class="price">$16.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Hasta 2 chatbots (otro sitio o sucursal)</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualizaciones de información ilimitadas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-dark btn-block" data-plan="Plan Empresas - $16.000 CLP/mes">Cotizar plan Empresas</a>
+        </div>
+      </div>
+      <p class="plans-note">Instalación: pago único de [MONTO INSTALACIÓN]. Mensualidad por transferencia bancaria, con boleta de honorarios. Sin permanencia forzosa.</p>
+    </div>
+  </section>
+
+  <!-- FAQ (amarillo suave) -->
+  <section id="faq" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Preguntas frecuentes</h2>
+      </div>
       <div class="faq">
         {faqs.map((f, i) => (
           <div class={`faq-item${i === 0 ? " open" : ""}`}>
-            <button class="faq-q" type="button">
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? "true" : "false"}>
               {f.q}
               <i class="ti ti-chevron-down chev"></i>
             </button>
@@ -215,85 +350,80 @@ const faqs = [
     </div>
   </section>
 
-  <!-- Contacto -->
-  <section id="contacto" class="section">
-    <div class="container">
-      <div class="contact-panel">
-        <div class="text-center mb-3">
-          <h3>Cotiza tu Chatbot con IA</h3>
-          <p class="text-muted mb-0">Cuéntanos sobre tu empresa y te enviamos una propuesta sin compromiso</p>
+  <!-- Contacto (blanco) -->
+  <section id="contacto" class="band">
+    <div class="container contact-grid">
+      <div>
+        <h2>Cotiza tu chatbot con IA</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos a qué se dedica tu negocio y te enviamos una propuesta sin compromiso.</p>
+        <div class="contact-direct">
+          <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
         </div>
-        <form class="form-grid" action={`https://wa.me/56961765268`} method="GET" id="contactForm">
-          <input type="text" name="nombre" placeholder="Nombre" required />
-          <input type="tel" name="fono" placeholder="Teléfono" required />
-          <input type="email" name="email" placeholder="Email" required />
-          <select name="presupuesto" required>
-            <option value="">¿Qué necesitas?</option>
-            <option value="Plan Pyme - $10.000 CLP/mes">Plan Pyme ($10.000 CLP/mes)</option>
-            <option value="Plan Empresa - $15.000 CLP/mes">Plan Empresa ($15.000 CLP/mes)</option>
-            <option value="No estoy seguro, quiero asesoria">No estoy seguro, quiero asesoría</option>
+      </div>
+      <div class="contact-form">
+        <h3 class="contact-form-title">Formulario de contacto</h3>
+        <form class="form-grid" id="contactForm">
+          <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+          <input type="tel" name="fono" placeholder="Teléfono" aria-label="Teléfono" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <select name="plan" id="planSelect" aria-label="Plan de interés" required>
+            <option value="">¿Qué plan te interesa?</option>
+            <option value="Plan Pymes - $12.000 CLP/mes">Plan Pymes ($12.000 al mes)</option>
+            <option value="Plan Empresas - $16.000 CLP/mes">Plan Empresas ($16.000 al mes)</option>
+            <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
           </select>
-          <textarea class="full" name="mensaje" placeholder="Mensaje" rows="5" required></textarea>
-          <button type="submit" class="btn btn-aqua btn-block full">Enviar Mensaje</button>
+          <input class="full" type="text" name="web" placeholder="Tu página web (si tienes)" aria-label="Página web" />
+          <textarea class="full" name="mensaje" placeholder="¿A qué se dedica tu negocio?" aria-label="Mensaje" rows="4" required></textarea>
+          <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
         </form>
-        <p class="form-note">Al enviar, se abrirá WhatsApp con tu mensaje listo para enviarnos. También puedes escribirnos a {EMAIL}.</p>
+        <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
       </div>
     </div>
   </section>
 
-  <!-- CTA -->
-  <section class="section cta">
-    <div class="container">
-      <h2>¿Listo para automatizar tu atención al cliente?</h2>
-      <p class="lead">Cotización gratuita y sin compromiso. Te asesoramos sobre el mejor plan para tu empresa.</p>
+  <!-- CTA (amarillo) -->
+  <section class="band cta">
+    <div class="container cta-inner">
+      <h2>Tu página web puede atender clientes esta misma semana</h2>
       <div class="cta-buttons">
-        <a href="#contacto" class="btn btn-aqua btn-lg"><i class="ti ti-mail"></i> Cotización Gratuita</a>
-        <a href={`tel:${PHONE}`} class="btn btn-outline btn-lg"><i class="ti ti-phone"></i> {PHONE_DISPLAY}</a>
+        <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Footer (oscuro) -->
   <footer>
     <div class="container">
       <div class="footer-grid">
         <div>
-          <img src="https://diseñopaginas.cl/assets/img/logo-disenopaginas-n.png" alt="DiseñoPáginas.cl" width="216" height="73" loading="lazy" style="margin-bottom:18px" />
-          <p style="max-width:420px">Somos especialistas en diseño web profesional con más de 13 años de experiencia creando sitios web de alta calidad. Creamos sitios modernos, responsivos y optimizados para SEO que impulsan el crecimiento de tu negocio.</p>
+          <img class="footer-logo" src="/assets/img/brand/chatia-logo-h-white.webp" alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de pymes y empresas de todo Chile, para que ningún cliente se quede sin respuesta.</p>
         </div>
         <div>
-          <h5>Links relacionados</h5>
+          <h3>En esta página</h3>
           <ul class="footer-links">
-            <li><a href="https://diseñopaginas.cl/como-crear-tu-pagina-web/">Cómo crear tu página web</a></li>
-            <li><a href="https://diseñopaginas.cl/diseno-web-pymes">Diseño Web Pymes</a></li>
-            <li><a href="https://diseñopaginas.cl/servicios/diseno-logotipos">Logos y Afiche</a></li>
-            <li><a href="https://diseñopaginas.cl/productos-online">Venta Online</a></li>
-            <li><a href="https://diseñopaginas.cl/google-ads-chile/">Google Ads y Redes</a></li>
-            <li><a href="https://aplicacionweb.cl" rel="dofollow" target="_blank">Apps web para tu negocio</a></li>
-            <li><a href="https://diseñopaginas.cl/diseno-web-abogados">Abogados</a></li>
-            <li><a href="https://diseñopaginas.cl/veterinarias">Veterinaria</a></li>
+            <li><a href="#que-es">¿Qué es un chatbot con IA?</a></li>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#rubros">Chatbot por rubro</a></li>
+            <li><a href="#planes">Planes y precios</a></li>
+            <li><a href="#faq">Preguntas frecuentes</a></li>
           </ul>
         </div>
         <div>
-          <h5>Información de contacto</h5>
+          <h3>Contacto</h3>
           <div class="footer-contact">
-            <p><i class="ti ti-map-pin"></i> Temuco, Chile</p>
-            <p><i class="ti ti-phone"></i> {PHONE_DISPLAY}</p>
-            <p><i class="ti ti-mail"></i> {EMAIL}</p>
+            <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
+            <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-map-pin"></i> Atendemos todo Chile</p>
             <p><i class="ti ti-clock"></i> Lunes a sábado</p>
-          </div>
-          <h5 style="margin-top:24px">Síguenos</h5>
-          <div class="footer-social">
-            <a href="https://www.facebook.com/PaginasChile/" target="_blank" rel="noopener" aria-label="Facebook"><i class="ti ti-brand-facebook"></i></a>
-            <a href="https://www.instagram.com/disenopaginas/" target="_blank" rel="noopener" aria-label="Instagram"><i class="ti ti-brand-instagram"></i></a>
-            <a href="https://www.linkedin.com/in/raul-riquelme-69a16859/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="ti ti-brand-linkedin"></i></a>
-            <a href={WHATSAPP} target="_blank" rel="noopener" aria-label="WhatsApp"><i class="ti ti-brand-whatsapp"></i></a>
           </div>
         </div>
       </div>
       <div class="footer-bottom">
-        <p class="mb-0">Copyright &copy; {new Date().getFullYear()} <a href="https://diseñopaginas.cl">DiseñoPáginas.cl</a> — Todos los derechos reservados.</p>
-        <p class="mb-0">Chatbot con IA en Chile</p>
+        <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
+        <p class="mb-0">Un servicio de <a href="https://diseñopaginas.cl" target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
       </div>
     </div>
   </footer>
@@ -301,27 +431,51 @@ const faqs = [
   <DemoChatWidget />
 
   <script>
-    // FAQ accordion
+    // Acordeón de preguntas frecuentes
     document.querySelectorAll('.faq-item').forEach((item) => {
       const btn = item.querySelector('.faq-q');
       btn?.addEventListener('click', () => {
         const isOpen = item.classList.contains('open');
-        document.querySelectorAll('.faq-item.open').forEach((el) => el.classList.remove('open'));
-        if (!isOpen) item.classList.add('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
       });
     });
 
-    // Contact form -> WhatsApp
-    const form = document.getElementById('contactForm');
+    // Botones "Probar la demo": abren el chat
+    document.querySelectorAll('[data-open-chat]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const root = document.getElementById('demoChat');
+        const bubble = document.getElementById('demoChatBubble');
+        if (root && bubble && !root.classList.contains('is-open')) bubble.click();
+      });
+    });
+
+    // Botones de planes: preseleccionan el plan en el formulario
+    const planSelect = document.getElementById('planSelect') as HTMLSelectElement | null;
+    document.querySelectorAll('[data-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (planSelect) planSelect.value = (btn as HTMLElement).dataset.plan || '';
+      });
+    });
+
+    // Formulario -> WhatsApp
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
     form?.addEventListener('submit', (e) => {
       e.preventDefault();
-      const data = new FormData(form as HTMLFormElement);
-      const nombre = data.get('nombre');
-      const fono = data.get('fono');
-      const email = data.get('email');
-      const presupuesto = data.get('presupuesto');
-      const mensaje = data.get('mensaje');
-      const text = `Hola, soy ${nombre} (tel: ${fono}, email: ${email}). Me interesa: ${presupuesto}. ${mensaje}`;
+      const data = new FormData(form);
+      const web = String(data.get('web') || '').trim();
+      const text =
+        `Hola, los contacto desde chatbotia.cl.\n` +
+        `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
+        `Plan: ${data.get('plan')}\n` +
+        (web ? `Web: ${web}\n` : '') +
+        `Negocio: ${data.get('mensaje')}`;
       window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
     });
   </script>

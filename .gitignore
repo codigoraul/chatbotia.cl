@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Chatia: la API key se sube a mano por FTP, nunca a git
+public/gemini-key.php
+# Respaldo local previo a Chatia
+_respaldo-*.tar.gz
+public/chat-data/

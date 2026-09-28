@@ -15,21 +15,21 @@ interface Props {
 }
 
 const {
-  botName = "Nova",
+  botName = "Chatia",
   botStatus = "Asistente IA · en línea",
-  welcomeMessage = "¡Hola! 👋 Soy Nova, tu asistente con inteligencia artificial. Puedo responder preguntas, tomar datos de contacto y atender a tus clientes 24/7. ¿Qué te gustaría preguntarme?",
+  welcomeMessage = "¡Hola! 👋 Soy Chatia, un chatbot con inteligencia artificial. Así atendería a los clientes de tu negocio, 24/7. Pregúntame lo que quieras sobre el servicio.",
   quickReplies = [
-    { label: "¿Cómo funciona un chatbot con IA?", reply: "Conecto tu WhatsApp o tu sitio web a un modelo de inteligencia artificial entrenado con la información de tu empresa: productos, precios, horarios y preguntas frecuentes. Respondo automáticamente a tus clientes las 24 horas, y si la consulta es más compleja, la derivo a una persona real de tu equipo. 🤖" },
-    { label: "¿Cuánto cuesta implementarlo?", reply: "El valor depende de los canales que necesites (WhatsApp, sitio web o ambos) y el volumen de conversaciones. Cotizamos cada proyecto a medida — sin costos ocultos. Puedes dejarme tus datos en el formulario y te envían una propuesta sin compromiso 💬" },
-    { label: "¿Cuánto demora la implementación?", reply: "Normalmente entre 1 y 3 semanas, dependiendo de cuánta información nos compartas sobre tu negocio y de si integramos con WhatsApp, tu sitio web o ambos. 🚀" },
+    { label: "¿Cómo funciona un chatbot con IA?", reply: "" },
+    { label: "¿Cuánto cuesta?", reply: "" },
+    { label: "¿Cuánto demora la instalación?", reply: "" },
   ],
-  disclaimer = "Respuestas orientativas de demostración. Un chatbot real se entrena con la información de tu negocio.",
+  disclaimer = "Esta es una demo real con IA. Tu chatbot se entrena con la información de tu negocio.",
 } = Astro.props;
 ---
 
 <div class="demo-chat" id="demoChat">
   <!-- Botón flotante -->
-  <button type="button" class="demo-chat-bubble" id="demoChatBubble" aria-label="Abrir chat de demostración con IA">
+  <button type="button" class="demo-chat-bubble" id="demoChatBubble" aria-label="Abrir chat con IA">
     <span class="demo-chat-bubble-icon">
       <i class="ti ti-message-2"></i>
     </span>
@@ -38,14 +38,14 @@ const {
 
   <!-- Globo de invitación -->
   <div class="demo-chat-teaser" id="demoChatTeaser">
-    <span>👋 Prueba mi chat con IA aquí</span>
+    <span>👋 Prueba el chatbot con IA aquí</span>
   </div>
 
   <!-- Panel de chat -->
   <div class="demo-chat-panel" id="demoChatPanel" role="dialog" aria-label="Chat de demostración con inteligencia artificial">
     <div class="demo-chat-header">
       <div class="demo-chat-avatar">
-        <img src="/assets/img/servicios/chatbot-robot-ia.webp" alt="Nova" width="42" height="42">
+        <img src="/assets/img/brand/chatia-avatar.webp" alt="Chatia" width="42" height="42">
       </div>
       <div class="demo-chat-header-text">
         <strong>{botName}</strong>
@@ -58,7 +58,7 @@ const {
 
     <div class="demo-chat-body" id="demoChatBody">
       <div class="demo-chat-row demo-chat-row-bot">
-        <div class="demo-chat-avatar-sm"><img src="/assets/img/servicios/chatbot-robot-ia.webp" alt="Nova" width="28" height="28"></div>
+        <div class="demo-chat-avatar-sm"><img src="/assets/img/brand/chatia-avatar.webp" alt="Chatia" width="28" height="28"></div>
         <div class="demo-chat-bubble-wrap">
           <div class="demo-chat-msg demo-chat-msg-bot">{welcomeMessage}</div>
           <span class="demo-chat-time" data-now></span>
@@ -90,7 +90,7 @@ const {
     bottom: 24px;
     right: 24px;
     z-index: 1050;
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
   }
 
   /* Burbuja flotante */
@@ -101,8 +101,8 @@ const {
     border-radius: 50%;
     border: none;
     cursor: pointer;
-    background: #0EA5A3;
-    box-shadow: 0 12px 30px rgba(14, 165, 163, 0.45);
+    background: #E5A700;
+    box-shadow: 0 12px 30px rgba(229, 167, 0, 0.45);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -111,12 +111,12 @@ const {
 
   .demo-chat-bubble:hover {
     transform: translateY(-4px) scale(1.05);
-    box-shadow: 0 16px 36px rgba(14, 165, 163, 0.55);
+    box-shadow: 0 16px 36px rgba(229, 167, 0, 0.55);
   }
 
   .demo-chat-bubble-icon i {
     font-size: 1.9rem;
-    color: #ffffff;
+    color: #2D333A;
   }
 
   .demo-chat-ping {
@@ -142,13 +142,13 @@ const {
     bottom: 78px;
     right: 0;
     background: #ffffff;
-    color: #0B1E4D;
+    color: #2D333A;
     padding: 10px 16px;
     border-radius: 14px;
     font-size: 0.85rem;
     font-weight: 600;
     white-space: nowrap;
-    box-shadow: 0 8px 20px rgba(11, 30, 77, 0.18);
+    box-shadow: 0 8px 20px rgba(45, 51, 58, 0.18);
     animation: demo-chat-float 3s ease-in-out infinite, demo-chat-fadein 0.6s ease 6s both;
   }
 
@@ -187,7 +187,7 @@ const {
     max-height: min(560px, 75vh);
     background: #ffffff;
     border-radius: 20px;
-    box-shadow: 0 24px 60px rgba(11, 30, 77, 0.28);
+    box-shadow: 0 24px 60px rgba(45, 51, 58, 0.28);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -208,15 +208,15 @@ const {
     align-items: center;
     gap: 12px;
     padding: 16px 18px;
-    background: #0EA5A3;
-    color: #ffffff;
+    background: #E5A700;
+    color: #2D333A;
   }
 
   .demo-chat-avatar {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -244,13 +244,14 @@ const {
   }
 
   .demo-chat-header-text strong {
-    font-family: 'Sora', 'Outfit', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-weight: 700;
     font-size: 1rem;
   }
 
   .demo-chat-header-text span {
     font-size: 0.78rem;
-    color: #cfe0ff;
+    color: rgba(45, 51, 58, 0.78);
     display: inline-flex;
     align-items: center;
     gap: 5px;
@@ -260,7 +261,7 @@ const {
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: #42F2C6;
+    background: #1f9d55;
     display: inline-block;
   }
 
@@ -268,7 +269,7 @@ const {
     margin-left: auto;
     background: transparent;
     border: none;
-    color: #ffffff;
+    color: #2D333A;
     opacity: 0.8;
     cursor: pointer;
     padding: 4px;
@@ -285,7 +286,7 @@ const {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    background: #f5f7fc;
+    background: #F3F4F6;
     min-height: 140px;
   }
 
@@ -311,8 +312,8 @@ const {
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    background: #eef2ff;
-    color: #0EA5A3;
+    background: #ffffff;
+    color: #E5A700;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -348,14 +349,14 @@ const {
 
   .demo-chat-msg-bot {
     background: #ffffff;
-    color: #1c2a4a;
-    border: 1px solid #e6eaf5;
+    color: #2D333A;
+    border: 1px solid #E5E7EB;
     border-bottom-left-radius: 4px;
-    box-shadow: 0 2px 8px rgba(11, 30, 77, 0.06);
+    box-shadow: 0 2px 8px rgba(45, 51, 58, 0.06);
   }
 
   .demo-chat-msg-user {
-    background: #0EA5A3;
+    background: #2D333A;
     color: #ffffff;
     border-bottom-right-radius: 4px;
   }
@@ -376,10 +377,10 @@ const {
     gap: 4px;
     padding: 12px 14px;
     background: #ffffff;
-    border: 1px solid #e6eaf5;
+    border: 1px solid #E5E7EB;
     border-radius: 14px;
     border-bottom-left-radius: 4px;
-    box-shadow: 0 2px 8px rgba(11, 30, 77, 0.06);
+    box-shadow: 0 2px 8px rgba(45, 51, 58, 0.06);
   }
 
   .demo-chat-typing span {
@@ -403,14 +404,14 @@ const {
     flex-direction: column;
     gap: 6px;
     padding: 10px 16px;
-    border-top: 1px solid #eef1f8;
+    border-top: 1px solid #E5E7EB;
   }
 
   .demo-chat-quick-btn {
     text-align: left;
-    background: #eef2ff;
-    color: #16307A;
-    border: 1px solid #dde5ff;
+    background: #FEF6DC;
+    color: #2D333A;
+    border: 1px solid #FCEBB6;
     border-radius: 10px;
     padding: 8px 12px;
     font-size: 0.82rem;
@@ -420,7 +421,7 @@ const {
   }
 
   .demo-chat-quick-btn:hover {
-    background: #dde7ff;
+    background: #FCEBB6;
   }
 
   .demo-chat-disclaimer {
@@ -444,13 +445,13 @@ const {
     align-items: flex-end;
     gap: 8px;
     padding: 10px 14px 14px;
-    border-top: 1px solid #eef1f8;
+    border-top: 1px solid #E5E7EB;
   }
 
   .demo-chat-input-row textarea {
     flex: 1;
     resize: none;
-    border: 1px solid #e1e6f2;
+    border: 1px solid #d1d5db;
     border-radius: 18px;
     padding: 10px 14px;
     font-size: 0.85rem;
@@ -462,7 +463,7 @@ const {
   }
 
   .demo-chat-input-row textarea:focus {
-    border-color: #0EA5A3;
+    border-color: #E5A700;
   }
 
   .demo-chat-input-row button {
@@ -470,8 +471,8 @@ const {
     height: 40px;
     border-radius: 50%;
     border: none;
-    background: #0EA5A3;
-    color: #ffffff;
+    background: #E5A700;
+    color: #2D333A;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -525,7 +526,7 @@ const {
       if (!isUser) {
         const avatar = document.createElement('div');
         avatar.className = 'demo-chat-avatar-sm';
-        avatar.innerHTML = '<img src="/assets/img/servicios/chatbot-robot-ia.webp" alt="Nova" width="28" height="28">';
+        avatar.innerHTML = '<img src="/assets/img/brand/chatia-avatar.webp" alt="Chatia" width="28" height="28">';
         row.appendChild(avatar);
       }
 
@@ -555,7 +556,7 @@ const {
 
       const avatar = document.createElement('div');
       avatar.className = 'demo-chat-avatar-sm';
-      avatar.innerHTML = '<img src="/assets/img/servicios/chatbot-robot-ia.webp" alt="Nova" width="28" height="28">';
+      avatar.innerHTML = '<img src="/assets/img/brand/chatia-avatar.webp" alt="Chatia" width="28" height="28">';
 
       const typing = document.createElement('div');
       typing.className = 'demo-chat-typing';
