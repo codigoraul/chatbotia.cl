@@ -7,9 +7,10 @@ const WA_NUMBER = "56961765268";
 const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl. Me interesa un chatbot con IA para mi negocio.")}`;
 const PHONE_DISPLAY = "+56 9 6176 5268";
 const EMAIL = "codigoraul@gmail.com";
+const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
 
 const TITLE = "Chatbot con IA para tu Negocio | Chat con IA 24/7 – Chatia";
-const DESCRIPTION = "Chatia instala un chatbot con IA en tu página web: responde a tus clientes 24/7, entrega precios y horarios y capta sus datos. Desde $12.000 al mes en Chile.";
+const DESCRIPTION = "Chatbot con IA para tu empresa y tu página web: responde a tus clientes 24/7, entrega precios y horarios y capta sus datos. Desde $12.000 al mes en Chile.";
 const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
 
 const rubros = [
@@ -57,6 +58,10 @@ const faqs = [
     a: "Sí. Personalizamos los colores, el nombre del asistente, el mensaje de bienvenida y el logo de tu negocio.",
   },
   {
+    q: "¿Cómo pongo un chatbot en mi página web?",
+    a: "Nos envías la información de tu negocio y nosotros configuramos el chatbot, lo entrenamos y lo instalamos en tu página web. En 24 horas queda funcionando, sin que tengas que tocar código.",
+  },
+  {
     q: "¿Necesito saber programar?",
     a: "No. Nosotros configuramos el chatbot, lo entrenamos con la información de tu negocio y lo instalamos en tu sitio. Funciona en WordPress, sitios a medida y la mayoría de plataformas que permiten agregar un código.",
   },
@@ -83,6 +88,7 @@ const schema = [
       "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
       "email": EMAIL,
       "telephone": "+56961765268",
+      "sameAs": [FACEBOOK],
     },
     "areaServed": { "@type": "Country", "name": "Chile" },
     "offers": [
@@ -137,6 +143,7 @@ const schema = [
       <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
       <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
       <span><i class="ti ti-map-pin"></i> Atendemos todo Chile</span>
+      <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
     </div>
   </div>
 
@@ -159,9 +166,9 @@ const schema = [
       <div>
         <h1>Chatbot con IA para tu negocio</h1>
         <p class="lead">
-          Chatia es un chat con IA que se instala en tu página web y atiende a tus clientes
-          las 24 horas: responde sus preguntas, entrega precios y horarios, y te deja sus
-          datos listos para cerrar la venta.
+          Chatia es un chatbot para tu sitio web que atiende a tus clientes las 24 horas:
+          responde sus preguntas, entrega precios y horarios, y te deja sus datos listos
+          para cerrar la venta.
         </p>
         <div class="hero-buttons">
           <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
@@ -213,9 +220,10 @@ const schema = [
       <div>
         <h2>¿Qué es un chatbot con IA?</h2>
         <p class="intro">
-          Es un asistente con inteligencia artificial que conversa con las personas que visitan
+          Es un chat con IA para tu página web que conversa con las personas que visitan
           tu sitio. A diferencia de un formulario, responde en el momento, cuando el cliente
-          todavía tiene ganas de comprar.
+          todavía tiene ganas de comprar. Funciona igual para una pyme que para una empresa
+          con alto volumen de consultas.
         </p>
         <ul class="feature-list">
           <li>
@@ -295,7 +303,7 @@ const schema = [
     <div class="container">
       <div class="band-head">
         <h2>Planes y precios</h2>
-        <p>Precios fijos y claros. Elige según el volumen de consultas de tu negocio.</p>
+        <p>Chatbot con IA para tu empresa o pyme, con precios fijos y claros. Elige según el volumen de consultas de tu negocio.</p>
       </div>
       <div class="plans">
         <div class="plan">
@@ -359,6 +367,7 @@ const schema = [
         <div class="contact-direct">
           <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
           <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
         </div>
       </div>
       <div class="contact-form">
@@ -416,6 +425,7 @@ const schema = [
           <div class="footer-contact">
             <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
             <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
             <p><i class="ti ti-map-pin"></i> Atendemos todo Chile</p>
             <p><i class="ti ti-clock"></i> Lunes a sábado</p>
           </div>

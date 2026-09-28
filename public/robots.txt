@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /chat-data/
+
+Sitemap: https://chatbotia.cl/sitemap.xml
