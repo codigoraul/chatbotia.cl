@@ -1,0 +1,44 @@
+/* Landings por rubro: mismos colores Chatia + un color distintivo por rubro.
+   Abogados = azul (.v-law), Estéticas = rosado tierra (.v-beauty). El <body> lleva class="vertical v-xxx". Para otro rubro, define otra clase (ej. .v-dental). */
+.v-law{--accent:#1F4E9E;--accent-deep:#173B7A;--accent-deep-rgb:23,59,122;--accent-soft:#E6EEFB}
+.v-beauty{--accent:#A65A5F;--accent-deep:#7F3F45;--accent-deep-rgb:127,63,69;--accent-soft:#F7E6E4}
+
+.vertical .header-main{border-bottom:3px solid var(--accent)}
+
+/* Distintivo del rubro (pastilla sobre el título) */
+.vtag{display:inline-flex;align-items:center;gap:8px;background:var(--accent);color:#fff;font-weight:700;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;padding:7px 16px;border-radius:999px;margin-bottom:18px}
+.vtag i{font-size:1.1rem}
+
+/* Íconos y detalles en el color del rubro */
+.vertical .feature-list .ico{background:var(--accent-soft);color:var(--accent)}
+.vertical .quote-box{border-left-color:var(--accent)}
+.vertical .subnav a:hover{color:var(--accent)}
+.vertical .contact-direct i{background:var(--accent-soft);color:var(--accent)}
+.vertical .plan.featured{border-color:var(--accent)}
+.vertical .rubro-name i{color:var(--accent-deep)}
+
+/* Fotos */
+.photo{margin:0 0 22px;border-radius:16px;overflow:hidden;box-shadow:var(--pop);background:var(--light)}
+.photo img{width:100%;height:auto;aspect-ratio:3/2;object-fit:cover}
+.photo.wide img{aspect-ratio:16/9}
+.photo figcaption{padding:10px 16px;font-size:.85rem;color:var(--gray)}
+
+/* Secciones con foto de fondo */
+.band-photo{background-image:linear-gradient(rgba(35,40,46,.9),rgba(35,40,46,.9)),var(--bg);background-size:cover;background-position:center}
+.band-photo-cta{background-image:linear-gradient(100deg,rgba(var(--accent-deep-rgb),.93),rgba(35,40,46,.86)),var(--bg);background-size:cover;background-position:center;color:#fff}
+.band-photo-cta h2{color:#fff}
+.band-photo-cta .btn-dark{background:var(--yellow);color:var(--dark)}
+.band-photo-cta .btn-dark:hover{background:var(--yellow-deep)}
+
+.credits{font-size:.8rem;opacity:.7;margin:0}
+
+/* 6 materias = 3 columnas (la home usa 4 para 8 rubros) */
+.rubros.rubros-3{grid-template-columns:repeat(3,1fr)}
+@media (max-width:1000px){.rubros.rubros-3{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.rubros.rubros-3{grid-template-columns:1fr}}
+
+/* Hero con foto de abogados bajo un velo amarillo de Chatia */
+.hero-photo{--v1:.95;--v2:.86;--v3:.68;--vm:.93;background-image:linear-gradient(100deg,rgba(245,200,66,var(--v1)) 0%,rgba(245,200,66,var(--v2)) 50%,rgba(245,200,66,var(--v3)) 100%),var(--bg);background-size:cover;background-position:center}
+@media (max-width:920px){.hero-photo{background-image:linear-gradient(rgba(245,200,66,var(--vm)),rgba(245,200,66,var(--vm))),var(--bg)}}
+/* Estéticas: velo más translúcido para que se note la foto */
+.v-beauty .hero-photo{--v1:.80;--v2:.60;--v3:.34;--vm:.78}

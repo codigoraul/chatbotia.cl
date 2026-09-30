@@ -12,6 +12,7 @@ interface Props {
   welcomeMessage?: string;
   quickReplies?: QuickReply[];
   disclaimer?: string;
+  vertical?: string;
 }
 
 const {
@@ -24,10 +25,11 @@ const {
     { label: "¿Cuánto demora la instalación?", reply: "" },
   ],
   disclaimer = "Esta es una demo real con IA. Tu chatbot se entrena con la información de tu negocio.",
+  vertical = "",
 } = Astro.props;
 ---
 
-<div class="demo-chat" id="demoChat">
+<div class="demo-chat" id="demoChat" data-vertical={vertical}>
   <!-- Botón flotante -->
   <button type="button" class="demo-chat-bubble" id="demoChatBubble" aria-label="Abrir chat con IA">
     <span class="demo-chat-bubble-icon">
@@ -605,7 +607,7 @@ const {
       const res = await fetch('/chat.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, history: hist, conversationId: conversationId }),
+        body: JSON.stringify({ message: text, history: hist, conversationId: conversationId, vertical: (root && root.dataset.vertical) || '' }),
       });
       return res.json();
     }

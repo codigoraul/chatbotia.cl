@@ -1,6 +1,9 @@
 ---
 import '../styles/global.css';
 import DemoChatWidget from '../components/DemoChatWidget.astro';
+import { landings } from '../data/landings';
+
+const landingFor = (key: string) => landings.find((l) => l.key === key);
 
 const SITE = "https://chatbotia.cl";
 const WA_NUMBER = "56961765268";
@@ -20,7 +23,7 @@ const rubros = [
   { icon: "ti-shopping-cart", title: "Tiendas online", text: "Stock, despachos, medios de pago y cambios.", q: "¿Hacen envíos a regiones?" },
   { icon: "ti-tools-kitchen-2", title: "Restaurantes", text: "Carta, horarios, reservas y delivery.", q: "¿Tienen opciones veganas?" },
   { icon: "ti-car", title: "Talleres y automotoras", text: "Servicios, valores referenciales y disponibilidad.", q: "¿Cuánto sale una mantención?" },
-  { icon: "ti-scale", title: "Abogados y contadores", text: "Filtra consultas y agenda la primera reunión.", q: "¿Hacen trámites de herencia?" },
+  { icon: "ti-scale", title: "Abogados y contadores", text: "Filtra consultas y agenda la primera reunión.", q: "¿Hacen trámites de herencia?", landing: "abogados" },
   { icon: "ti-school", title: "Academias y cursos", text: "Fechas, valores, modalidad e inscripción.", q: "¿Cuándo empieza el próximo curso?" },
 ];
 
@@ -292,9 +295,20 @@ const schema = [
             <div class="bubble">{r.q}</div>
             <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
             <p>{r.text}</p>
+            {r.landing && landingFor(r.landing) && (
+              <a class="rubro-link" href={landingFor(r.landing)!.href}>Ver chatbot para {landingFor(r.landing)!.short} <i class="ti ti-arrow-right"></i></a>
+            )}
           </div>
         ))}
       </div>
+      {landings.length > 0 && (
+        <div class="landing-chips">
+          <strong>Chatbot por rubro:</strong>
+          {landings.map((l) => (
+            <a href={l.href}>{l.label} <i class="ti ti-arrow-right"></i></a>
+          ))}
+        </div>
+      )}
     </div>
   </section>
 
@@ -419,6 +433,16 @@ const schema = [
             <li><a href="#planes">Planes y precios</a></li>
             <li><a href="#faq">Preguntas frecuentes</a></li>
           </ul>
+          {landings.length > 0 && (
+            <>
+              <h3 style="margin-top:24px">Chatbot por rubro</h3>
+              <ul class="footer-links">
+                {landings.map((l) => (
+                  <li><a href={l.href}>{l.label}</a></li>
+                ))}
+              </ul>
+            </>
+          )}
         </div>
         <div>
           <h3>Contacto</h3>

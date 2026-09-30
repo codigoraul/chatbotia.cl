@@ -1,0 +1,551 @@
+---
+import '../../styles/global.css';
+import '../../styles/vertical.css';
+import DemoChatWidget from '../../components/DemoChatWidget.astro';
+import { landings } from '../../data/landings';
+
+const SITE = "https://chatbotia.cl";
+const URL = `${SITE}/abogados/`;
+const WA_NUMBER = "56961765268";
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/abogados. Me interesa un chatbot con IA para mi estudio jurídico.")}`;
+const PHONE_DISPLAY = "+56 9 6176 5268";
+const EMAIL = "codigoraul@gmail.com";
+const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
+
+// Palabra clave principal y secundaria (cámbialas aquí si los datos de búsqueda lo piden)
+const H1 = "Chatbot con IA para abogados";
+const TITLE = "Chatbot con IA para Abogados y Estudios Jurídicos | Chatia";
+const DESCRIPTION = "Chat con IA para abogados: atiende consultas 24/7 en la web de tu estudio jurídico, filtra por materia y agenda la primera reunión. Desde $12.000 al mes en Chile.";
+const OG_IMAGE = `${SITE}/assets/img/abogados/og-chatbot-ia-abogados.jpg`;
+const IMG = "/assets/img/abogados";
+
+const materias = [
+  { icon: "ti-users", title: "Derecho de familia", text: "Pensión de alimentos, divorcio, cuidado personal y régimen de visitas.", q: "¿Cómo se pide una pensión de alimentos?" },
+  { icon: "ti-file-certificate", title: "Herencias y posesión efectiva", text: "Qué documentos reunir y cómo se agenda la primera reunión.", q: "¿Hacen trámites de herencia?" },
+  { icon: "ti-briefcase", title: "Derecho laboral", text: "Despidos, finiquitos y cobro de prestaciones.", q: "Me despidieron, ¿qué puedo hacer?" },
+  { icon: "ti-home", title: "Arriendos y propiedades", text: "Contratos, desahucios y compraventas.", q: "¿Revisan contratos de arriendo?" },
+  { icon: "ti-gavel", title: "Civil y cobranza", text: "Deudas, demandas y cobro de facturas.", q: "¿Cuánto cuesta una demanda de cobro?" },
+  { icon: "ti-building", title: "Empresas y tributario", text: "Constitución de sociedades y asesoría permanente.", q: "¿Crean sociedades SpA?" },
+];
+
+const faqs = [
+  {
+    q: "¿Qué es un chatbot con IA para abogados?",
+    a: "Es un chat con inteligencia artificial que se instala en la página web de tu estudio y conversa con las personas que llegan con una consulta legal. Se entrena con la información real de tu estudio (materias, horarios, ubicación y preguntas frecuentes), responde al instante y deja los datos del cliente listos para que lo contactes.",
+  },
+  {
+    q: "¿El chatbot entrega asesoría legal?",
+    a: "No. El chatbot no interpreta la ley ni opina sobre las probabilidades de un caso: orienta de forma general (qué materias atiende el estudio, cómo agendar, qué documentos conviene llevar) y recopila los datos del consultante para que el abogado responda. No reemplaza al abogado, lo ayuda a no perder consultas.",
+  },
+  {
+    q: "¿Qué pasa con la información que cuentan los clientes?",
+    a: "Las conversaciones se guardan solo para el historial de tu estudio y no se venden ni se comparten con terceros. Además, el chatbot puede configurarse para invitar al consultante a dejar solo lo básico (nombre, teléfono y materia) y reservar los detalles del caso para la reunión con el abogado.",
+  },
+  {
+    q: "¿Puede agendar la primera reunión?",
+    a: "No agenda directamente en un calendario: toma el nombre, teléfono, la materia y un resumen breve, y te avisa por correo para que confirmes la hora con el cliente.",
+  },
+  {
+    q: "¿Puede informar mis honorarios?",
+    a: "Solo si tú quieres. Puedes indicar valores referenciales por tipo de trámite, o dejar que el bot invite a una primera reunión sin mencionar montos. El chatbot usa únicamente la información que tú autorizas.",
+  },
+  {
+    q: "¿Cuánto cuesta un chatbot con IA para mi estudio jurídico?",
+    a: "Tenemos dos planes fijos: $12.000 CLP mensuales para abogados independientes y estudios pequeños (1.000 respuestas al mes, 1 chatbot) y $16.000 CLP mensuales para estudios con más volumen (2.000 respuestas al mes, hasta 2 chatbots). La instalación es un pago único de $4.000 CLP. Pago mensual por transferencia, con boleta de honorarios y sin permanencia forzosa.",
+  },
+  {
+    q: "¿Cuánto demora la instalación?",
+    a: "Una vez que nos envías la información de tu estudio, el chatbot queda instalado y respondiendo en 24 horas.",
+  },
+  {
+    q: "¿Necesito saber programar?",
+    a: "No. Nosotros configuramos el chatbot, lo entrenamos y lo instalamos en tu página web. Funciona en WordPress, sitios a medida y la mayoría de plataformas que permiten agregar un código.",
+  },
+  {
+    q: "¿Qué pasa si el chatbot no sabe una respuesta?",
+    a: "Está configurado para no inventar. Si no tiene la información, se lo dice al consultante y lo invita a dejar su nombre y contacto para que el estudio le responda.",
+  },
+  {
+    q: "¿Funciona con WhatsApp?",
+    a: "Por ahora el servicio está enfocado en tu página web. Si más adelante quieres atención automática por WhatsApp Business, lo evaluamos como una ampliación aparte.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Chatbot con IA para abogados y estudios jurídicos",
+    "serviceType": "Chatbot con inteligencia artificial para páginas web de abogados",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chatia",
+      "url": SITE,
+      "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
+      "email": EMAIL,
+      "telephone": "+56961765268",
+      "sameAs": [FACEBOOK],
+    },
+    "areaServed": { "@type": "Country", "name": "Chile" },
+    "offers": [
+      { "@type": "Offer", "name": "Plan Pymes", "price": "12000", "priceCurrency": "CLP" },
+      { "@type": "Offer", "name": "Plan Empresas", "price": "16000", "priceCurrency": "CLP" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chatia", "item": `${SITE}/` },
+      { "@type": "ListItem", "position": 2, "name": "Chatbot con IA para abogados", "item": URL },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  },
+];
+---
+
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION} />
+  <link rel="canonical" href={URL} />
+  <meta name="theme-color" content="#F5C842" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={URL} />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content={DESCRIPTION} />
+  <meta property="og:image" content={OG_IMAGE} />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Chatia" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body class="vertical v-law">
+  <div class="topbar">
+    <div class="container">
+      <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+      <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+      <span><i class="ti ti-map-pin"></i> Atendemos todo Chile</span>
+      <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
+    </div>
+  </div>
+
+  <header class="header-main">
+    <div class="container">
+      <a href="/" class="brand" aria-label="Chatia, inicio">
+        <img src="/assets/img/brand/chatia-logo-h.webp" alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
+      </a>
+      <div class="header-cta">
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+        <a href="#contacto" class="btn btn-yellow">Cotizar gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero hero-photo" style={`--bg:url('${IMG}/abogados-mazo-balanza.webp')`}>
+    <div class="container hero-grid">
+      <div>
+        <span class="vtag"><i class="ti ti-scale"></i> Para abogados y estudios jurídicos</span>
+        <h1>{H1}</h1>
+        <p class="lead">
+          Chat con IA para el sitio web de tu estudio jurídico: atiende a quienes llegan con
+          una consulta las 24 horas, los orienta según la materia y te deja sus datos listos
+          para agendar la primera reunión.
+        </p>
+        <div class="hero-buttons">
+          <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+          <a href="#planes" class="btn btn-white btn-lg">Ver planes</a>
+        </div>
+        <ul class="hero-facts">
+          <li>Listo en 24 horas</li>
+          <li>Desde $12.000 al mes</li>
+          <li>Sin permanencia</li>
+        </ul>
+      </div>
+
+      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA para un estudio jurídico">
+        <div class="chat-preview-head">
+          <img src="/assets/img/brand/chatia-avatar.webp" alt="" width="40" height="40" />
+          <div>
+            <strong>Asistente Estudio Jurídico</strong>
+            <span><span class="dot"></span> Responde al instante</span>
+          </div>
+        </div>
+        <div class="chat-preview-body">
+          <div class="cp-msg cp-user">Hola, necesito ayuda con una pensión de alimentos. ¿Ven casos de familia?</div>
+          <div class="cp-msg cp-bot">¡Hola! Sí, el estudio atiende derecho de familia. Para orientarte mejor en la primera reunión, ¿me dejas tu nombre y teléfono?</div>
+          <div class="cp-msg cp-user">Claro, soy Camila, 9 1234 5678</div>
+          <div class="cp-msg cp-bot">Gracias, Camila 😊 Le aviso al abogado y te contactan hoy para coordinar una hora. Te recomiendo tener a mano el certificado de nacimiento.</div>
+        </div>
+        <p class="cp-note">Ejemplo de un chatbot con IA para un estudio jurídico</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="subnav" aria-label="Secciones">
+    <div class="container">
+      <ul>
+        <li><a href="#que-es">Qué es</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#materias">Materias</a></li>
+        <li><a href="#limites">Confidencialidad</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Qué es -->
+  <section id="que-es" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>¿Qué es un chat con IA para abogados?</h2>
+        <p class="intro">
+          Es un asistente con inteligencia artificial en la página web de tu estudio. Conversa
+          con quienes te visitan, responde lo básico (materias, horarios, ubicación, cómo
+          agendar) y toma sus datos, incluso de noche o un domingo, cuando tú no puedes
+          contestar. Tú sigues haciendo lo que sabes hacer: asesorar.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-bolt"></i></span>
+            <div><strong>Responde al instante</strong><span>Con la información real de tu estudio: materias que atiendes, horarios, ubicación y preguntas frecuentes.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-filter"></i></span>
+            <div><strong>Filtra las consultas</strong><span>Identifica la materia y pide los datos básicos, para que llegues a la reunión sabiendo de qué se trata.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-user-plus"></i></span>
+            <div><strong>Te consigue contactos</strong><span>Nombre, teléfono y resumen de la consulta llegan a tu correo con la conversación completa.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-shield-check"></i></span>
+            <div><strong>No improvisa ni asesora</strong><span>No da opiniones legales ni inventa información: orienta y deriva a la reunión contigo.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <figure class="photo"><img src={`${IMG}/reunion-equipo-consulta.webp`} alt="Equipo de un estudio jurídico conversando con un cliente sobre su consulta" width="1500" height="1000" loading="lazy" /></figure>
+      <div class="quote-box">
+        <h3>La consulta que no se responde, se va con otro estudio</h3>
+        <p>Quien busca un abogado suele escribir a varios y se queda con el primero que responde. Si estás en audiencia, en terreno o fuera de horario, esa consulta se enfría.</p>
+        <p class="mb-0">Con un chatbot con IA, tu página atiende en el momento, deja la consulta registrada y tú la retomas cuando puedas.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona" class="band band-dark band-photo" style={`--bg:url('${IMG}/escritorio-documentos-estudio.webp')`}>
+    <div class="container">
+      <div class="band-head">
+        <h2>Cómo funciona</h2>
+        <p>Tres pasos, sin que tengas que programar nada.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Nos cuentas tu estudio</h3>
+          <p>Materias que atiendes, horarios, ubicación y las preguntas que más te hacen. Tú decides qué se informa y qué no.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Entrenamos tu chatbot</h3>
+          <p>La IA aprende solo de tu información y queda lista para atender como lo haría tu secretaria o asistente.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Queda instalado en tu web</h3>
+          <p>En 24 horas atiende a tus visitantes y te avisa por correo cuando alguien deja sus datos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Materias -->
+  <section id="materias" class="band band-yellow">
+    <div class="container">
+      <div class="band-head">
+        <h2>Un chatbot que conoce las consultas de tu estudio</h2>
+        <p>Lo configuramos con las materias que tú atiendes y las preguntas reales que recibes.</p>
+      </div>
+      <div class="rubros rubros-3">
+        {materias.map((r) => (
+          <div class="rubro">
+            <div class="bubble">{r.q}</div>
+            <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Límites y confidencialidad -->
+  <section id="limites" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>Un asistente, no un reemplazo del abogado</h2>
+        <p class="intro">
+          Sabemos que en tu profesión la confianza y la reserva importan. Por eso el chatbot
+          está pensado como primera atención, no como asesor.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-scale"></i></span>
+            <div><strong>Sin asesoría legal</strong><span>No interpreta la ley ni promete resultados. Orienta y deriva la consulta a la reunión contigo.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-lock"></i></span>
+            <div><strong>Datos mínimos</strong><span>Puede pedir solo nombre, teléfono y materia, y sugerir dejar los detalles del caso para la reunión.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-eye-off"></i></span>
+            <div><strong>Conversaciones privadas</strong><span>Se guardan solo para el historial de tu estudio y no se venden ni se comparten con terceros.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-adjustments"></i></span>
+            <div><strong>Tú controlas qué informa</strong><span>Honorarios, materias, horarios: el bot usa únicamente lo que tú autorizas publicar.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <figure class="photo"><img src={`${IMG}/asesoria-legal-reunion.webp`} alt="Abogados conversando con un cliente durante una reunión de asesoría" width="1500" height="1000" loading="lazy" /></figure>
+      <div class="quote-box">
+        <h3>Pruébalo con una consulta real</h3>
+        <p>Abre el chat de esta página y escríbele como lo haría un cliente: una pensión, un despido, una herencia. Puedes pedirle que actúe como asistente de un estudio jurídico.</p>
+        <p class="mb-0"><button type="button" class="btn btn-dark" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button></p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planes -->
+  <section id="planes" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Planes y precios</h2>
+        <p>Chatbot con IA para tu estudio jurídico, con precios fijos y claros.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Abogados y estudios pequeños</h3>
+          <p class="price">$12.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> 1 chatbot instalado en tu página web</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu estudio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualización de la información 1 vez al mes</li>
+          </ul>
+          <a href="#contacto" class="btn btn-white btn-block" data-plan="Plan Pymes - $12.000 CLP/mes">Cotizar plan Pymes</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Más elegido</span>
+          <h3>Estudios con más volumen</h3>
+          <p class="price">$16.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Hasta 2 chatbots (otro sitio o sucursal)</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu estudio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualizaciones de información ilimitadas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-dark btn-block" data-plan="Plan Empresas - $16.000 CLP/mes">Cotizar plan Empresas</a>
+        </div>
+      </div>
+      <p class="plans-note">Instalación: pago único de $4.000 CLP. Mensualidad por transferencia bancaria, con boleta de honorarios. Sin permanencia forzosa.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="band">
+    <div class="container">
+      <div class="band-head">
+        <h2>Preguntas frecuentes</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f, i) => (
+          <div class={`faq-item${i === 0 ? " open" : ""}`}>
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? "true" : "false"}>
+              {f.q}
+              <i class="ti ti-chevron-down chev"></i>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">{f.a}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="band band-soft">
+    <div class="container contact-grid">
+      <div>
+        <h2>Cotiza tu chatbot con IA para abogados</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos de tu estudio y te enviamos una propuesta sin compromiso.</p>
+        <div class="contact-direct">
+          <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
+        </div>
+        <figure class="photo" style="margin-top:28px"><img src={`${IMG}/apreton-de-manos-oficina.webp`} alt="Abogado sonriente estrechando la mano de un cliente sobre un contrato" width="1500" height="1000" loading="lazy" /></figure>
+      </div>
+      <div class="contact-form">
+        <h3 class="contact-form-title">Formulario de contacto</h3>
+        <form class="form-grid" id="contactForm">
+          <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+          <input type="tel" name="fono" placeholder="Teléfono" aria-label="Teléfono" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <select name="plan" id="planSelect" aria-label="Plan de interés" required>
+            <option value="">¿Qué plan te interesa?</option>
+            <option value="Plan Pymes - $12.000 CLP/mes">Plan Pymes ($12.000 al mes)</option>
+            <option value="Plan Empresas - $16.000 CLP/mes">Plan Empresas ($16.000 al mes)</option>
+            <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
+          </select>
+          <input class="full" type="text" name="web" placeholder="Página web de tu estudio (si tienes)" aria-label="Página web" />
+          <textarea class="full" name="mensaje" placeholder="¿Qué materias atiende tu estudio?" aria-label="Mensaje" rows="4" required></textarea>
+          <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
+        </form>
+        <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band cta band-photo-cta" style={`--bg:url('${IMG}/abogados-mazo-balanza.webp')`}>
+    <div class="container cta-inner">
+      <h2>Que ninguna consulta se quede sin respuesta esta semana</h2>
+      <div class="cta-buttons">
+        <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src="/assets/img/brand/chatia-logo-h-white.webp" alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de abogados, pymes y empresas de todo Chile, para que ningún cliente se quede sin respuesta.</p>
+        </div>
+        <div>
+          <h3>En esta página</h3>
+          <ul class="footer-links">
+            <li><a href="#que-es">Chat con IA para abogados</a></li>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#materias">Materias</a></li>
+            <li><a href="#planes">Planes y precios</a></li>
+            <li><a href="/#rubros">Chatbot con IA para otros rubros</a></li>
+            {landings.filter((l) => l.key !== "abogados").map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
+            <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
+            <p><i class="ti ti-map-pin"></i> Atendemos todo Chile</p>
+            <p><i class="ti ti-clock"></i> Lunes a sábado</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
+        <p class="mb-0">Un servicio de <a href="https://diseñopaginas.cl" target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
+        <p class="credits">Imágenes: <a href="https://www.freepik.com" target="_blank" rel="noopener">Freepik</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <DemoChatWidget
+    vertical="abogados"
+    botStatus="Asistente IA · Estudios jurídicos"
+    welcomeMessage="¡Hola! 👋 Soy Chatia, un chatbot con IA para abogados. Así atendería las consultas de tu estudio jurídico, 24/7. Pídeme que actúe como asistente de un estudio, o pregúntame por el servicio."
+    quickReplies={[
+      { label: "Actúa como asistente de un estudio", reply: "" },
+      { label: "Quiero consultar por una herencia", reply: "" },
+      { label: "¿Da asesoría legal el chatbot?", reply: "" },
+      { label: "¿Cuánto cuesta?", reply: "" },
+    ]}
+    disclaimer="Esta es una demo real con IA. Tu chatbot se entrena con la información de tu estudio."
+  />
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const btn = item.querySelector('.faq-q');
+      btn?.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-open-chat]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const root = document.getElementById('demoChat');
+        const bubble = document.getElementById('demoChatBubble');
+        if (root && bubble && !root.classList.contains('is-open')) bubble.click();
+      });
+    });
+
+    const planSelect = document.getElementById('planSelect') as HTMLSelectElement | null;
+    document.querySelectorAll('[data-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (planSelect) planSelect.value = (btn as HTMLElement).dataset.plan || '';
+      });
+    });
+
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const web = String(data.get('web') || '').trim();
+      const text =
+        `Hola, los contacto desde chatbotia.cl/abogados.\n` +
+        `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
+        `Plan: ${data.get('plan')}\n` +
+        (web ? `Web: ${web}\n` : '') +
+        `Materias del estudio: ${data.get('mensaje')}`;
+      window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
+    });
+  </script>
+</body>
+</html>

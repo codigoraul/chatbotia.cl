@@ -95,6 +95,7 @@ $hits[] = $now;
 $input = json_decode(file_get_contents('php://input'), true);
 $message = trim((string) ($input['message'] ?? ''));
 $history = is_array($input['history'] ?? null) ? $input['history'] : [];
+$vertical = preg_replace('/[^a-z]/', '', strtolower((string) ($input['vertical'] ?? ''))); // rubro de la landing (ej. abogados)
 $convId  = preg_replace('/[^a-zA-Z0-9\-]/', '', (string) ($input['conversationId'] ?? ''));
 $convId  = substr($convId !== '' ? $convId : 'sin-id-' . md5($ip . date('Y-m-d')), 0, 64);
 
@@ -178,6 +179,14 @@ if ($apiKey === '') {
 $systemPrompt = @include __DIR__ . '/chat-prompt.php';
 if (!is_string($systemPrompt) || $systemPrompt === '') {
     $systemPrompt = 'Eres Chatia, asistente de chatbotia.cl. Responde breve en español de Chile.';
+}
+
+// Landing por rubro: si existe chat-prompt-<rubro>.php, se agrega como contexto extra
+if ($vertical !== '' && is_file(__DIR__ . '/chat-prompt-' . $vertical . '.php')) {
+    $extra = @include __DIR__ . '/chat-prompt-' . $vertical . '.php';
+    if (is_string($extra) && $extra !== '') {
+        $systemPrompt .= "\n\n" . $extra;
+    }
 }
 
 // Armar la conversación en formato Gemini

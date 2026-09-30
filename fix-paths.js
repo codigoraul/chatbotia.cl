@@ -13,9 +13,13 @@ function fixFile(filePath) {
   let content = fs.readFileSync(filePath, 'utf8');
   const before = content;
 
+  // Profundidad del HTML dentro de dist/: index.html -> './', abogados/index.html -> '../'
+  const depth = path.relative(DIST, path.dirname(filePath)).split(path.sep).filter(Boolean).length;
+  const prefix = depth === 0 ? './' : '../'.repeat(depth);
+
   // href="/_astro/xxx.css"  ->  href="./_astro/xxx.css"
   // src="/_astro/xxx.js"    ->  src="./_astro/xxx.js"
-  content = content.replace(/((?:href|src)=["'])\/_astro\//g, '$1./_astro/');
+  content = content.replace(/((?:href|src)=["'])\/_astro\//g, `$1${prefix}_astro/`);
 
   if (content !== before) {
     fs.writeFileSync(filePath, content, 'utf8');

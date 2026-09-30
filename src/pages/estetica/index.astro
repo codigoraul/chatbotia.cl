@@ -1,0 +1,613 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import '../../styles/global.css';
+import '../../styles/vertical.css';
+import DemoChatWidget from '../../components/DemoChatWidget.astro';
+import { landings } from '../../data/landings';
+
+const SITE = "https://chatbotia.cl";
+const URL = `${SITE}/estetica/`;
+const WA_NUMBER = "56961765268";
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/estetica. Me interesa un chatbot con IA para mi centro de estética.")}`;
+const PHONE_DISPLAY = "+56 9 6176 5268";
+const EMAIL = "codigoraul@gmail.com";
+const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
+const DISENO_WEB = "https://diseñopaginas.cl";
+
+const H1 = "Chatbot con IA para centros de estética";
+const TITLE = "Chatbot con IA para Centros de Estética y Salones | Chatia";
+const DESCRIPTION = "Chat con IA para centros de estética, peluquerías y spa: responde precios y horarios 24/7 en tu web y deja listos los datos para agendar. Desde $12.000 al mes en Chile.";
+const OG_IMAGE = `${SITE}/assets/img/estetica/og-chatbot-ia-estetica.jpg`;
+const IMG = "/assets/img/estetica";
+
+// Fotos opcionales: si el archivo existe en public/assets/img/estetica/, se usa; si no, la sección se ve sin foto.
+const has = (f: string) => fs.existsSync(path.join(process.cwd(), "public/assets/img/estetica", f));
+const PHOTOS = {
+  hero: "estetica-hero.webp",          // fondo del hero (con velo amarillo)
+  atencion: "estetica-atencion.webp",  // junto a "¿Qué es...?"
+  proceso: "estetica-proceso.webp",    // fondo de "Cómo funciona"
+  limites: "estetica-servicios.webp",  // sección "Atiende y orienta"
+  web: "estetica-web.webp",            // sección diseño web
+  contacto: "estetica-contacto.webp",  // bajo los datos de contacto
+};
+const ok = Object.fromEntries(Object.entries(PHOTOS).map(([k, f]) => [k, has(f)]));
+
+const servicios = [
+  { icon: "ti-scissors", title: "Peluquería y color", text: "Cortes, alisados, tintes y peinados con valores y duración.", q: "¿Cuánto cuesta un alisado?" },
+  { icon: "ti-brush", title: "Uñas", text: "Manicure, esmaltado semipermanente y diseños.", q: "¿Hacen uñas acrílicas?" },
+  { icon: "ti-flame", title: "Depilación", text: "Cera y depilación láser: zonas, sesiones y cuidados.", q: "¿Cuántas sesiones de láser necesito?" },
+  { icon: "ti-massage", title: "Masajes y spa", text: "Tipos de masaje, duración y promociones.", q: "¿Tienen hora para masaje el sábado?" },
+  { icon: "ti-sparkles", title: "Estética facial", text: "Limpiezas faciales, peelings y tratamientos.", q: "¿Cuánto cuesta una limpieza facial?" },
+  { icon: "ti-heart", title: "Estética corporal", text: "Drenaje, tratamientos reductivos y planes por sesiones.", q: "¿Tienen packs de sesiones?" },
+];
+
+const faqs = [
+  {
+    q: "¿Qué es un chatbot con IA para un centro de estética?",
+    a: "Es un chat con inteligencia artificial que se instala en la página web de tu centro y responde al instante las preguntas más repetidas: servicios, precios, duración, horarios y cómo reservar. Se entrena con la información real de tu centro y deja los datos del cliente listos para que confirmes su hora.",
+  },
+  {
+    q: "¿El chatbot reserva la hora directamente?",
+    a: "No agenda en un calendario: toma el nombre, teléfono, el servicio de interés y el día o la jornada que prefiere, y te avisa por correo para que confirmes la hora con el cliente.",
+  },
+  {
+    q: "¿Puede informar precios y promociones?",
+    a: "Sí, pero solo los que tú decidas publicar. Puedes indicar valores referenciales, packs y promociones del mes, y actualizarlos cuando quieras.",
+  },
+  {
+    q: "¿Da consejos médicos o recomienda tratamientos?",
+    a: "No. El chatbot informa sobre tus servicios, pero no diagnostica ni promete resultados. Si el cliente pregunta por contraindicaciones, embarazo, alergias o medicamentos, lo invita a consultarlo con tu profesional en la evaluación.",
+  },
+  {
+    q: "¿Y si mi centro no tiene página web?",
+    a: "Te la podemos crear: DiseñoPáginas.cl diseña páginas web para centros de estética y salones, y el chatbot se instala en ella. La página se cotiza aparte; el chatbot funciona en cualquier sitio web que permita agregar un código.",
+  },
+  {
+    q: "¿Funciona con Instagram o WhatsApp?",
+    a: "Por ahora el chat se instala en tu página web. Si hoy atiendes solo por Instagram o WhatsApp, una página con chatbot te permite responder a quienes te encuentran en Google a cualquier hora. La atención automática por WhatsApp Business la evaluamos como ampliación aparte.",
+  },
+  {
+    q: "¿Cuánto cuesta un chatbot con IA para mi centro?",
+    a: "Tenemos dos planes fijos: $12.000 CLP mensuales para centros y salones pequeños (1.000 respuestas al mes, 1 chatbot) y $16.000 CLP mensuales para centros con más volumen (2.000 respuestas al mes, hasta 2 chatbots). La instalación es un pago único de $4.000 CLP. Pago mensual por transferencia, con boleta de honorarios y sin permanencia forzosa.",
+  },
+  {
+    q: "¿Cuánto demora la instalación?",
+    a: "Una vez que nos envías la información de tu centro, el chatbot queda instalado y respondiendo en 24 horas.",
+  },
+  {
+    q: "¿Necesito saber programar?",
+    a: "No. Nosotros configuramos el chatbot, lo entrenamos y lo instalamos en tu página web. Funciona en WordPress, sitios a medida y la mayoría de plataformas que permiten agregar un código.",
+  },
+  {
+    q: "¿Qué pasa si el chatbot no sabe una respuesta?",
+    a: "Está configurado para no inventar. Si no tiene la información, se lo dice al cliente y lo invita a dejar su nombre y contacto para que tu equipo le responda.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Chatbot con IA para centros de estética y salones de belleza",
+    "serviceType": "Chatbot con inteligencia artificial para páginas web de centros de estética",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chatia",
+      "url": SITE,
+      "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
+      "email": EMAIL,
+      "telephone": "+56961765268",
+      "sameAs": [FACEBOOK],
+    },
+    "areaServed": { "@type": "Country", "name": "Chile" },
+    "offers": [
+      { "@type": "Offer", "name": "Plan Pymes", "price": "12000", "priceCurrency": "CLP" },
+      { "@type": "Offer", "name": "Plan Empresas", "price": "16000", "priceCurrency": "CLP" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chatia", "item": `${SITE}/` },
+      { "@type": "ListItem", "position": 2, "name": "Chatbot con IA para centros de estética", "item": URL },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  },
+];
+---
+
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION} />
+  <link rel="canonical" href={URL} />
+  <meta name="theme-color" content="#F5C842" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={URL} />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content={DESCRIPTION} />
+  <meta property="og:image" content={OG_IMAGE} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Chatia" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body class="vertical v-beauty">
+  <div class="topbar">
+    <div class="container">
+      <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+      <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+      <span><i class="ti ti-map-pin"></i> Atendemos todo Chile</span>
+      <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
+    </div>
+  </div>
+
+  <header class="header-main">
+    <div class="container">
+      <a href="/" class="brand" aria-label="Chatia, inicio">
+        <img src="/assets/img/brand/chatia-logo-h.webp" alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
+      </a>
+      <div class="header-cta">
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+        <a href="#contacto" class="btn btn-yellow">Cotizar gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class={`hero${ok.hero ? " hero-photo" : ""}`} style={ok.hero ? `--bg:url('${IMG}/${PHOTOS.hero}')` : undefined}>
+    <div class="container hero-grid">
+      <div>
+        <span class="vtag"><i class="ti ti-sparkles"></i> Para centros de estética y salones</span>
+        <h1>{H1}</h1>
+        <p class="lead">
+          Chat con IA para la página web de tu centro de estética, peluquería o spa: responde
+          precios, servicios y horarios las 24 horas y te deja los datos de cada cliente
+          listos para confirmar su hora.
+        </p>
+        <div class="hero-buttons">
+          <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+          <a href="#planes" class="btn btn-white btn-lg">Ver planes</a>
+        </div>
+        <ul class="hero-facts">
+          <li>Listo en 24 horas</li>
+          <li>Desde $12.000 al mes</li>
+          <li>Sin permanencia</li>
+        </ul>
+      </div>
+
+      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA para un centro de estética">
+        <div class="chat-preview-head">
+          <img src="/assets/img/brand/chatia-avatar.webp" alt="" width="40" height="40" />
+          <div>
+            <strong>Asistente Centro de Estética</strong>
+            <span><span class="dot"></span> Responde al instante</span>
+          </div>
+        </div>
+        <div class="chat-preview-body">
+          <div class="cp-msg cp-user">Hola, ¿cuánto cuesta la limpieza facial? ¿Tienen hora el sábado?</div>
+          <div class="cp-msg cp-bot">¡Hola! La limpieza facial profunda parte desde $25.000 y dura unos 60 minutos. Los sábados atendemos de 10:00 a 15:00. ¿Te ayudo a reservar?</div>
+          <div class="cp-msg cp-user">Sí, el sábado en la mañana</div>
+          <div class="cp-msg cp-bot">Perfecto 😊 Déjame tu nombre y teléfono, y el centro te confirma la hora hoy mismo.</div>
+        </div>
+        <p class="cp-note">Ejemplo con precios y horarios ficticios</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="subnav" aria-label="Secciones">
+    <div class="container">
+      <ul>
+        <li><a href="#que-es">Qué es</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#limites">Qué hace y qué no</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#pagina-web">Página web</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Qué es -->
+  <section id="que-es" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>¿Qué es un chat con IA para centros de estética?</h2>
+        <p class="intro">
+          Es un asistente con inteligencia artificial en la página web de tu centro. Responde
+          lo que más te preguntan (precios, servicios, duración, horarios) y toma los datos de
+          quien quiere reservar, incluso de noche o un domingo, cuando tú estás atendiendo o
+          descansando.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-bolt"></i></span>
+            <div><strong>Responde al instante</strong><span>Con la información real de tu centro: servicios, valores, promociones y horarios.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-moon"></i></span>
+            <div><strong>Atiende 24/7</strong><span>Quien consulta a las 11 de la noche recibe respuesta, en vez de esperar a la mañana siguiente.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-calendar-event"></i></span>
+            <div><strong>Te deja las horas encaminadas</strong><span>Toma nombre, teléfono, servicio y horario preferido, y te avisa por correo para que confirmes.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-shield-check"></i></span>
+            <div><strong>No inventa</strong><span>Si no sabe algo, invita al cliente a dejar sus datos para que tu equipo responda.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        {ok.atencion && (
+          <figure class="photo"><img src={`${IMG}/${PHOTOS.atencion}`} alt="Esteticista sonriendo mientras realiza un tratamiento facial a una clienta" width="1500" height="1000" loading="lazy" /></figure>
+        )}
+        <div class="quote-box">
+          <h3>Quien pregunta precios de noche reserva donde le responden primero</h3>
+          <p>Muchas clientas escriben a varios centros a la vez y se quedan con el primero que contesta. Si estás atendiendo o ya cerraste, esa consulta se enfría.</p>
+          <p class="mb-0">Con un chatbot con IA, tu página responde en el momento y tú retomas la reserva cuando puedas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona" class={`band band-dark${ok.proceso ? " band-photo" : ""}`} style={ok.proceso ? `--bg:url('${IMG}/${PHOTOS.proceso}')` : undefined}>
+    <div class="container">
+      <div class="band-head">
+        <h2>Cómo funciona</h2>
+        <p>Tres pasos, sin que tengas que programar nada.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Nos cuentas tus servicios</h3>
+          <p>Servicios, valores, duración, horarios y promociones. Tú decides qué se informa.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Entrenamos tu chatbot</h3>
+          <p>La IA aprende solo de tu información y queda lista para atender como lo haría tu recepción.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Queda instalado en tu web</h3>
+          <p>En 24 horas atiende a tus visitantes y te avisa por correo cuando alguien deja sus datos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="band band-yellow">
+    <div class="container">
+      <div class="band-head">
+        <h2>Un chatbot que conoce los servicios de tu centro</h2>
+        <p>Lo configuramos con lo que ofreces y las preguntas que más te hacen.</p>
+      </div>
+      <div class="rubros rubros-3">
+        {servicios.map((r) => (
+          <div class="rubro">
+            <div class="bubble">{r.q}</div>
+            <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Qué hace y qué no -->
+  <section id="limites" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>Atiende y orienta, no diagnostica</h2>
+        <p class="intro">
+          El chatbot es la primera atención de tu centro: informa y recoge datos, pero las
+          decisiones sobre tratamientos las toma tu profesional.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-stethoscope"></i></span>
+            <div><strong>Sin consejos médicos</strong><span>No diagnostica ni promete resultados. Ante dudas de salud, deriva a tu profesional.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-tag"></i></span>
+            <div><strong>Tú controlas los precios</strong><span>Informa solo los valores y promociones que tú autorizas, y los actualizas cuando quieras.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-calendar-check"></i></span>
+            <div><strong>Tú confirmas la hora</strong><span>El bot deja la solicitud lista; la agenda la sigues manejando tú.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-eye-off"></i></span>
+            <div><strong>Conversaciones privadas</strong><span>Se guardan solo para el historial de tu centro y no se venden ni se comparten con terceros.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        {ok.limites && (
+          <figure class="photo"><img src={`${IMG}/${PHOTOS.limites}`} alt="Profesional realizando un tratamiento facial con equipo de estética" width="1500" height="1000" loading="lazy" /></figure>
+        )}
+        <div class="quote-box">
+          <h3>Pruébalo con una consulta real</h3>
+          <p>Abre el chat de esta página y escríbele como lo haría una clienta: precios de una limpieza facial, horarios, cómo reservar. Puedes pedirle que actúe como asistente de un centro de estética.</p>
+          <p class="mb-0"><button type="button" class="btn btn-dark" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planes -->
+  <section id="planes" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Planes y precios</h2>
+        <p>Chatbot con IA para tu centro de estética, con precios fijos y claros.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Centros y salones pequeños</h3>
+          <p class="price">$12.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> 1 chatbot instalado en tu página web</li>
+            <li><i class="ti ti-check"></i> Entrenado con los servicios de tu centro</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualización de la información 1 vez al mes</li>
+          </ul>
+          <a href="#contacto" class="btn btn-white btn-block" data-plan="Plan Pymes - $12.000 CLP/mes">Cotizar plan Pymes</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Más elegido</span>
+          <h3>Centros con más volumen</h3>
+          <p class="price">$16.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Hasta 2 chatbots (otro sitio o sucursal)</li>
+            <li><i class="ti ti-check"></i> Entrenado con los servicios de tu centro</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualizaciones de información ilimitadas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-dark btn-block" data-plan="Plan Empresas - $16.000 CLP/mes">Cotizar plan Empresas</a>
+        </div>
+      </div>
+      <p class="plans-note">Instalación: pago único de $4.000 CLP. Mensualidad por transferencia bancaria, con boleta de honorarios. Sin permanencia forzosa.</p>
+    </div>
+  </section>
+
+  <!-- Diseño web (oferta secundaria) -->
+  <section id="pagina-web" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>¿Tu centro aún no tiene página web?</h2>
+        <p class="intro">
+          El chatbot necesita una página donde vivir. Si hoy atiendes solo por Instagram o
+          WhatsApp, DiseñoPáginas.cl puede crear la página web de tu centro de estética, con
+          tus servicios, fotos y un botón de contacto, y dejarla con el chatbot ya instalado.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-world"></i></span>
+            <div><strong>Te encuentran en Google</strong><span>Quien busca un centro de estética en tu ciudad puede llegar a tu página, no solo a tus redes.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-device-mobile"></i></span>
+            <div><strong>Hecha para celulares</strong><span>Rápida y clara, con tus servicios, ubicación y horarios a la vista.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-message-circle"></i></span>
+            <div><strong>Con el chatbot incluido</strong><span>La página sale lista para atender consultas 24/7 desde el primer día.</span></div>
+          </li>
+        </ul>
+        <p style="margin-top:22px"><a href={DISENO_WEB} target="_blank" rel="noopener" class="btn btn-white">Ver diseño de páginas web <i class="ti ti-arrow-up-right"></i></a></p>
+      </div>
+      <div>
+        {ok.web && (
+          <figure class="photo"><img src={`${IMG}/${PHOTOS.web}`} alt="Retrato de una mujer con piel luminosa, imagen de marca para un centro de estética" width="1500" height="1000" loading="lazy" /></figure>
+        )}
+        <div class="quote-box">
+          <h3>Primero el chatbot, y la página si la necesitas</h3>
+          <p>Si ya tienes página web, instalamos el chatbot en ella y listo. Si no la tienes, la creamos y la dejamos con el chatbot funcionando.</p>
+          <p class="mb-0">La página web se cotiza aparte, según lo que necesite tu centro.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Preguntas frecuentes</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f, i) => (
+          <div class={`faq-item${i === 0 ? " open" : ""}`}>
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? "true" : "false"}>
+              {f.q}
+              <i class="ti ti-chevron-down chev"></i>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">{f.a}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="band">
+    <div class="container contact-grid">
+      <div>
+        <h2>Cotiza tu chatbot con IA para tu centro de estética</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos de tu centro y te enviamos una propuesta sin compromiso.</p>
+        <div class="contact-direct">
+          <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
+        </div>
+        {ok.contacto && (
+          <figure class="photo" style="margin-top:28px"><img src={`${IMG}/${PHOTOS.contacto}`} alt="Atención en un centro de estética" width="1500" height="1000" loading="lazy" /></figure>
+        )}
+      </div>
+      <div class="contact-form">
+        <h3 class="contact-form-title">Formulario de contacto</h3>
+        <form class="form-grid" id="contactForm">
+          <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+          <input type="tel" name="fono" placeholder="Teléfono" aria-label="Teléfono" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <select name="plan" id="planSelect" aria-label="Plan de interés" required>
+            <option value="">¿Qué te interesa?</option>
+            <option value="Plan Pymes - $12.000 CLP/mes">Chatbot: Plan Pymes ($12.000 al mes)</option>
+            <option value="Plan Empresas - $16.000 CLP/mes">Chatbot: Plan Empresas ($16.000 al mes)</option>
+            <option value="Chatbot + página web (no tengo web)">Chatbot y página web (aún no tengo web)</option>
+            <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
+          </select>
+          <input class="full" type="text" name="web" placeholder="Página web de tu centro (si tienes)" aria-label="Página web" />
+          <textarea class="full" name="mensaje" placeholder="¿Qué servicios ofrece tu centro?" aria-label="Mensaje" rows="4" required></textarea>
+          <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
+        </form>
+        <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class={`band cta${ok.hero ? " band-photo-cta" : ""}`} style={ok.hero ? `--bg:url('${IMG}/${PHOTOS.hero}')` : undefined}>
+    <div class="container cta-inner">
+      <h2>Que ninguna consulta se quede sin respuesta esta semana</h2>
+      <div class="cta-buttons">
+        <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src="/assets/img/brand/chatia-logo-h-white.webp" alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de centros de estética, pymes y empresas de todo Chile, para que ningún cliente se quede sin respuesta.</p>
+        </div>
+        <div>
+          <h3>En esta página</h3>
+          <ul class="footer-links">
+            <li><a href="#que-es">Chat con IA para centros de estética</a></li>
+            <li><a href="#como-funciona">Cómo funciona</a></li>
+            <li><a href="#servicios">Servicios</a></li>
+            <li><a href="#planes">Planes y precios</a></li>
+            <li><a href="#pagina-web">Página web para tu centro</a></li>
+            <li><a href="/#rubros">Chatbot con IA para otros rubros</a></li>
+            {landings.filter((l) => l.key !== "estetica").map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
+            <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
+            <p><i class="ti ti-map-pin"></i> Atendemos todo Chile</p>
+            <p><i class="ti ti-clock"></i> Lunes a sábado</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
+        <p class="mb-0">Un servicio de <a href={DISENO_WEB} target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
+        <p class="credits">Imágenes: <a href="https://www.freepik.com" target="_blank" rel="noopener">Freepik</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <DemoChatWidget
+    vertical="estetica"
+    botStatus="Asistente IA · Centros de estética"
+    welcomeMessage="¡Hola! 👋 Soy Chatia, un chatbot con IA para centros de estética. Así atendería las consultas de tu centro, 24/7. Pídeme que actúe como asistente de un centro, o pregúntame por el servicio."
+    quickReplies={[
+      { label: "Actúa como asistente de un centro", reply: "" },
+      { label: "¿Cuánto cuesta una limpieza facial?", reply: "" },
+      { label: "No tengo página web, ¿me ayudan?", reply: "" },
+      { label: "¿Cuánto cuesta el chatbot?", reply: "" },
+    ]}
+    disclaimer="Esta es una demo real con IA. Tu chatbot se entrena con los servicios de tu centro."
+  />
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const btn = item.querySelector('.faq-q');
+      btn?.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-open-chat]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const root = document.getElementById('demoChat');
+        const bubble = document.getElementById('demoChatBubble');
+        if (root && bubble && !root.classList.contains('is-open')) bubble.click();
+      });
+    });
+
+    const planSelect = document.getElementById('planSelect') as HTMLSelectElement | null;
+    document.querySelectorAll('[data-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (planSelect) planSelect.value = (btn as HTMLElement).dataset.plan || '';
+      });
+    });
+
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const web = String(data.get('web') || '').trim();
+      const text =
+        `Hola, los contacto desde chatbotia.cl/estetica.\n` +
+        `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
+        `Me interesa: ${data.get('plan')}\n` +
+        (web ? `Web: ${web}\n` : '') +
+        `Servicios del centro: ${data.get('mensaje')}`;
+      window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
+    });
+  </script>
+</body>
+</html>
