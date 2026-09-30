@@ -5,6 +5,7 @@ import '../../styles/global.css';
 import '../../styles/vertical.css';
 import DemoChatWidget from '../../components/DemoChatWidget.astro';
 import { landings } from '../../data/landings';
+import WebOffer from '../../components/WebOffer.astro';
 
 const SITE = "https://chatbotia.cl";
 const URL = `${SITE}/estetica/`;
@@ -60,8 +61,8 @@ const faqs = [
     a: "No. El chatbot informa sobre tus servicios, pero no diagnostica ni promete resultados. Si el cliente pregunta por contraindicaciones, embarazo, alergias o medicamentos, lo invita a consultarlo con tu profesional en la evaluación.",
   },
   {
-    q: "¿Y si mi centro no tiene página web?",
-    a: "Te la podemos crear: DiseñoPáginas.cl diseña páginas web para centros de estética y salones, y el chatbot se instala en ella. La página se cotiza aparte; el chatbot funciona en cualquier sitio web que permita agregar un código.",
+    q: "¿Y si mi centro no tiene página web o la mía está desactualizada?",
+    a: "Te la podemos crear: DiseñoPáginas.cl diseña páginas web para centros de estética y salones, y el chatbot se instala en ella. Si ya tienes una página pero quedó antigua, también la rediseñamos. La página se cotiza aparte; el chatbot funciona en cualquier sitio web que permita agregar un código.",
   },
   {
     q: "¿Funciona con Instagram o WhatsApp?",
@@ -404,44 +405,23 @@ const schema = [
     </div>
   </section>
 
-  <!-- Diseño web (oferta secundaria) -->
-  <section id="pagina-web" class="band">
-    <div class="container about-grid">
-      <div>
-        <h2>¿Tu centro aún no tiene página web?</h2>
-        <p class="intro">
-          El chatbot necesita una página donde vivir. Si hoy atiendes solo por Instagram o
-          WhatsApp, DiseñoPáginas.cl puede crear la página web de tu centro de estética, con
-          tus servicios, fotos y un botón de contacto, y dejarla con el chatbot ya instalado.
-        </p>
-        <ul class="feature-list">
-          <li>
-            <span class="ico"><i class="ti ti-world"></i></span>
-            <div><strong>Te encuentran en Google</strong><span>Quien busca un centro de estética en tu ciudad puede llegar a tu página, no solo a tus redes.</span></div>
-          </li>
-          <li>
-            <span class="ico"><i class="ti ti-device-mobile"></i></span>
-            <div><strong>Hecha para celulares</strong><span>Rápida y clara, con tus servicios, ubicación y horarios a la vista.</span></div>
-          </li>
-          <li>
-            <span class="ico"><i class="ti ti-message-circle"></i></span>
-            <div><strong>Con el chatbot incluido</strong><span>La página sale lista para atender consultas 24/7 desde el primer día.</span></div>
-          </li>
-        </ul>
-        <p style="margin-top:22px"><a href={DISENO_WEB} target="_blank" rel="noopener" class="btn btn-white">Ver diseño de páginas web <i class="ti ti-arrow-up-right"></i></a></p>
-      </div>
-      <div>
-        {ok.web && (
-          <figure class="photo"><img src={`${IMG}/${PHOTOS.web}`} alt="Retrato de una mujer con piel luminosa, imagen de marca para un centro de estética" width="1500" height="1000" loading="lazy" /></figure>
-        )}
-        <div class="quote-box">
-          <h3>Primero el chatbot, y la página si la necesitas</h3>
-          <p>Si ya tienes página web, instalamos el chatbot en ella y listo. Si no la tienes, la creamos y la dejamos con el chatbot funcionando.</p>
-          <p class="mb-0">La página web se cotiza aparte, según lo que necesite tu centro.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Diseño o rediseño web (oferta secundaria) -->
+  <WebOffer
+    title="¿Tu centro aún no tiene página web?"
+    intro="El chatbot necesita una página donde vivir. Si hoy atiendes solo por Instagram o WhatsApp, o tu página actual quedó desactualizada, DiseñoPáginas.cl puede crear la página web de tu centro de estética o rediseñar la que tienes, con tus servicios, fotos y un botón de contacto, y dejarla con el chatbot ya instalado."
+    items={[
+      { icon: "ti-world", title: "Te encuentran en Google", text: "Quien busca un centro de estética en tu ciudad puede llegar a tu página, no solo a tus redes." },
+      { icon: "ti-device-mobile", title: "Hecha para celulares", text: "Rápida y clara, con tus servicios, ubicación y horarios a la vista." },
+      { icon: "ti-message-circle", title: "Con el chatbot incluido", text: "La página sale lista para atender consultas 24/7 desde el primer día." },
+    ]}
+    quoteTitle="Primero el chatbot, y la página si la necesitas"
+    quoteParagraphs={[
+      "Si ya tienes página web, instalamos el chatbot en ella y listo. Si no la tienes, o se ve antigua o no funciona bien en celulares, la creamos o la rediseñamos y la dejamos con el chatbot funcionando.",
+      "La página web se cotiza aparte, según lo que necesite tu centro.",
+    ]}
+    href={DISENO_WEB}
+    image={ok.web ? { src: `${IMG}/${PHOTOS.web}`, alt: "Retrato de una mujer con piel luminosa, imagen de marca para un centro de estética" } : undefined}
+  />
 
   <!-- FAQ -->
   <section id="faq" class="band band-soft">
@@ -488,7 +468,7 @@ const schema = [
             <option value="">¿Qué te interesa?</option>
             <option value="Plan Pymes - $12.000 CLP/mes">Chatbot: Plan Pymes ($12.000 al mes)</option>
             <option value="Plan Empresas - $16.000 CLP/mes">Chatbot: Plan Empresas ($16.000 al mes)</option>
-            <option value="Chatbot + página web (no tengo web)">Chatbot y página web (aún no tengo web)</option>
+            <option value="Chatbot + página web nueva o rediseño">Chatbot y página web (nueva o rediseño)</option>
             <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
           </select>
           <input class="full" type="text" name="web" placeholder="Página web de tu centro (si tienes)" aria-label="Página web" />

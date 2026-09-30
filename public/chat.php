@@ -23,7 +23,7 @@ header('X-Content-Type-Options: nosniff');
 date_default_timezone_set('America/Santiago');
 
 // ===================== CONFIGURACIÓN =====================
-const GEMINI_MODEL   = 'gemini-3.6-flash';
+const GEMINI_MODEL   = 'gemini-3.5-flash-lite'; // antes: gemini-3.6-flash (si baja la calidad, volver a ese)
 const NOTIFY_EMAIL   = 'codigoraul@gmail.com'; // a quién llegan los contactos y avisos
 const SITE_NAME      = 'chatbotia.cl';
 const MONTHLY_LIMIT  = 3000;  // respuestas de IA al mes (0 = sin límite). Plan Pymes: 1000, Empresas: 2000

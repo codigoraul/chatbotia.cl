@@ -1,0 +1,54 @@
+---
+// Oferta secundaria en cada landing por rubro: diseño de página web nueva o rediseño de la actual.
+// El chatbot sigue siendo lo principal; esta sección va después de los planes.
+interface Item { icon: string; title: string; text: string }
+interface Props {
+  title: string;
+  intro: string;
+  items: Item[];
+  quoteTitle: string;
+  quoteParagraphs: string[];
+  href?: string;
+  cta?: string;
+  image?: { src: string; alt: string };
+}
+const {
+  title,
+  intro,
+  items,
+  quoteTitle,
+  quoteParagraphs,
+  href = "https://diseñopaginas.cl",
+  cta = "Ver diseño de páginas web",
+  image,
+} = Astro.props;
+---
+
+<section id="pagina-web" class="band">
+  <div class="container about-grid">
+    <div>
+      <h2>{title}</h2>
+      <p class="intro">{intro}</p>
+      <ul class="feature-list">
+        {items.map((it) => (
+          <li>
+            <span class="ico"><i class={`ti ${it.icon}`}></i></span>
+            <div><strong>{it.title}</strong><span>{it.text}</span></div>
+          </li>
+        ))}
+      </ul>
+      <p style="margin-top:22px"><a href={href} target="_blank" rel="noopener" class="btn btn-white">{cta} <i class="ti ti-arrow-up-right"></i></a></p>
+    </div>
+    <div>
+      {image && (
+        <figure class="photo"><img src={image.src} alt={image.alt} width="1500" height="1000" loading="lazy" /></figure>
+      )}
+      <div class="quote-box">
+        <h3>{quoteTitle}</h3>
+        {quoteParagraphs.map((p, i) => (
+          <p class={i === quoteParagraphs.length - 1 ? "mb-0" : ""}>{p}</p>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -3,6 +3,7 @@ import '../../styles/global.css';
 import '../../styles/vertical.css';
 import DemoChatWidget from '../../components/DemoChatWidget.astro';
 import { landings } from '../../data/landings';
+import WebOffer from '../../components/WebOffer.astro';
 
 const SITE = "https://chatbotia.cl";
 const URL = `${SITE}/abogados/`;
@@ -11,6 +12,7 @@ const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encode
 const PHONE_DISPLAY = "+56 9 6176 5268";
 const EMAIL = "codigoraul@gmail.com";
 const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
+const DISENO_WEB = "https://diseñopaginas.cl";
 
 // Palabra clave principal y secundaria (cámbialas aquí si los datos de búsqueda lo piden)
 const H1 = "Chatbot con IA para abogados";
@@ -56,6 +58,10 @@ const faqs = [
   {
     q: "¿Cuánto demora la instalación?",
     a: "Una vez que nos envías la información de tu estudio, el chatbot queda instalado y respondiendo en 24 horas.",
+  },
+  {
+    q: "¿Y si mi estudio no tiene página web o la mía está desactualizada?",
+    a: "Te la podemos crear o rediseñar: DiseñoPáginas.cl diseña páginas web para abogados y estudios jurídicos, y el chatbot se instala en ella. La página se cotiza aparte; el chatbot funciona en cualquier sitio web que permita agregar un código.",
   },
   {
     q: "¿Necesito saber programar?",
@@ -213,6 +219,7 @@ const schema = [
         <li><a href="#materias">Materias</a></li>
         <li><a href="#limites">Confidencialidad</a></li>
         <li><a href="#planes">Planes</a></li>
+        <li><a href="#pagina-web">Página web</a></li>
         <li><a href="#faq">Preguntas frecuentes</a></li>
         <li><a href="#contacto">Contacto</a></li>
       </ul>
@@ -385,6 +392,24 @@ const schema = [
     </div>
   </section>
 
+  <!-- Diseño o rediseño web (oferta secundaria) -->
+  <WebOffer
+    title="¿Tu estudio aún no tiene página web, o la actual quedó antigua?"
+    intro="El chatbot necesita una página donde vivir. DiseñoPáginas.cl puede crear la página web de tu estudio jurídico o rediseñar la que tienes, con tus materias, tu equipo y un botón de contacto, y dejarla con el chatbot ya instalado."
+    items={[
+      { icon: "ti-world", title: "Te encuentran en Google", text: "Quien busca un abogado de tu materia y tu ciudad puede llegar a tu sitio, no solo a un directorio." },
+      { icon: "ti-building-bank", title: "Transmite confianza", text: "Un diseño sobrio y actualizado que respalda tu trayectoria y deja claro qué materias atiendes." },
+      { icon: "ti-message-circle", title: "Con el chatbot incluido", text: "La página sale lista para atender consultas 24/7 desde el primer día." },
+    ]}
+    quoteTitle="Primero el chatbot, y la página si la necesitas"
+    quoteParagraphs={[
+      "Si ya tienes página web, instalamos el chatbot en ella y listo. Si no la tienes, o se ve antigua o no funciona bien en celulares, la creamos o la rediseñamos y la dejamos con el chatbot funcionando.",
+      "La página web se cotiza aparte, según lo que necesite tu estudio.",
+    ]}
+    href={DISENO_WEB}
+    image={{ src: `${IMG}/escritorio-documentos-estudio.webp`, alt: "Escritorio de un estudio jurídico con computador, tablet y documentos" }}
+  />
+
   <!-- FAQ -->
   <section id="faq" class="band">
     <div class="container">
@@ -428,6 +453,7 @@ const schema = [
             <option value="">¿Qué plan te interesa?</option>
             <option value="Plan Pymes - $12.000 CLP/mes">Plan Pymes ($12.000 al mes)</option>
             <option value="Plan Empresas - $16.000 CLP/mes">Plan Empresas ($16.000 al mes)</option>
+            <option value="Chatbot + página web nueva o rediseño">Chatbot y página web (nueva o rediseño)</option>
             <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
           </select>
           <input class="full" type="text" name="web" placeholder="Página web de tu estudio (si tienes)" aria-label="Página web" />
@@ -464,6 +490,7 @@ const schema = [
             <li><a href="#como-funciona">Cómo funciona</a></li>
             <li><a href="#materias">Materias</a></li>
             <li><a href="#planes">Planes y precios</a></li>
+            <li><a href="#pagina-web">Página web para tu estudio</a></li>
             <li><a href="/#rubros">Chatbot con IA para otros rubros</a></li>
             {landings.filter((l) => l.key !== "abogados").map((l) => (
               <li><a href={l.href}>{l.label}</a></li>
