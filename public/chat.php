@@ -23,7 +23,8 @@ header('X-Content-Type-Options: nosniff');
 date_default_timezone_set('America/Santiago');
 
 // ===================== CONFIGURACIÓN =====================
-const GEMINI_MODEL   = 'gemini-3.5-flash-lite'; // antes: gemini-3.6-flash (si baja la calidad, volver a ese)
+const GEMINI_MODEL   = 'gemini-3.6-flash';       // modelo principal
+const GEMINI_FALLBACK = 'gemini-3.5-flash-lite'; // si el principal falla o demora, se prueba este
 const NOTIFY_EMAIL   = 'codigoraul@gmail.com'; // a quién llegan los contactos y avisos
 const SITE_NAME      = 'chatbotia.cl';
 const MONTHLY_LIMIT  = 3000;  // respuestas de IA al mes (0 = sin límite). Plan Pymes: 1000, Empresas: 2000
@@ -213,20 +214,24 @@ $payload = [
     ],
 ];
 
-function callGemini($apiKey, $payload) {
-    $url = 'https://generativelanguage.googleapis.com/v1beta/models/' . GEMINI_MODEL . ':generateContent';
+function callGemini($apiKey, $payload, $model = GEMINI_MODEL, $timeout = 20) {
+    $url = 'https://generativelanguage.googleapis.com/v1beta/models/' . $model . ':generateContent';
     $ch = curl_init($url);
     curl_setopt_array($ch, [
         CURLOPT_POST => true,
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HTTPHEADER => ['Content-Type: application/json', 'x-goog-api-key: ' . $apiKey],
         CURLOPT_POSTFIELDS => json_encode($payload, JSON_UNESCAPED_UNICODE),
-        CURLOPT_TIMEOUT => 25,
+        CURLOPT_TIMEOUT => $timeout,
     ]);
     $raw = curl_exec($ch);
     $code = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $cerr = curl_error($ch);
     curl_close($ch);
-    if ($raw === false || $code !== 200) return null;
+    if ($raw === false || $code !== 200) {
+        error_log('[chatia] Gemini ' . $model . ' fallo http=' . $code . ' curl=' . $cerr . ' resp=' . substr((string) $raw, 0, 200));
+        return null;
+    }
     $data = json_decode($raw, true);
     $parts = $data['candidates'][0]['content']['parts'] ?? [];
     $text = '';
@@ -240,8 +245,7 @@ function callGemini($apiKey, $payload) {
 // Un reintento interno: la capa gratuita de Gemini a veces falla por sobrecarga
 $reply = callGemini($apiKey, $payload);
 if ($reply === null) {
-    usleep(700000);
-    $reply = callGemini($apiKey, $payload);
+    $reply = callGemini($apiKey, $payload, GEMINI_FALLBACK, 15);
 }
 
 if ($reply !== null) {
