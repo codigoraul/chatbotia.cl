@@ -1,7 +1,8 @@
 /* Landings por rubro: mismos colores Chatia + un color distintivo por rubro.
-   Abogados = azul (.v-law), Estéticas = rosado tierra (.v-beauty). El <body> lleva class="vertical v-xxx". Para otro rubro, define otra clase (ej. .v-dental). */
+   Abogados = azul (.v-law), Estéticas = rosado tierra (.v-beauty), Automotoras = verde petróleo (.v-auto). El <body> lleva class="vertical v-xxx". Para otro rubro, define otra clase (ej. .v-dental). */
 .v-law{--accent:#1F4E9E;--accent-deep:#173B7A;--accent-deep-rgb:23,59,122;--accent-soft:#E6EEFB}
 .v-beauty{--accent:#A65A5F;--accent-deep:#7F3F45;--accent-deep-rgb:127,63,69;--accent-soft:#F7E6E4}
+.v-auto{--accent:#1B4B82;--accent-deep:#122E54;--accent-deep-rgb:18,46,84;--accent-soft:#E3ECF7}
 
 .vertical .header-main{border-bottom:3px solid var(--accent)}
 
@@ -42,3 +43,12 @@
 @media (max-width:920px){.hero-photo{background-image:linear-gradient(rgba(245,200,66,var(--vm)),rgba(245,200,66,var(--vm))),var(--bg)}}
 /* Estéticas: velo más translúcido para que se note la foto */
 .v-beauty .hero-photo{--v1:.80;--v2:.60;--v3:.34;--vm:.78}
+/* Automotoras: velo azul marino (armoniza con el amarillo del logo) + texto claro */
+.v-auto .hero-photo{--v1:.86;--v2:.66;--v3:.34;--vm:.80;color:#fff;background-image:linear-gradient(100deg,rgba(18,46,84,var(--v1)) 0%,rgba(18,46,84,var(--v2)) 50%,rgba(18,46,84,var(--v3)) 100%),var(--bg)}
+@media (max-width:920px){.v-auto .hero-photo{background-image:linear-gradient(rgba(18,46,84,var(--vm)),rgba(18,46,84,var(--vm))),var(--bg)}}
+.v-auto .hero-photo h1,.v-auto .hero-photo .lead,.v-auto .hero-photo .hero-facts li{color:#fff}
+.v-auto .hero-photo .hero-facts li::before{background:var(--yellow)}
+.v-auto .hero-photo .vtag{background:var(--yellow);color:var(--dark)}
+.v-auto .hero-photo .btn-dark{background:var(--yellow);color:var(--dark)}
+.v-auto .hero-photo .btn-dark:hover{background:var(--yellow-deep)}
+.v-auto .hero-photo .chat-preview{color:var(--dark)}
