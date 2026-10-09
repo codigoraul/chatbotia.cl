@@ -195,8 +195,8 @@ textarea{resize:vertical}
 footer{background:var(--dark);color:rgba(255,255,255,.78);padding:56px 0 26px;font-size:.96rem}
 footer h3{color:#fff;font-size:1.05rem;margin-bottom:16px}
 .footer-logo{height:44px;width:auto;margin-bottom:16px}
-.footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:40px}
-@media (max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
+.footer-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:40px;margin-bottom:40px}
+@media (max-width:1000px){.footer-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:600px){.footer-grid{grid-template-columns:1fr}}
 .footer-links{list-style:none;margin:0;padding:0}
 .footer-links li{margin-bottom:9px}

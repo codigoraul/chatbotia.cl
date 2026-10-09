@@ -4,7 +4,7 @@ import path from 'node:path';
 import '../../styles/global.css';
 import '../../styles/vertical.css';
 import DemoChatWidget from '../../components/DemoChatWidget.astro';
-import { landings } from '../../data/landings';
+import { landings, ciudades } from '../../data/landings';
 import WebOffer from '../../components/WebOffer.astro';
 
 const SITE = "https://chatbotia.cl";
@@ -499,16 +499,19 @@ const schema = [
           <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de centros de estética, pymes y empresas de todo Chile, para que ningún cliente se quede sin respuesta.</p>
         </div>
         <div>
-          <h3>En esta página</h3>
+          <h3>Chatbot por rubro</h3>
           <ul class="footer-links">
-            <li><a href="#que-es">Chat con IA para centros de estética</a></li>
-            <li><a href="#como-funciona">Cómo funciona</a></li>
-            <li><a href="#servicios">Servicios</a></li>
-            <li><a href="#planes">Planes y precios</a></li>
-            <li><a href="#pagina-web">Página web para tu centro</a></li>
-            <li><a href="/#rubros">Chatbot con IA para otros rubros</a></li>
-            {landings.filter((l) => l.key !== "estetica").map((l) => (
+            {landings.map((l) => (
               <li><a href={l.href}>{l.label}</a></li>
+            ))}
+            <li><a href="/#rubros">Ver todos los rubros</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chatbot por ciudad</h3>
+          <ul class="footer-links">
+            {ciudades.map((c) => (
+              <li><a href={c.href}>{c.label}</a></li>
             ))}
           </ul>
         </div>

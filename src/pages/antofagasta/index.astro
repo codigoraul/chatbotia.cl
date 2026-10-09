@@ -1,0 +1,614 @@
+---
+import '../../styles/global.css';
+import '../../styles/vertical.css';
+import DemoChatWidget from '../../components/DemoChatWidget.astro';
+import { landings, ciudades } from '../../data/landings';
+import WebOffer from '../../components/WebOffer.astro';
+
+const SITE = "https://chatbotia.cl";
+const URL = `${SITE}/antofagasta/`;
+const WA_NUMBER = "56961765268";
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/antofagasta. Me interesa un chatbot con IA para mi empresa en Antofagasta.")}`;
+const PHONE_DISPLAY = "+56 9 6176 5268";
+const EMAIL = "codigoraul@gmail.com";
+const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
+const DISENO_WEB = "https://diseñopaginas.cl";
+
+const H1 = "Chatbot con IA en Antofagasta";
+const TITLE = "Chatbot con IA en Antofagasta: atención y cotizaciones 24/7 | Chatia";
+const DESCRIPTION = "Chatbot con IA para empresas y negocios de Antofagasta, Calama y la región: responde consultas, recibe solicitudes de cotización y atiende fuera de turno. Desde $12.000 al mes.";
+const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
+const IMG = "/assets/img";
+
+const rubros = [
+  {
+    "icon": "ti-building-factory-2",
+    "title": "Proveedores y servicios industriales",
+    "text": "Mantención, arriendo de equipos, transporte, insumos y servicios a faenas: recibe solicitudes de cotización ordenadas.",
+    "q": "¿Hacen servicio en terreno en Calama?"
+  },
+  {
+    "icon": "ti-stethoscope",
+    "title": "Clínicas, centros médicos y dentales",
+    "text": "Prestaciones, convenios, horarios y solicitud de hora, sin saturar el teléfono de recepción.",
+    "q": "¿Atienden con Isapre o solo particular?"
+  },
+  {
+    "icon": "ti-key",
+    "title": "Arriendos e inmobiliarias",
+    "text": "Departamentos, habitaciones y propiedades: filtra al interesado por zona, presupuesto y fecha de ingreso.",
+    "q": "¿Hay departamentos amoblados en el centro?"
+  },
+  {
+    "icon": "ti-compass",
+    "title": "Turismo y tours",
+    "text": "Agencias y alojamientos para visitar San Pedro de Atacama y el desierto: salidas, valores y disponibilidad.",
+    "q": "¿Tienen tour a los géiseres del Tatio?"
+  },
+  {
+    "icon": "ti-tools",
+    "title": "Talleres, repuestos y comercio",
+    "text": "Ferreterías, mecánicos y tiendas: stock, despacho, horarios y medios de pago al instante.",
+    "q": "¿Tienen este repuesto y despachan hoy?"
+  },
+  {
+    "icon": "ti-tools-kitchen-2",
+    "title": "Restaurantes y eventos",
+    "text": "Carta, reservas, almuerzos de empresa y banquetes: consultas resueltas antes de que el cliente cambie de local.",
+    "q": "¿Hacen almuerzos para 30 personas?"
+  }
+];
+
+const faqs = [
+  {
+    "q": "¿Sirve un chatbot con IA para una empresa que vende a otras empresas?",
+    "a": "Sí. En ventas B2B el chatbot es especialmente útil para ordenar las solicitudes de cotización: pide nombre de la empresa, persona de contacto, qué necesita y la urgencia, y te lo envía por correo. Tu equipo parte con la información completa en vez de empezar de cero."
+  },
+  {
+    "q": "¿Tienen oficina en Antofagasta?",
+    "a": "No: Chatia trabaja 100% online. Atendemos empresas de Antofagasta, Calama, Mejillones y toda la región igual que al resto del país, coordinando por WhatsApp o correo. El chatbot queda instalado en tu sitio web en 24 horas desde que nos envías la información."
+  },
+  {
+    "q": "¿El chatbot entrega precios o cierra ventas solo?",
+    "a": "Solo informa lo que tú autorices. Puede mostrar valores referenciales o limitarse a tomar la solicitud para que tu equipo envíe una cotización formal. No inventa precios ni plazos."
+  },
+  {
+    "q": "¿Qué pasa si escriben de noche o en fin de semana?",
+    "a": "El chatbot responde igual, a cualquier hora, y deja registrada la consulta. Al día siguiente tu equipo la ve en su correo con la conversación completa."
+  },
+  {
+    "q": "¿Cuánto cuesta?",
+    "a": "Dos planes fijos: $12.000 CLP al mes (1.000 respuestas, 1 chatbot) y $16.000 CLP al mes (2.000 respuestas, hasta 2 chatbots). La instalación es un pago único de $4.000 CLP. Pago por transferencia, con boleta de honorarios y sin permanencia forzosa."
+  },
+  {
+    "q": "¿Se puede usar en un sitio hecho en WordPress u otra plataforma?",
+    "a": "Sí. Funciona en WordPress, sitios a medida y la mayoría de las plataformas que permiten agregar un código. Nosotros lo instalamos."
+  },
+  {
+    "q": "¿Y si el chatbot no sabe la respuesta?",
+    "a": "Está configurado para no inventar. Si no tiene la información, lo dice y le pide al visitante su nombre y contacto para que tu empresa le responda."
+  },
+  {
+    "q": "¿Necesito una página web nueva?",
+    "a": "Solo si no tienes una o la actual no se puede editar. En ese caso DiseñoPáginas.cl puede crearla o rediseñarla, y se cotiza aparte."
+  }
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Chatbot con IA para empresas de Antofagasta",
+    "serviceType": "Chatbot con inteligencia artificial para páginas web",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chatia",
+      "url": SITE,
+      "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
+      "email": EMAIL,
+      "telephone": "+56961765268",
+      "sameAs": [FACEBOOK],
+    },
+    "areaServed": [
+  {
+    "@type": "City",
+    "name": "Antofagasta"
+  },
+  {
+    "@type": "City",
+    "name": "Calama"
+  },
+  {
+    "@type": "City",
+    "name": "Mejillones"
+  },
+  {
+    "@type": "AdministrativeArea",
+    "name": "Región de Antofagasta"
+  }
+],
+    "offers": [
+      { "@type": "Offer", "name": "Plan Pymes", "price": "12000", "priceCurrency": "CLP" },
+      { "@type": "Offer", "name": "Plan Empresas", "price": "16000", "priceCurrency": "CLP" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chatia", "item": `${SITE}/` },
+      { "@type": "ListItem", "position": 2, "name": H1, "item": URL },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  },
+];
+---
+
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION} />
+  <link rel="canonical" href={URL} />
+  <meta name="theme-color" content="#F5C842" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={URL} />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content={DESCRIPTION} />
+  <meta property="og:image" content={OG_IMAGE} />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Chatia" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body class="vertical vertical v-city">
+  <div class="topbar">
+    <div class="container">
+      <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+      <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+      <span><i class="ti ti-map-pin"></i> Atendemos Antofagasta y todo Chile</span>
+      <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
+    </div>
+  </div>
+
+  <header class="header-main">
+    <div class="container">
+      <a href="/" class="brand" aria-label="Chatia, inicio">
+        <img src={`${IMG}/brand/chatia-logo-h.webp`} alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
+      </a>
+      <div class="header-cta">
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+        <a href="#contacto" class="btn btn-yellow">Cotizar gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="vtag"><i class="ti ti-map-pin"></i> Antofagasta y Región de Antofagasta</span>
+        <h1>{H1}</h1>
+        <p class="lead">Un asistente con inteligencia artificial en la web de tu empresa: responde a clientes y proveedores a cualquier hora, recibe solicitudes de cotización con los datos completos y te las deja listas para que tu equipo comercial las retome en horario de oficina.</p>
+        <div class="hero-buttons">
+          <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+          <a href="#planes" class="btn btn-white btn-lg">Ver planes</a>
+        </div>
+        <ul class="hero-facts">
+          <li>Listo en 24 horas</li>
+          <li>Desde $12.000 al mes</li>
+          <li>Sin permanencia</li>
+        </ul>
+      </div>
+
+      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA para una empresa de servicios industriales en Antofagasta">
+        <div class="chat-preview-head">
+          <img src={`${IMG}/brand/chatia-avatar.webp`} alt="" width="40" height="40" />
+          <div>
+            <strong>Asistente Servicios Industriales</strong>
+            <span><span class="dot"></span> Responde al instante</span>
+          </div>
+        </div>
+        <div class="chat-preview-body">
+          <div class="cp-msg cp-user">Buenas noches, necesito cotizar mantención de equipos para una faena cerca de Calama.</div>
+          <div class="cp-msg cp-bot">Buenas noches. Podemos ayudarte con eso. Para armar la cotización, ¿me indicas el nombre de tu empresa, un contacto y qué equipos son?</div>
+          <div class="cp-msg cp-user">Minera Ejemplo, Marcela Rojas, 9 5555 1234. Son tres bombas.</div>
+          <div class="cp-msg cp-bot">Gracias, Marcela. Dejé tu solicitud registrada y el equipo comercial te contactará mañana a primera hora con la cotización.</div>
+        </div>
+        <p class="cp-note">Ejemplo de un chatbot con IA para una empresa de servicios industriales</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="subnav" aria-label="Secciones">
+    <div class="container">
+      <ul>
+        <li><a href="#que-es">Qué es</a></li>
+        <li><a href="#rubros">Rubros</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#pagina-web">Página web</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Qué es -->
+  <section id="que-es" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>Atención y cotizaciones, aunque tu equipo esté en turno o fuera de la oficina</h2>
+        <p class="intro">En Antofagasta muchas decisiones de compra se toman fuera del horario de oficina: un jefe de mantención escribe después de su turno, un cliente consulta desde otra ciudad. Un chatbot con IA en tu página web contesta en el momento, ordena lo que necesita cada persona y deja el requerimiento listo para tu equipo.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-file-invoice"></i></span>
+            <div><strong>Solicitudes de cotización completas</strong><span>Pide empresa, contacto, qué se necesita y la urgencia, para que no pierdas tiempo yendo y viniendo con correos.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-clock-hour-9"></i></span>
+            <div><strong>Atiende fuera de horario</strong><span>Responde en la noche, el fin de semana y entre turnos, sin que nadie tenga que quedarse conectado.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-list-details"></i></span>
+            <div><strong>Informa lo que tú autorizas</strong><span>Servicios, cobertura, certificaciones que quieras mostrar y datos de contacto, sin inventar nada.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-mail-forward"></i></span>
+            <div><strong>Te llega por correo</strong><span>Cada contacto llega con la conversación completa, listo para derivarlo al área correcta.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <figure class="photo"><img src={`${IMG}/ciudades/antofagasta-costa.webp`} alt="Vista panorámica de la costa de Antofagasta, en el norte de Chile" width="1500" height="1000" loading="lazy" /></figure>
+      <div class="quote-box">
+        <h3>Una consulta sin respuesta rápida se cotiza con otro proveedor</h3>
+        <p>Quien necesita un servicio o un producto urgente suele pedir precio a varios proveedores a la vez y avanza con el primero que responde con claridad.</p>
+        <p class="mb-0">Con el chatbot, tu empresa responde primero, aunque sea para tomar los datos, y tu equipo llega a la cotización con la información en la mano.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rubros -->
+  <section id="rubros" class="band band-yellow">
+    <div class="container">
+      <div class="band-head">
+        <h2>Para los negocios que mueven Antofagasta</h2>
+        <p>Empresas de servicios, comercio, salud y turismo: el chatbot se arma con tu información y las preguntas reales de tus clientes.</p>
+      </div>
+      <div class="rubros rubros-3">
+        {rubros.map((r) => (
+          <div class="rubro">
+            <div class="bubble">{r.q}</div>
+            <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+      <p class="plans-note" style="margin-top:24px">
+        Si tu rubro es otro, mira también las páginas de
+        {landings.map((l, i) => (
+          <>{i > 0 ? (i === landings.length - 1 ? " y " : ", ") : " "}<a href={l.href}>{l.short}</a></>
+        ))}.
+      </p>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona" class="band band-dark">
+    <div class="container">
+      <div class="band-head">
+        <h2>De la primera consulta a la cotización, en tres pasos</h2>
+        <p>Sin instalar nada en tus equipos: lo hacemos nosotros, a distancia.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Recogemos tu información</h3>
+          <p>Servicios, cobertura, horarios y las preguntas que más recibes. Tú defines qué se puede decir y qué se deriva a una persona.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Entrenamos al asistente</h3>
+          <p>Lo configuramos para que responda con tu información, pida los datos que necesitas y derive cuando no sabe.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Lo instalamos en tu web</h3>
+          <p>Queda funcionando en 24 horas y cada solicitud llega a tu correo con la conversación completa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planes -->
+  <section id="planes" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Planes para empresas y pymes de Antofagasta</h2>
+        <p>Precios fijos en pesos chilenos, sin letra chica.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Pymes y negocios</h3>
+          <p class="price">$12.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> 1 chatbot instalado en tu página web</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualización de la información 1 vez al mes</li>
+          </ul>
+          <a href="#contacto" class="btn btn-white btn-block" data-plan="Plan Pymes - $12.000 CLP/mes">Cotizar plan Pymes</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Más elegido</span>
+          <h3>Empresas con más consultas</h3>
+          <p class="price">$16.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Hasta 2 chatbots (otro sitio o sucursal)</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualizaciones de información ilimitadas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-dark btn-block" data-plan="Plan Empresas - $16.000 CLP/mes">Cotizar plan Empresas</a>
+        </div>
+      </div>
+      <p class="plans-note">Instalación: pago único de $4.000 CLP. Mensualidad por transferencia bancaria, con boleta de honorarios. Sin permanencia forzosa.</p>
+    </div>
+  </section>
+
+  <!-- Atención online / cómo trabajamos -->
+  <section id="online" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>Atendemos Antofagasta y toda la región, 100% online</h2>
+        <p class="intro">No necesitamos una reunión presencial: coordinamos por WhatsApp o correo, configuramos el chatbot a distancia y lo dejamos funcionando en tu sitio web.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-brand-whatsapp"></i></span>
+            <div><strong>Trato directo</strong><span>Conversas con una persona, no con un formulario sin respuesta.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-map-2"></i></span>
+            <div><strong>Antofagasta, Calama, Mejillones y más</strong><span>Empresas y negocios de toda la Región de Antofagasta.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-adjustments"></i></span>
+            <div><strong>Tú decides qué informa</strong><span>Valores, plazos y servicios: solo lo que autorices publicar.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-calendar-off"></i></span>
+            <div><strong>Sin permanencia forzosa</strong><span>Plan mensual que puedes ajustar según cómo evolucione tu negocio.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <div class="quote-box">
+        <h3>Escríbele como lo haría un cliente tuyo</h3>
+        <p>Abre el chat de esta página y pídele que actúe como el asistente de una empresa de servicios. Pregúntale por una cotización a ver cómo toma los datos.</p>
+        <p class="mb-0"><button type="button" class="btn btn-dark" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button></p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Diseño o rediseño web -->
+  <WebOffer
+    title="¿Tu empresa no tiene sitio web, o el actual ya no refleja lo que ofreces?"
+    intro="El chatbot necesita una web donde trabajar. DiseñoPáginas.cl puede crear o rediseñar el sitio de tu empresa en Antofagasta, con tus servicios y datos de contacto claros, y dejarlo con el chatbot instalado."
+    items={[
+      {icon: "ti-world", title: "Te encuentran en Google", text: "Proveedores y clientes que buscan tu servicio en la región llegan a tu sitio, no solo a una red social."},
+      {icon: "ti-certificate", title: "Presenta tu empresa con seriedad", text: "Servicios, cobertura y respaldo bien ordenados, pensados para quien compara proveedores."},
+      {icon: "ti-device-mobile", title: "Cómodo en el celular", text: "Quien consulta entre turnos lo hace desde el teléfono; la web se ve y funciona bien ahí."},
+    ]}
+    quoteTitle="Primero el chatbot; la web, solo si la necesitas"
+    quoteParagraphs={["Si ya tienes un sitio, instalamos el chatbot en él. Si no tienes o se ve antiguo, lo creamos o rediseñamos y sale con el chatbot funcionando.", "La página web se cotiza aparte, según lo que necesite tu empresa."]}
+    href={DISENO_WEB}
+    image={{ src: `${IMG}/heroes/chatbot-whatsapp-ia-hero-v3.webp`, alt: "Página web con chatbot de inteligencia artificial en un celular" }}
+  />
+
+  <!-- FAQ -->
+  <section id="faq" class="band">
+    <div class="container">
+      <div class="band-head">
+        <h2>Preguntas frecuentes sobre el chatbot en Antofagasta</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f, i) => (
+          <div class={`faq-item${i === 0 ? " open" : ""}`}>
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? "true" : "false"}>
+              {f.q}
+              <i class="ti ti-chevron-down chev"></i>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">{f.a}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="band band-soft">
+    <div class="container contact-grid">
+      <div>
+        <h2>Cotiza el chatbot para tu empresa en Antofagasta</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos a qué se dedica tu empresa y te enviamos una propuesta sin compromiso.</p>
+        <div class="contact-direct">
+          <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 class="contact-form-title">Formulario de contacto</h3>
+        <form class="form-grid" id="contactForm">
+          <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+          <input type="tel" name="fono" placeholder="Teléfono" aria-label="Teléfono" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <select name="plan" id="planSelect" aria-label="Plan de interés" required>
+            <option value="">¿Qué plan te interesa?</option>
+            <option value="Plan Pymes - $12.000 CLP/mes">Plan Pymes ($12.000 al mes)</option>
+            <option value="Plan Empresas - $16.000 CLP/mes">Plan Empresas ($16.000 al mes)</option>
+            <option value="Chatbot + página web nueva o rediseño">Chatbot y página web (nueva o rediseño)</option>
+            <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
+          </select>
+          <input class="full" type="text" name="web" placeholder="Página web de tu negocio (si tienes)" aria-label="Página web" />
+          <textarea class="full" name="mensaje" placeholder="¿A qué se dedica tu empresa y qué te gustaría que respondiera el chatbot?" aria-label="Mensaje" rows="4" required></textarea>
+          <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
+        </form>
+        <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band cta">
+    <div class="container cta-inner">
+      <h2>Que ninguna solicitud se enfríe mientras tu equipo está en turno</h2>
+      <div class="cta-buttons">
+        <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src={`${IMG}/brand/chatia-logo-h-white.webp`} alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de empresas y pymes de Antofagasta y todo Chile, para que ninguna consulta se quede sin respuesta.</p>
+        </div>
+        <div>
+          <h3>Chatbot por rubro</h3>
+          <ul class="footer-links">
+            {landings.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+            <li><a href="/#rubros">Ver todos los rubros</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chatbot por ciudad</h3>
+          <ul class="footer-links">
+            {ciudades.map((c) => (
+              <li><a href={c.href}>{c.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
+            <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
+            <p><i class="ti ti-map-pin"></i> Atendemos Antofagasta y todo Chile</p>
+            <p><i class="ti ti-clock"></i> Lunes a sábado</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
+        <p class="mb-0">Un servicio de <a href="https://diseñopaginas.cl" target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <DemoChatWidget
+    vertical="antofagasta"
+    botStatus="Asistente IA · Antofagasta"
+    welcomeMessage="¡Hola! 👋 Soy Chatia, un chatbot con IA. Así atendería las consultas y cotizaciones de tu empresa en Antofagasta, 24/7. Pídeme que actúe como asistente de tu rubro, o pregúntame por el servicio."
+    quickReplies={[
+  {
+    "label": "Actúa como asistente de una empresa de servicios",
+    "reply": ""
+  },
+  {
+    "label": "Quiero cotizar un chatbot",
+    "reply": ""
+  },
+  {
+    "label": "¿Cuánto cuesta?",
+    "reply": ""
+  },
+  {
+    "label": "¿Tienen oficina en Antofagasta?",
+    "reply": ""
+  }
+]}
+    disclaimer="Esta es una demo real con IA. Tu chatbot se entrena con la información de tu negocio."
+  />
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const btn = item.querySelector('.faq-q');
+      btn?.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-open-chat]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const root = document.getElementById('demoChat');
+        const bubble = document.getElementById('demoChatBubble');
+        if (root && bubble && !root.classList.contains('is-open')) bubble.click();
+      });
+    });
+
+    const planSelect = document.getElementById('planSelect') as HTMLSelectElement | null;
+    document.querySelectorAll('[data-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (planSelect) planSelect.value = (btn as HTMLElement).dataset.plan || '';
+      });
+    });
+
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const web = String(data.get('web') || '').trim();
+      const text =
+        `Hola, los contacto desde chatbotia.cl/antofagasta.\n` +
+        `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
+        `Plan: ${data.get('plan')}\n` +
+        (web ? `Web: ${web}\n` : '') +
+        `Empresa: ${data.get('mensaje')}`;
+      window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
+    });
+  </script>
+</body>
+</html>

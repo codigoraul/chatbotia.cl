@@ -6,70 +6,61 @@ import { landings, ciudades } from '../../data/landings';
 import WebOffer from '../../components/WebOffer.astro';
 
 const SITE = "https://chatbotia.cl";
-const URL = `${SITE}/abogados/`;
+const URL = `${SITE}/la-serena/`;
 const WA_NUMBER = "56961765268";
-const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/abogados. Me interesa un chatbot con IA para mi estudio jurídico.")}`;
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/la-serena. Me interesa un chatbot con IA para mi negocio en La Serena.")}`;
 const PHONE_DISPLAY = "+56 9 6176 5268";
 const EMAIL = "codigoraul@gmail.com";
 const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
 const DISENO_WEB = "https://diseñopaginas.cl";
 
-// Palabra clave principal y secundaria (cámbialas aquí si los datos de búsqueda lo piden)
-const H1 = "Chatbot con IA para abogados";
-const TITLE = "Chatbot con IA para Abogados y Estudios Jurídicos | Chatia";
-const DESCRIPTION = "Chat con IA para abogados: atiende consultas 24/7 en la web de tu estudio jurídico, filtra por materia y agenda la primera reunión. Desde $12.000 al mes en Chile.";
-const OG_IMAGE = `${SITE}/assets/img/abogados/og-chatbot-ia-abogados.jpg`;
-const IMG = "/assets/img/abogados";
+const H1 = "Chatbot con IA en La Serena";
+const TITLE = "Chatbot con IA en La Serena y Región de Coquimbo | Chatia";
+const DESCRIPTION = "Chat con IA para negocios de La Serena y Coquimbo: atiende a tus clientes 24/7 en tu página web, responde consultas y te deja sus datos. Desde $12.000 al mes, 100% online.";
+const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
+const IMG = "/assets/img";
 
-const materias = [
-  { icon: "ti-users", title: "Derecho de familia", text: "Pensión de alimentos, divorcio, cuidado personal y régimen de visitas.", q: "¿Cómo se pide una pensión de alimentos?" },
-  { icon: "ti-file-certificate", title: "Herencias y posesión efectiva", text: "Qué documentos reunir y cómo se agenda la primera reunión.", q: "¿Hacen trámites de herencia?" },
-  { icon: "ti-briefcase", title: "Derecho laboral", text: "Despidos, finiquitos y cobro de prestaciones.", q: "Me despidieron, ¿qué puedo hacer?" },
-  { icon: "ti-home", title: "Arriendos y propiedades", text: "Contratos, desahucios y compraventas.", q: "¿Revisan contratos de arriendo?" },
-  { icon: "ti-gavel", title: "Civil y cobranza", text: "Deudas, demandas y cobro de facturas.", q: "¿Cuánto cuesta una demanda de cobro?" },
-  { icon: "ti-building", title: "Empresas y tributario", text: "Constitución de sociedades y asesoría permanente.", q: "¿Crean sociedades SpA?" },
+const rubros = [
+  { icon: "ti-beach", title: "Turismo y alojamiento", text: "Cabañas, hoteles, hostales, tours y excursiones al Valle del Elqui: precios, disponibilidad y cómo llegar, también fuera de horario.", q: "¿Tienen cabañas para 4 personas en enero?" },
+  { icon: "ti-stethoscope", title: "Clínicas, dentistas y salud", text: "Prestaciones, horarios, convenios y solicitud de hora, sin que la secretaria deba contestar lo mismo todo el día.", q: "¿Atienden por Fonasa? ¿Cómo pido hora?" },
+  { icon: "ti-home", title: "Inmobiliarias y corredores", text: "Propiedades, parcelas y arriendos: el bot filtra al interesado y deja nombre, teléfono y qué busca.", q: "¿Tienen parcelas con agua cerca de La Serena?" },
+  { icon: "ti-tools-kitchen-2", title: "Restaurantes y gastronomía", text: "Carta, horarios, reservas para grupos y eventos, en el momento en que el cliente decide dónde ir.", q: "¿Pueden reservar para 10 personas el sábado?" },
+  { icon: "ti-shopping-bag", title: "Comercio y servicios", text: "Ferreterías, ópticas, talleres y tiendas: stock, despacho a Coquimbo y la región, medios de pago.", q: "¿Despachan a Coquimbo y Ovalle?" },
+  { icon: "ti-school", title: "Academias y educación", text: "Cursos, matrículas, horarios y valores, con los datos del interesado listos para contactar.", q: "¿Cuándo parte el próximo curso?" },
 ];
 
 const faqs = [
   {
-    q: "¿Qué es un chatbot con IA para abogados?",
-    a: "Es un chat con inteligencia artificial que se instala en la página web de tu estudio y conversa con las personas que llegan con una consulta legal. Se entrena con la información real de tu estudio (materias, horarios, ubicación y preguntas frecuentes), responde al instante y deja los datos del cliente listos para que lo contactes.",
+    q: "¿Qué es un chatbot con IA y cómo me sirve en La Serena?",
+    a: "Es un chat con inteligencia artificial que se instala en la página web de tu negocio y conversa con quienes la visitan. Se entrena con tu información real (servicios, precios, horarios, ubicación, preguntas frecuentes), responde al instante y te deja los datos del interesado por correo. En una ciudad con tanto turismo y consultas fuera de horario, evita que se pierdan clientes que escriben de noche, en fin de semana o en plena temporada alta.",
   },
   {
-    q: "¿El chatbot entrega asesoría legal?",
-    a: "No. El chatbot no interpreta la ley ni opina sobre las probabilidades de un caso: orienta de forma general (qué materias atiende el estudio, cómo agendar, qué documentos conviene llevar) y recopila los datos del consultante para que el abogado responda. No reemplaza al abogado, lo ayuda a no perder consultas.",
+    q: "¿Tienen oficina en La Serena?",
+    a: "No: Chatia trabaja 100% online. Atendemos negocios de La Serena, Coquimbo y toda la Región de Coquimbo igual que al resto de Chile: coordinamos por WhatsApp o correo, configuramos tu chatbot a distancia y queda instalado en tu página web en 24 horas.",
   },
   {
-    q: "¿Qué pasa con la información que cuentan los clientes?",
-    a: "Las conversaciones se guardan solo para el historial de tu estudio y no se venden ni se comparten con terceros. Además, el chatbot puede configurarse para invitar al consultante a dejar solo lo básico (nombre, teléfono y materia) y reservar los detalles del caso para la reunión con el abogado.",
+    q: "¿Cuánto cuesta un chatbot con IA?",
+    a: "Tenemos dos planes fijos: $12.000 CLP mensuales (1.000 respuestas al mes, 1 chatbot) y $16.000 CLP mensuales (2.000 respuestas al mes, hasta 2 chatbots). La instalación es un pago único de $4.000 CLP. Pago mensual por transferencia, con boleta de honorarios y sin permanencia forzosa.",
   },
   {
-    q: "¿Puede agendar la primera reunión?",
-    a: "No agenda directamente en un calendario: toma el nombre, teléfono, la materia y un resumen breve, y te avisa por correo para que confirmes la hora con el cliente.",
+    q: "¿Funciona si mi negocio es de temporada, por ejemplo turismo?",
+    a: "Sí. Como los planes son mensuales y sin permanencia forzosa, puedes mantener el chatbot durante la temporada alta y ajustar después. Además, la información (tarifas, disponibilidad, horarios de temporada) se actualiza cuando lo necesites.",
   },
   {
-    q: "¿Puede informar mis honorarios?",
-    a: "Solo si tú quieres. Puedes indicar valores referenciales por tipo de trámite, o dejar que el bot invite a una primera reunión sin mencionar montos. El chatbot usa únicamente la información que tú autorizas.",
-  },
-  {
-    q: "¿Cuánto cuesta un chatbot con IA para mi estudio jurídico?",
-    a: "Tenemos dos planes fijos: $12.000 CLP mensuales para abogados independientes y estudios pequeños (1.000 respuestas al mes, 1 chatbot) y $16.000 CLP mensuales para estudios con más volumen (2.000 respuestas al mes, hasta 2 chatbots). La instalación es un pago único de $4.000 CLP. Pago mensual por transferencia, con boleta de honorarios y sin permanencia forzosa.",
+    q: "¿Qué pasa si el chatbot no sabe una respuesta?",
+    a: "Está configurado para no inventar. Si no tiene la información, se lo dice al visitante y lo invita a dejar su nombre y contacto para que tu negocio le responda.",
   },
   {
     q: "¿Cuánto demora la instalación?",
-    a: "Una vez que nos envías la información de tu estudio, el chatbot queda instalado y respondiendo en 24 horas.",
+    a: "Una vez que nos envías la información de tu negocio, el chatbot queda instalado y respondiendo en 24 horas.",
   },
   {
-    q: "¿Y si mi estudio no tiene página web o la mía está desactualizada?",
-    a: "Te la podemos crear o rediseñar: DiseñoPáginas.cl diseña páginas web para abogados y estudios jurídicos, y el chatbot se instala en ella. La página se cotiza aparte; el chatbot funciona en cualquier sitio web que permita agregar un código.",
+    q: "¿Y si mi negocio no tiene página web o la mía está desactualizada?",
+    a: "Te la podemos crear o rediseñar: DiseñoPáginas.cl diseña páginas web para negocios de todo Chile y el chatbot se instala en ella. La página se cotiza aparte; el chatbot funciona en cualquier sitio web que permita agregar un código.",
   },
   {
     q: "¿Necesito saber programar?",
     a: "No. Nosotros configuramos el chatbot, lo entrenamos y lo instalamos en tu página web. Funciona en WordPress, sitios a medida y la mayoría de plataformas que permiten agregar un código.",
-  },
-  {
-    q: "¿Qué pasa si el chatbot no sabe una respuesta?",
-    a: "Está configurado para no inventar. Si no tiene la información, se lo dice al consultante y lo invita a dejar su nombre y contacto para que el estudio le responda.",
   },
   {
     q: "¿Funciona con WhatsApp?",
@@ -81,8 +72,8 @@ const schema = [
   {
     "@context": "https://schema.org",
     "@type": "Service",
-    "name": "Chatbot con IA para abogados y estudios jurídicos",
-    "serviceType": "Chatbot con inteligencia artificial para páginas web de abogados",
+    "name": "Chatbot con IA para negocios de La Serena",
+    "serviceType": "Chatbot con inteligencia artificial para páginas web",
     "provider": {
       "@type": "Organization",
       "name": "Chatia",
@@ -92,7 +83,11 @@ const schema = [
       "telephone": "+56961765268",
       "sameAs": [FACEBOOK],
     },
-    "areaServed": { "@type": "Country", "name": "Chile" },
+    "areaServed": [
+      { "@type": "City", "name": "La Serena" },
+      { "@type": "City", "name": "Coquimbo" },
+      { "@type": "AdministrativeArea", "name": "Región de Coquimbo" },
+    ],
     "offers": [
       { "@type": "Offer", "name": "Plan Pymes", "price": "12000", "priceCurrency": "CLP" },
       { "@type": "Offer", "name": "Plan Empresas", "price": "16000", "priceCurrency": "CLP" },
@@ -103,7 +98,7 @@ const schema = [
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Chatia", "item": `${SITE}/` },
-      { "@type": "ListItem", "position": 2, "name": "Chatbot con IA para abogados", "item": URL },
+      { "@type": "ListItem", "position": 2, "name": "Chatbot con IA en La Serena", "item": URL },
     ],
   },
   {
@@ -148,12 +143,12 @@ const schema = [
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
   <script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </head>
-<body class="vertical v-law">
+<body class="vertical v-city">
   <div class="topbar">
     <div class="container">
       <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
       <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
-      <span><i class="ti ti-map-pin"></i> Atendemos todo Chile</span>
+      <span><i class="ti ti-map-pin"></i> Atendemos La Serena y todo Chile</span>
       <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
     </div>
   </div>
@@ -161,7 +156,7 @@ const schema = [
   <header class="header-main">
     <div class="container">
       <a href="/" class="brand" aria-label="Chatia, inicio">
-        <img src="/assets/img/brand/chatia-logo-h.webp" alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
+        <img src={`${IMG}/brand/chatia-logo-h.webp`} alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
       </a>
       <div class="header-cta">
         <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
@@ -171,15 +166,15 @@ const schema = [
   </header>
 
   <!-- Hero -->
-  <section class="hero hero-photo" style={`--bg:url('${IMG}/abogados-mazo-balanza.webp')`}>
+  <section class="hero">
     <div class="container hero-grid">
       <div>
-        <span class="vtag"><i class="ti ti-scale"></i> Para abogados y estudios jurídicos</span>
+        <span class="vtag"><i class="ti ti-map-pin"></i> La Serena y Región de Coquimbo</span>
         <h1>{H1}</h1>
         <p class="lead">
-          Chat con IA para el sitio web de tu estudio jurídico: atiende a quienes llegan con
-          una consulta las 24 horas, los orienta según la materia y te deja sus datos listos
-          para agendar la primera reunión.
+          Chat con IA para la página web de tu negocio en La Serena o Coquimbo: atiende a
+          tus clientes las 24 horas, responde sus preguntas y te deja sus datos listos para
+          cerrar la venta, incluso en plena temporada alta o fuera de horario.
         </p>
         <div class="hero-buttons">
           <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
@@ -192,21 +187,21 @@ const schema = [
         </ul>
       </div>
 
-      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA para un estudio jurídico">
+      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA para un negocio de turismo en La Serena">
         <div class="chat-preview-head">
-          <img src="/assets/img/brand/chatia-avatar.webp" alt="" width="40" height="40" />
+          <img src={`${IMG}/brand/chatia-avatar.webp`} alt="" width="40" height="40" />
           <div>
-            <strong>Asistente Estudio Jurídico</strong>
+            <strong>Asistente Cabañas Elqui</strong>
             <span><span class="dot"></span> Responde al instante</span>
           </div>
         </div>
         <div class="chat-preview-body">
-          <div class="cp-msg cp-user">Hola, necesito ayuda con una pensión de alimentos. ¿Ven casos de familia?</div>
-          <div class="cp-msg cp-bot">¡Hola! Sí, el estudio atiende derecho de familia. Para orientarte mejor en la primera reunión, ¿me dejas tu nombre y teléfono?</div>
-          <div class="cp-msg cp-user">Claro, soy Camila, 9 1234 5678</div>
-          <div class="cp-msg cp-bot">Gracias, Camila 😊 Le aviso al abogado y te contactan hoy para coordinar una hora. Te recomiendo tener a mano el certificado de nacimiento.</div>
+          <div class="cp-msg cp-user">Hola, ¿tienen cabañas para 4 personas la primera semana de febrero?</div>
+          <div class="cp-msg cp-bot">¡Hola! Tenemos cabañas para 4 personas, con tinaja y estacionamiento. En febrero los valores son por noche; ¿me dejas tu nombre y teléfono para confirmarte disponibilidad?</div>
+          <div class="cp-msg cp-user">Sí, soy Rodrigo, 9 8765 4321</div>
+          <div class="cp-msg cp-bot">Gracias, Rodrigo 😊 Le aviso al equipo y te contactan hoy para confirmar fechas y valor.</div>
         </div>
-        <p class="cp-note">Ejemplo de un chatbot con IA para un estudio jurídico</p>
+        <p class="cp-note">Ejemplo de un chatbot con IA para un negocio de turismo</p>
       </div>
     </div>
   </section>
@@ -216,8 +211,7 @@ const schema = [
       <ul>
         <li><a href="#que-es">Qué es</a></li>
         <li><a href="#como-funciona">Cómo funciona</a></li>
-        <li><a href="#materias">Materias</a></li>
-        <li><a href="#limites">Confidencialidad</a></li>
+        <li><a href="#rubros">Rubros</a></li>
         <li><a href="#planes">Planes</a></li>
         <li><a href="#pagina-web">Página web</a></li>
         <li><a href="#faq">Preguntas frecuentes</a></li>
@@ -230,60 +224,60 @@ const schema = [
   <section id="que-es" class="band">
     <div class="container about-grid">
       <div>
-        <h2>¿Qué es un chat con IA para abogados?</h2>
+        <h2>¿Qué es un chat con IA para negocios de La Serena?</h2>
         <p class="intro">
-          Es un asistente con inteligencia artificial en la página web de tu estudio. Conversa
-          con quienes te visitan, responde lo básico (materias, horarios, ubicación, cómo
-          agendar) y toma sus datos, incluso de noche o un domingo, cuando tú no puedes
-          contestar. Tú sigues haciendo lo que sabes hacer: asesorar.
+          Es un asistente con inteligencia artificial en la página web de tu negocio. Conversa
+          con quienes te visitan, responde lo básico (servicios, precios, horarios, cómo llegar)
+          y toma sus datos, de día, de noche o un domingo de verano, cuando tú o tu equipo no
+          pueden contestar.
         </p>
         <ul class="feature-list">
           <li>
             <span class="ico"><i class="ti ti-bolt"></i></span>
-            <div><strong>Responde al instante</strong><span>Con la información real de tu estudio: materias que atiendes, horarios, ubicación y preguntas frecuentes.</span></div>
+            <div><strong>Responde al instante</strong><span>Con la información real de tu negocio: servicios, tarifas, horarios, ubicación y preguntas frecuentes.</span></div>
           </li>
           <li>
-            <span class="ico"><i class="ti ti-filter"></i></span>
-            <div><strong>Filtra las consultas</strong><span>Identifica la materia y pide los datos básicos, para que llegues a la reunión sabiendo de qué se trata.</span></div>
+            <span class="ico"><i class="ti ti-moon"></i></span>
+            <div><strong>Atiende fuera de horario</strong><span>Muchos turistas y clientes consultan de noche o en fin de semana. El chatbot responde cuando tú no puedes.</span></div>
           </li>
           <li>
             <span class="ico"><i class="ti ti-user-plus"></i></span>
-            <div><strong>Te consigue contactos</strong><span>Nombre, teléfono y resumen de la consulta llegan a tu correo con la conversación completa.</span></div>
+            <div><strong>Te consigue contactos</strong><span>Nombre, teléfono y lo que necesita el cliente llegan a tu correo con la conversación completa.</span></div>
           </li>
           <li>
             <span class="ico"><i class="ti ti-shield-check"></i></span>
-            <div><strong>No improvisa ni asesora</strong><span>No da opiniones legales ni inventa información: orienta y deriva a la reunión contigo.</span></div>
+            <div><strong>No inventa información</strong><span>Si no sabe algo, lo dice y deja el contacto para que tu negocio responda.</span></div>
           </li>
         </ul>
       </div>
       <div>
-      <figure class="photo"><img src={`${IMG}/reunion-equipo-consulta.webp`} alt="Equipo de un estudio jurídico conversando con un cliente sobre su consulta" width="1500" height="1000" loading="lazy" /></figure>
+      <figure class="photo"><img src={`${IMG}/ciudades/la-serena-faro.webp`} alt="Faro Monumental de La Serena junto a la playa" width="1500" height="1000" loading="lazy" /></figure>
       <div class="quote-box">
-        <h3>La consulta que no se responde, se va con otro estudio</h3>
-        <p>Quien busca un abogado suele escribir a varios y se queda con el primero que responde. Si estás en audiencia, en terreno o fuera de horario, esa consulta se enfría.</p>
-        <p class="mb-0">Con un chatbot con IA, tu página atiende en el momento, deja la consulta registrada y tú la retomas cuando puedas.</p>
+        <h3>La consulta que no se responde, se va con la competencia</h3>
+        <p>Quien busca un servicio en La Serena suele escribirle a varios negocios y se queda con el primero que responde. Si estás atendiendo, en terreno o fuera de horario, esa consulta se enfría.</p>
+        <p class="mb-0">Con un chatbot con IA, tu página atiende en el momento y deja la consulta registrada para que la retomes cuando puedas.</p>
       </div>
       </div>
     </div>
   </section>
 
   <!-- Cómo funciona -->
-  <section id="como-funciona" class="band band-dark band-photo" style={`--bg:url('${IMG}/escritorio-documentos-estudio.webp')`}>
+  <section id="como-funciona" class="band band-dark">
     <div class="container">
       <div class="band-head">
         <h2>Cómo funciona</h2>
-        <p>Tres pasos, sin que tengas que programar nada.</p>
+        <p>Tres pasos, sin que tengas que programar nada y sin salir de tu negocio.</p>
       </div>
       <div class="steps">
         <div class="step">
           <span class="step-num">1</span>
-          <h3>Nos cuentas tu estudio</h3>
-          <p>Materias que atiendes, horarios, ubicación y las preguntas que más te hacen. Tú decides qué se informa y qué no.</p>
+          <h3>Nos cuentas tu negocio</h3>
+          <p>Servicios, precios, horarios, ubicación y las preguntas que más te hacen. Tú decides qué se informa y qué no.</p>
         </div>
         <div class="step">
           <span class="step-num">2</span>
           <h3>Entrenamos tu chatbot</h3>
-          <p>La IA aprende solo de tu información y queda lista para atender como lo haría tu secretaria o asistente.</p>
+          <p>La IA aprende solo de tu información y queda lista para atender como lo haría tu mejor vendedor.</p>
         </div>
         <div class="step">
           <span class="step-num">3</span>
@@ -294,15 +288,15 @@ const schema = [
     </div>
   </section>
 
-  <!-- Materias -->
-  <section id="materias" class="band band-yellow">
+  <!-- Rubros -->
+  <section id="rubros" class="band band-yellow">
     <div class="container">
       <div class="band-head">
-        <h2>Un chatbot que conoce las consultas de tu estudio</h2>
-        <p>Lo configuramos con las materias que tú atiendes y las preguntas reales que recibes.</p>
+        <h2>Chatbot con IA para los negocios de La Serena y Coquimbo</h2>
+        <p>Lo configuramos con tu rubro y las preguntas reales que recibes de tus clientes.</p>
       </div>
       <div class="rubros rubros-3">
-        {materias.map((r) => (
+        {rubros.map((r) => (
           <div class="rubro">
             <div class="bubble">{r.q}</div>
             <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
@@ -310,42 +304,47 @@ const schema = [
           </div>
         ))}
       </div>
+      <p class="plans-note" style="margin-top:24px">
+        También tenemos páginas especializadas para
+        {landings.map((l, i) => (
+          <>{i > 0 ? (i === landings.length - 1 ? " y " : ", ") : " "}<a href={l.href}>{l.short}</a></>
+        ))}.
+      </p>
     </div>
   </section>
 
-  <!-- Límites y confidencialidad -->
-  <section id="limites" class="band">
+  <!-- Atención 100% online -->
+  <section id="online" class="band">
     <div class="container about-grid">
       <div>
-        <h2>Un asistente, no un reemplazo del abogado</h2>
+        <h2>Atención 100% online para toda la Región de Coquimbo</h2>
         <p class="intro">
-          Sabemos que en tu profesión la confianza y la reserva importan. Por eso el chatbot
-          está pensado como primera atención, no como asesor.
+          Chatia no necesita que nos visites ni que viajes: todo el proceso se coordina por
+          WhatsApp y correo, y tu chatbot queda funcionando en tu página web en 24 horas.
         </p>
         <ul class="feature-list">
           <li>
-            <span class="ico"><i class="ti ti-scale"></i></span>
-            <div><strong>Sin asesoría legal</strong><span>No interpreta la ley ni promete resultados. Orienta y deriva la consulta a la reunión contigo.</span></div>
+            <span class="ico"><i class="ti ti-brand-whatsapp"></i></span>
+            <div><strong>Coordinación directa</strong><span>Hablas con una persona por WhatsApp, no con un formulario sin respuesta.</span></div>
           </li>
           <li>
-            <span class="ico"><i class="ti ti-lock"></i></span>
-            <div><strong>Datos mínimos</strong><span>Puede pedir solo nombre, teléfono y materia, y sugerir dejar los detalles del caso para la reunión.</span></div>
-          </li>
-          <li>
-            <span class="ico"><i class="ti ti-eye-off"></i></span>
-            <div><strong>Conversaciones privadas</strong><span>Se guardan solo para el historial de tu estudio y no se venden ni se comparten con terceros.</span></div>
+            <span class="ico"><i class="ti ti-map-2"></i></span>
+            <div><strong>La Serena, Coquimbo y alrededores</strong><span>Negocios de La Serena, Coquimbo, Ovalle, Vicuña, Paihuano y el resto de la región.</span></div>
           </li>
           <li>
             <span class="ico"><i class="ti ti-adjustments"></i></span>
-            <div><strong>Tú controlas qué informa</strong><span>Honorarios, materias, horarios: el bot usa únicamente lo que tú autorizas publicar.</span></div>
+            <div><strong>Tú controlas qué informa</strong><span>Tarifas, horarios de temporada, promociones: el bot usa únicamente lo que tú autorizas.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-calendar-off"></i></span>
+            <div><strong>Sin permanencia forzosa</strong><span>Plan mensual, útil también para negocios de temporada.</span></div>
           </li>
         </ul>
       </div>
       <div>
-      <figure class="photo"><img src={`${IMG}/asesoria-legal-reunion.webp`} alt="Abogados conversando con un cliente durante una reunión de asesoría" width="1500" height="1000" loading="lazy" /></figure>
       <div class="quote-box">
-        <h3>Pruébalo con una consulta real</h3>
-        <p>Abre el chat de esta página y escríbele como lo haría un cliente: una pensión, un despido, una herencia. Puedes pedirle que actúe como asistente de un estudio jurídico.</p>
+        <h3>Pruébalo como lo haría un cliente</h3>
+        <p>Abre el chat de esta página y escríbele como lo haría tu cliente: una consulta de precios, de horarios o de reserva. Puedes pedirle que actúe como asistente de un negocio de La Serena.</p>
         <p class="mb-0"><button type="button" class="btn btn-dark" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button></p>
       </div>
       </div>
@@ -357,16 +356,16 @@ const schema = [
     <div class="container">
       <div class="band-head">
         <h2>Planes y precios</h2>
-        <p>Chatbot con IA para tu estudio jurídico, con precios fijos y claros.</p>
+        <p>Chatbot con IA para tu negocio en La Serena, con precios fijos y claros.</p>
       </div>
       <div class="plans">
         <div class="plan">
-          <h3>Abogados y estudios pequeños</h3>
+          <h3>Pymes</h3>
           <p class="price">$12.000 <span>CLP al mes</span></p>
           <ul>
             <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
             <li><i class="ti ti-check"></i> 1 chatbot instalado en tu página web</li>
-            <li><i class="ti ti-check"></i> Entrenado con la información de tu estudio</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
             <li><i class="ti ti-check"></i> Historial de conversaciones</li>
             <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
             <li><i class="ti ti-check"></i> Actualización de la información 1 vez al mes</li>
@@ -375,12 +374,12 @@ const schema = [
         </div>
         <div class="plan featured">
           <span class="plan-tag">Más elegido</span>
-          <h3>Estudios con más volumen</h3>
+          <h3>Empresas</h3>
           <p class="price">$16.000 <span>CLP al mes</span></p>
           <ul>
             <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
             <li><i class="ti ti-check"></i> Hasta 2 chatbots (otro sitio o sucursal)</li>
-            <li><i class="ti ti-check"></i> Entrenado con la información de tu estudio</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
             <li><i class="ti ti-check"></i> Historial de conversaciones</li>
             <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
             <li><i class="ti ti-check"></i> Actualizaciones de información ilimitadas</li>
@@ -392,22 +391,22 @@ const schema = [
     </div>
   </section>
 
-  <!-- Diseño o rediseño web (oferta secundaria) -->
+  <!-- Diseño o rediseño web -->
   <WebOffer
-    title="¿Tu estudio aún no tiene página web, o la actual quedó antigua?"
-    intro="El chatbot necesita una página donde vivir. DiseñoPáginas.cl puede crear la página web de tu estudio jurídico o rediseñar la que tienes, con tus materias, tu equipo y un botón de contacto, y dejarla con el chatbot ya instalado."
+    title="¿Tu negocio aún no tiene página web, o la actual quedó antigua?"
+    intro="El chatbot necesita una página donde vivir. DiseñoPáginas.cl puede crear la página web de tu negocio en La Serena o rediseñar la que tienes, y dejarla con el chatbot ya instalado."
     items={[
-      { icon: "ti-world", title: "Te encuentran en Google", text: "Quien busca un abogado de tu materia y tu ciudad puede llegar a tu sitio, no solo a un directorio." },
-      { icon: "ti-building-bank", title: "Transmite confianza", text: "Un diseño sobrio y actualizado que respalda tu trayectoria y deja claro qué materias atiendes." },
+      { icon: "ti-world", title: "Te encuentran en Google", text: "Quien busca tu servicio en La Serena o Coquimbo puede llegar a tu sitio, no solo a un directorio o una red social." },
+      { icon: "ti-device-mobile", title: "Se ve bien en el celular", text: "La mayoría de las consultas llegan desde el teléfono; la página sale pensada para eso." },
       { icon: "ti-message-circle", title: "Con el chatbot incluido", text: "La página sale lista para atender consultas 24/7 desde el primer día." },
     ]}
     quoteTitle="Primero el chatbot, y la página si la necesitas"
     quoteParagraphs={[
       "Si ya tienes página web, instalamos el chatbot en ella y listo. Si no la tienes, o se ve antigua o no funciona bien en celulares, la creamos o la rediseñamos y la dejamos con el chatbot funcionando.",
-      "La página web se cotiza aparte, según lo que necesite tu estudio.",
+      "La página web se cotiza aparte, según lo que necesite tu negocio.",
     ]}
     href={DISENO_WEB}
-    image={{ src: `${IMG}/escritorio-documentos-estudio.webp`, alt: "Escritorio de un estudio jurídico con computador, tablet y documentos" }}
+    image={{ src: `${IMG}/heroes/chatbot-whatsapp-ia-hero-v3.webp`, alt: "Página web con chatbot de inteligencia artificial en un celular" }}
   />
 
   <!-- FAQ -->
@@ -434,14 +433,13 @@ const schema = [
   <section id="contacto" class="band band-soft">
     <div class="container contact-grid">
       <div>
-        <h2>Cotiza tu chatbot con IA para abogados</h2>
-        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos de tu estudio y te enviamos una propuesta sin compromiso.</p>
+        <h2>Cotiza tu chatbot con IA en La Serena</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos de tu negocio y te enviamos una propuesta sin compromiso.</p>
         <div class="contact-direct">
           <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
           <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
           <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
         </div>
-        <figure class="photo" style="margin-top:28px"><img src={`${IMG}/apreton-de-manos-oficina.webp`} alt="Abogado sonriente estrechando la mano de un cliente sobre un contrato" width="1500" height="1000" loading="lazy" /></figure>
       </div>
       <div class="contact-form">
         <h3 class="contact-form-title">Formulario de contacto</h3>
@@ -456,8 +454,8 @@ const schema = [
             <option value="Chatbot + página web nueva o rediseño">Chatbot y página web (nueva o rediseño)</option>
             <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
           </select>
-          <input class="full" type="text" name="web" placeholder="Página web de tu estudio (si tienes)" aria-label="Página web" />
-          <textarea class="full" name="mensaje" placeholder="¿Qué materias atiende tu estudio?" aria-label="Mensaje" rows="4" required></textarea>
+          <input class="full" type="text" name="web" placeholder="Página web de tu negocio (si tienes)" aria-label="Página web" />
+          <textarea class="full" name="mensaje" placeholder="¿A qué se dedica tu negocio?" aria-label="Mensaje" rows="4" required></textarea>
           <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
         </form>
         <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
@@ -466,9 +464,9 @@ const schema = [
   </section>
 
   <!-- CTA -->
-  <section class="band cta band-photo-cta" style={`--bg:url('${IMG}/abogados-mazo-balanza.webp')`}>
+  <section class="band cta">
     <div class="container cta-inner">
-      <h2>Que ninguna consulta se quede sin respuesta esta semana</h2>
+      <h2>Que ninguna consulta se quede sin respuesta esta temporada</h2>
       <div class="cta-buttons">
         <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
         <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
@@ -480,8 +478,8 @@ const schema = [
     <div class="container">
       <div class="footer-grid">
         <div>
-          <img class="footer-logo" src="/assets/img/brand/chatia-logo-h-white.webp" alt="Chatia" width="565" height="120" loading="lazy" />
-          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de abogados, pymes y empresas de todo Chile, para que ningún cliente se quede sin respuesta.</p>
+          <img class="footer-logo" src={`${IMG}/brand/chatia-logo-h-white.webp`} alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de pymes y empresas de La Serena y todo Chile, para que ningún cliente se quede sin respuesta.</p>
         </div>
         <div>
           <h3>Chatbot por rubro</h3>
@@ -506,7 +504,7 @@ const schema = [
             <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
             <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
             <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
-            <p><i class="ti ti-map-pin"></i> Atendemos todo Chile</p>
+            <p><i class="ti ti-map-pin"></i> Atendemos La Serena y todo Chile</p>
             <p><i class="ti ti-clock"></i> Lunes a sábado</p>
           </div>
         </div>
@@ -514,22 +512,21 @@ const schema = [
       <div class="footer-bottom">
         <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
         <p class="mb-0">Un servicio de <a href="https://diseñopaginas.cl" target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
-        <p class="credits">Imágenes: <a href="https://www.freepik.com" target="_blank" rel="noopener">Freepik</a></p>
       </div>
     </div>
   </footer>
 
   <DemoChatWidget
-    vertical="abogados"
-    botStatus="Asistente IA · Estudios jurídicos"
-    welcomeMessage="¡Hola! 👋 Soy Chatia, un chatbot con IA para abogados. Así atendería las consultas de tu estudio jurídico, 24/7. Pídeme que actúe como asistente de un estudio, o pregúntame por el servicio."
+    vertical="laserena"
+    botStatus="Asistente IA · La Serena"
+    welcomeMessage="¡Hola! 👋 Soy Chatia, un chatbot con IA. Así atendería a los clientes de tu negocio en La Serena, 24/7. Pídeme que actúe como asistente de tu rubro, o pregúntame por el servicio."
     quickReplies={[
-      { label: "Actúa como asistente de un estudio", reply: "" },
-      { label: "Quiero consultar por una herencia", reply: "" },
-      { label: "¿Da asesoría legal el chatbot?", reply: "" },
+      { label: "Actúa como asistente de unas cabañas", reply: "" },
+      { label: "Soy de La Serena, ¿cómo parto?", reply: "" },
       { label: "¿Cuánto cuesta?", reply: "" },
+      { label: "¿Tienen oficina en La Serena?", reply: "" },
     ]}
-    disclaimer="Esta es una demo real con IA. Tu chatbot se entrena con la información de tu estudio."
+    disclaimer="Esta es una demo real con IA. Tu chatbot se entrena con la información de tu negocio."
   />
 
   <script>
@@ -569,11 +566,11 @@ const schema = [
       const data = new FormData(form);
       const web = String(data.get('web') || '').trim();
       const text =
-        `Hola, los contacto desde chatbotia.cl/abogados.\n` +
+        `Hola, los contacto desde chatbotia.cl/la-serena.\n` +
         `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
         `Plan: ${data.get('plan')}\n` +
         (web ? `Web: ${web}\n` : '') +
-        `Materias del estudio: ${data.get('mensaje')}`;
+        `Negocio: ${data.get('mensaje')}`;
       window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
     });
   </script>

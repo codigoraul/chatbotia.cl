@@ -2,6 +2,7 @@
    Abogados = azul (.v-law), Estéticas = rosado tierra (.v-beauty), Automotoras = verde petróleo (.v-auto). El <body> lleva class="vertical v-xxx". Para otro rubro, define otra clase (ej. .v-dental). */
 .v-law{--accent:#1F4E9E;--accent-deep:#173B7A;--accent-deep-rgb:23,59,122;--accent-soft:#E6EEFB}
 .v-beauty{--accent:#A65A5F;--accent-deep:#7F3F45;--accent-deep-rgb:127,63,69;--accent-soft:#F7E6E4}
+.v-city{--accent:#1E7F66;--accent-deep:#14594A;--accent-deep-rgb:20,89,74;--accent-soft:#E2F3EE}
 .v-auto{--accent:#1B4B82;--accent-deep:#122E54;--accent-deep-rgb:18,46,84;--accent-soft:#E3ECF7}
 
 .vertical .header-main{border-bottom:3px solid var(--accent)}

@@ -1,0 +1,602 @@
+---
+import '../../styles/global.css';
+import '../../styles/vertical.css';
+import DemoChatWidget from '../../components/DemoChatWidget.astro';
+import { landings, ciudades } from '../../data/landings';
+import WebOffer from '../../components/WebOffer.astro';
+
+const SITE = "https://chatbotia.cl";
+const URL = `${SITE}/arica/`;
+const WA_NUMBER = "56961765268";
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/arica. Me interesa un chatbot con IA para mi negocio en Arica.")}`;
+const PHONE_DISPLAY = "+56 9 6176 5268";
+const EMAIL = "codigoraul@gmail.com";
+const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
+const DISENO_WEB = "https://diseñopaginas.cl";
+
+const H1 = "Chatbot con IA para negocios en Arica";
+const TITLE = "Chatbot con IA en Arica y Región de Arica y Parinacota | Chatia";
+const DESCRIPTION = "Chat con IA para hoteles, tours, comercio y servicios de Arica: responde a turistas y clientes a cualquier hora y te deja sus datos. Desde $12.000 al mes, instalado en 24 horas.";
+const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
+const IMG = "/assets/img";
+
+const rubros = [
+  {
+    "icon": "ti-bed",
+    "title": "Hostales, hoteles y cabañas",
+    "text": "Habitaciones, tarifas, check-in, estacionamiento y desayuno: respuesta inmediata y datos del huésped.",
+    "q": "¿Tienen habitación para cuatro en febrero?"
+  },
+  {
+    "icon": "ti-sailboat",
+    "title": "Tours y actividades",
+    "text": "Salidas, horarios, qué incluye y puntos de encuentro, para que el turista reserve con claridad.",
+    "q": "¿Qué incluye el tour al Valle de Azapa?"
+  },
+  {
+    "icon": "ti-building-store",
+    "title": "Comercio y servicios",
+    "text": "Tiendas, ópticas, ferreterías y servicios técnicos: horarios, stock, despachos y medios de pago.",
+    "q": "¿Hacen despacho a domicilio en Arica?"
+  },
+  {
+    "icon": "ti-heartbeat",
+    "title": "Salud y bienestar",
+    "text": "Consultas, centros dentales y kinesiología: prestaciones, valores de referencia y solicitud de hora.",
+    "q": "¿Cuánto sale una limpieza dental?"
+  },
+  {
+    "icon": "ti-tools-kitchen-2",
+    "title": "Restaurantes y cafés",
+    "text": "Carta, reservas, grupos y eventos, para que el cliente decida dónde comer sin llamar.",
+    "q": "¿Tienen mesa para 8 el viernes?"
+  },
+  {
+    "icon": "ti-school",
+    "title": "Academias y cursos",
+    "text": "Programas, horarios, matrículas y valores, con los datos del interesado registrados.",
+    "q": "¿Cuándo empieza el próximo curso?"
+  }
+];
+
+const faqs = [
+  {
+    "q": "¿Un chatbot con IA sirve para un negocio chico en Arica?",
+    "a": "Sí, justamente para eso está pensado. Si recibes las mismas preguntas todos los días (precios, horarios, disponibilidad, cómo llegar), el chatbot las responde por ti y te deja el contacto de quienes quedan interesados."
+  },
+  {
+    "q": "¿Tienen presencia física en Arica?",
+    "a": "No. Chatia trabaja 100% online y atiende a negocios de Arica, y de todo Chile, por WhatsApp y correo. Instalamos el chatbot en tu página web a distancia, en 24 horas."
+  },
+  {
+    "q": "¿Funciona si mi negocio depende de la temporada o de los feriados?",
+    "a": "Sí. Los planes son mensuales y sin permanencia forzosa, así que puedes mantenerlo activo en tus meses fuertes y revisar el plan después. La información (tarifas, disponibilidad, horarios especiales) se actualiza cuando la necesites."
+  },
+  {
+    "q": "¿Puede atender a visitantes que no son de Chile?",
+    "a": "El servicio está pensado para atender en español. Si necesitas algo adicional, como atención en otro idioma, lo evaluamos como caso aparte antes de comprometernos."
+  },
+  {
+    "q": "¿Cuánto cuesta?",
+    "a": "Hay dos planes: $12.000 CLP al mes (1.000 respuestas, 1 chatbot) y $16.000 CLP al mes (2.000 respuestas, hasta 2 chatbots). La instalación es un pago único de $4.000 CLP. Se paga por transferencia con boleta de honorarios, sin permanencia forzosa."
+  },
+  {
+    "q": "¿Tengo que saber de tecnología?",
+    "a": "No. Nosotros lo configuramos y lo instalamos. Tú solo nos entregas la información de tu negocio y revisas que las respuestas estén bien."
+  },
+  {
+    "q": "¿Qué pasa si el chatbot no sabe responder algo?",
+    "a": "No inventa. Reconoce que no tiene ese dato y le pide al visitante su nombre y contacto para que tu negocio le responda."
+  }
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Chatbot con IA para negocios de Arica",
+    "serviceType": "Chatbot con inteligencia artificial para páginas web",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chatia",
+      "url": SITE,
+      "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
+      "email": EMAIL,
+      "telephone": "+56961765268",
+      "sameAs": [FACEBOOK],
+    },
+    "areaServed": [
+  {
+    "@type": "City",
+    "name": "Arica"
+  },
+  {
+    "@type": "AdministrativeArea",
+    "name": "Región de Arica y Parinacota"
+  }
+],
+    "offers": [
+      { "@type": "Offer", "name": "Plan Pymes", "price": "12000", "priceCurrency": "CLP" },
+      { "@type": "Offer", "name": "Plan Empresas", "price": "16000", "priceCurrency": "CLP" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chatia", "item": `${SITE}/` },
+      { "@type": "ListItem", "position": 2, "name": H1, "item": URL },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  },
+];
+---
+
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION} />
+  <link rel="canonical" href={URL} />
+  <meta name="theme-color" content="#F5C842" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={URL} />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content={DESCRIPTION} />
+  <meta property="og:image" content={OG_IMAGE} />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Chatia" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body class="vertical vertical v-city">
+  <div class="topbar">
+    <div class="container">
+      <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+      <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+      <span><i class="ti ti-map-pin"></i> Atendemos Arica y todo Chile</span>
+      <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
+    </div>
+  </div>
+
+  <header class="header-main">
+    <div class="container">
+      <a href="/" class="brand" aria-label="Chatia, inicio">
+        <img src={`${IMG}/brand/chatia-logo-h.webp`} alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
+      </a>
+      <div class="header-cta">
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+        <a href="#contacto" class="btn btn-yellow">Cotizar gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="vtag"><i class="ti ti-map-pin"></i> Arica y Parinacota</span>
+        <h1>{H1}</h1>
+        <p class="lead">Tu página web contestando en el momento: quien planifica un viaje o busca un servicio en Arica quiere respuestas ahora, no mañana. El chatbot con IA informa, resuelve dudas y te entrega el contacto de cada interesado.</p>
+        <div class="hero-buttons">
+          <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+          <a href="#planes" class="btn btn-white btn-lg">Ver planes</a>
+        </div>
+        <ul class="hero-facts">
+          <li>Instalado en 24 horas</li>
+          <li>Desde $12.000 al mes</li>
+          <li>Cancelas cuando quieras</li>
+        </ul>
+      </div>
+
+      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA para un hostal en Arica">
+        <div class="chat-preview-head">
+          <img src={`${IMG}/brand/chatia-avatar.webp`} alt="" width="40" height="40" />
+          <div>
+            <strong>Asistente Hostal Morro</strong>
+            <span><span class="dot"></span> Responde al instante</span>
+          </div>
+        </div>
+        <div class="chat-preview-body">
+          <div class="cp-msg cp-user">Hola, ¿tienen pieza doble para el feriado largo? Vamos en auto desde Santiago.</div>
+          <div class="cp-msg cp-bot">¡Hola! Sí, trabajamos con piezas dobles y tenemos estacionamiento. Para revisar disponibilidad en esas fechas, ¿me dejas tu nombre y un teléfono?</div>
+          <div class="cp-msg cp-user">Pablo, 9 4444 8899. Somos dos adultos.</div>
+          <div class="cp-msg cp-bot">Gracias, Pablo 😊 Registré tu solicitud para dos adultos. El hostal te escribe hoy con disponibilidad y valor.</div>
+        </div>
+        <p class="cp-note">Ejemplo de un chatbot con IA para un hostal (datos ficticios)</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="subnav" aria-label="Secciones">
+    <div class="container">
+      <ul>
+        <li><a href="#que-es">Qué es</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#rubros">Rubros</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#pagina-web">Página web</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Qué es -->
+  <section id="que-es" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>Un asistente que atiende a quienes llegan a tu web desde Arica y desde lejos</h2>
+        <p class="intro">Arica recibe visitantes que organizan su viaje con semanas de anticipación, y clientes locales que quieren resolver una duda rápido. Ambos escriben cuando les acomoda. El chatbot con IA los atiende al instante con la información de tu negocio, y tú recibes los datos de quien queda interesado.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-sun"></i></span>
+            <div><strong>Responde en el momento en que alguien decide</strong><span>Quien planifica un viaje compara varias opciones en una sola noche: el primero en responder se lleva la consulta.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-list-check"></i></span>
+            <div><strong>Resuelve lo repetido</strong><span>Horarios, tarifas, cómo llegar, qué incluye: las preguntas de siempre quedan resueltas sin que tú intervengas.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-address-book"></i></span>
+            <div><strong>Captura el contacto</strong><span>Nombre, teléfono y fechas o interés llegan a tu correo, listos para que cierres la reserva o la venta.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-shield-check"></i></span>
+            <div><strong>No inventa nada</strong><span>Si no sabe algo, lo dice y deja el contacto para que tu negocio responda.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <div class="quote-box">
+        <h3>Atender bien la primera consulta cambia la reserva</h3>
+        <p>Cuando alguien escribe a un hostal, un tour o una tienda y no recibe respuesta pronto, sigue buscando. No es falta de interés: es que hay otra opción abierta en la pestaña de al lado.</p>
+        <p class="mb-0">Tener un asistente en la web es tener a alguien atendiendo siempre, incluso cuando tú estás con otro cliente.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona" class="band band-dark">
+    <div class="container">
+      <div class="band-head">
+        <h2>Cómo lo ponemos a trabajar en tu sitio</h2>
+        <p>Nos encargamos de todo, tú solo nos cuentas de tu negocio.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Nos cuentas cómo trabajas</h3>
+          <p>Servicios, tarifas, horarios, ubicación y cómo prefieres que te contacten. Tú decides qué se informa.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Preparamos el chatbot</h3>
+          <p>Lo entrenamos con esa información y lo probamos con las preguntas más comunes de tus clientes.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Lo instalamos y listo</h3>
+          <p>En 24 horas está en tu página web, y los contactos te llegan por correo con la conversación completa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rubros -->
+  <section id="rubros" class="band band-yellow">
+    <div class="container">
+      <div class="band-head">
+        <h2>Pensado para los negocios que atienden a visitantes y vecinos de Arica</h2>
+        <p>Cada rubro tiene preguntas distintas. Armamos el chatbot con las tuyas.</p>
+      </div>
+      <div class="rubros rubros-3">
+        {rubros.map((r) => (
+          <div class="rubro">
+            <div class="bubble">{r.q}</div>
+            <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+      <p class="plans-note" style="margin-top:24px">
+        Revisa también las páginas especializadas de
+        {landings.map((l, i) => (
+          <>{i > 0 ? (i === landings.length - 1 ? " y " : ", ") : " "}<a href={l.href}>{l.short}</a></>
+        ))}.
+      </p>
+    </div>
+  </section>
+
+  <!-- Atención online / cómo trabajamos -->
+  <section id="online" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>¿Estamos en Arica? Atendemos online, y eso es una ventaja</h2>
+        <p class="intro">Chatia no tiene oficina en Arica. A cambio, tu negocio recibe el mismo servicio que cualquier cliente del país y no depende de agendar una visita para empezar.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-message-circle-2"></i></span>
+            <div><strong>Todo por WhatsApp y correo</strong><span>Coordinación directa, sin intermediarios ni formularios eternos.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-rocket"></i></span>
+            <div><strong>Rápido de poner en marcha</strong><span>Con tu información lista, el chatbot funciona en 24 horas.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-refresh"></i></span>
+            <div><strong>Actualizable</strong><span>Cambió una tarifa o un horario: lo actualizamos en el plan que corresponda.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-currency-dollar"></i></span>
+            <div><strong>Precio claro</strong><span>$12.000 o $16.000 al mes y $4.000 de instalación, una sola vez.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <figure class="photo"><img src={`${IMG}/servicios/chatbot-robot-ia.webp`} alt="Robot de inteligencia artificial conversando en un chat" width="1500" height="1000" loading="lazy" /></figure>
+      <div class="quote-box">
+        <h3>Pruébalo antes de decidir</h3>
+        <p>Abre el chat y pídele que haga de asistente de un hostal o un tour en Arica. Verás cómo responde y cómo pide los datos del visitante.</p>
+        <p class="mb-0"><button type="button" class="btn btn-dark" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button></p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planes -->
+  <section id="planes" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Planes y precios para negocios de Arica</h2>
+        <p>Dos opciones simples; cambias de plan cuando lo necesites.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Plan inicial</h3>
+          <p class="price">$12.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> 1 chatbot instalado en tu página web</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualización de la información 1 vez al mes</li>
+          </ul>
+          <a href="#contacto" class="btn btn-white btn-block" data-plan="Plan Pymes - $12.000 CLP/mes">Cotizar plan Pymes</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Más elegido</span>
+          <h3>Plan con más respuestas</h3>
+          <p class="price">$16.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Hasta 2 chatbots (otro sitio o sucursal)</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualizaciones de información ilimitadas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-dark btn-block" data-plan="Plan Empresas - $16.000 CLP/mes">Cotizar plan Empresas</a>
+        </div>
+      </div>
+      <p class="plans-note">Instalación: pago único de $4.000 CLP. Mensualidad por transferencia bancaria, con boleta de honorarios. Sin permanencia forzosa.</p>
+    </div>
+  </section>
+
+  <!-- Diseño o rediseño web -->
+  <WebOffer
+    title="Si tu negocio no tiene web propia, el chatbot no tiene dónde atender"
+    intro="Muchos negocios de Arica viven solo de redes sociales o de directorios. DiseñoPáginas.cl puede crear tu página web o rediseñar la que tienes, con tus servicios, fotos y botón de contacto, y entregarla con el chatbot incluido."
+    items={[
+      {icon: "ti-search", title: "Aparece cuando te buscan", text: "Una web propia te permite posicionar tu negocio en Google, no solo en una red social."},
+      {icon: "ti-photo", title: "Muestra tu negocio como es", text: "Fotos, servicios y ubicación en un solo lugar, siempre disponibles."},
+      {icon: "ti-message-circle", title: "Con atención automática", text: "La página sale con el asistente de IA funcionando desde el primer día."},
+    ]}
+    quoteTitle="El chatbot es lo principal; la web es el complemento"
+    quoteParagraphs={["Si ya tienes web, lo instalamos ahí. Si no tienes, o la actual es difícil de actualizar, la creamos o la rediseñamos.", "La página se cotiza aparte, según lo que necesite tu negocio."]}
+    href={DISENO_WEB}
+    image={{ src: `${IMG}/heroes/chatbot-whatsapp-ia-hero-v3.webp`, alt: "Celular mostrando una web con chatbot de IA" }}
+  />
+
+  <!-- FAQ -->
+  <section id="faq" class="band">
+    <div class="container">
+      <div class="band-head">
+        <h2>Dudas comunes de negocios de Arica</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f, i) => (
+          <div class={`faq-item${i === 0 ? " open" : ""}`}>
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? "true" : "false"}>
+              {f.q}
+              <i class="ti ti-chevron-down chev"></i>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">{f.a}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="band band-soft">
+    <div class="container contact-grid">
+      <div>
+        <h2>Cotiza tu chatbot con IA en Arica</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Dinos qué haces y cómo te contactan hoy tus clientes, y te respondemos con una propuesta sin compromiso.</p>
+        <div class="contact-direct">
+          <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 class="contact-form-title">Formulario de contacto</h3>
+        <form class="form-grid" id="contactForm">
+          <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+          <input type="tel" name="fono" placeholder="Teléfono" aria-label="Teléfono" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <select name="plan" id="planSelect" aria-label="Plan de interés" required>
+            <option value="">¿Qué plan te interesa?</option>
+            <option value="Plan Pymes - $12.000 CLP/mes">Plan Pymes ($12.000 al mes)</option>
+            <option value="Plan Empresas - $16.000 CLP/mes">Plan Empresas ($16.000 al mes)</option>
+            <option value="Chatbot + página web nueva o rediseño">Chatbot y página web (nueva o rediseño)</option>
+            <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
+          </select>
+          <input class="full" type="text" name="web" placeholder="Página web de tu negocio (si tienes)" aria-label="Página web" />
+          <textarea class="full" name="mensaje" placeholder="¿Qué tipo de negocio tienes y qué preguntas te hacen más seguido?" aria-label="Mensaje" rows="4" required></textarea>
+          <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
+        </form>
+        <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band cta">
+    <div class="container cta-inner">
+      <h2>Que tu próxima reserva no se pierda por una respuesta tardía</h2>
+      <div class="cta-buttons">
+        <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src={`${IMG}/brand/chatia-logo-h-white.webp`} alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de negocios de Arica y todo Chile, para que ninguna consulta quede sin respuesta.</p>
+        </div>
+        <div>
+          <h3>Chatbot por rubro</h3>
+          <ul class="footer-links">
+            {landings.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+            <li><a href="/#rubros">Ver todos los rubros</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chatbot por ciudad</h3>
+          <ul class="footer-links">
+            {ciudades.map((c) => (
+              <li><a href={c.href}>{c.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
+            <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
+            <p><i class="ti ti-map-pin"></i> Atendemos Arica y todo Chile</p>
+            <p><i class="ti ti-clock"></i> Lunes a sábado</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
+        <p class="mb-0">Un servicio de <a href="https://diseñopaginas.cl" target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <DemoChatWidget
+    vertical="arica"
+    botStatus="Asistente IA · Arica"
+    welcomeMessage="¡Hola! 👋 Soy Chatia, un chatbot con IA. Así atendería a los clientes y visitantes de tu negocio en Arica, a cualquier hora. Pídeme que haga de asistente de un hostal, un tour o tu rubro, o pregúntame por el servicio."
+    quickReplies={[
+  {
+    "label": "Actúa como asistente de un hostal",
+    "reply": ""
+  },
+  {
+    "label": "Quiero probarlo con mi negocio",
+    "reply": ""
+  },
+  {
+    "label": "¿Cuánto cuesta?",
+    "reply": ""
+  },
+  {
+    "label": "¿Funciona en temporada alta?",
+    "reply": ""
+  }
+]}
+    disclaimer="Esta es una demo real con IA. Tu chatbot se entrena con la información de tu negocio."
+  />
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const btn = item.querySelector('.faq-q');
+      btn?.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-open-chat]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const root = document.getElementById('demoChat');
+        const bubble = document.getElementById('demoChatBubble');
+        if (root && bubble && !root.classList.contains('is-open')) bubble.click();
+      });
+    });
+
+    const planSelect = document.getElementById('planSelect') as HTMLSelectElement | null;
+    document.querySelectorAll('[data-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (planSelect) planSelect.value = (btn as HTMLElement).dataset.plan || '';
+      });
+    });
+
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const web = String(data.get('web') || '').trim();
+      const text =
+        `Hola, los contacto desde chatbotia.cl/arica.\n` +
+        `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
+        `Plan: ${data.get('plan')}\n` +
+        (web ? `Web: ${web}\n` : '') +
+        `Mi negocio: ${data.get('mensaje')}`;
+      window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
+    });
+  </script>
+</body>
+</html>

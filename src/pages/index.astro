@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import DemoChatWidget from '../components/DemoChatWidget.astro';
-import { landings } from '../data/landings';
+import { landings, ciudades } from '../data/landings';
 
 const landingFor = (key: string) => landings.find((l) => l.key === key);
 
@@ -309,6 +309,14 @@ const schema = [
           ))}
         </div>
       )}
+      {ciudades.length > 0 && (
+        <div class="landing-chips">
+          <strong>Chatbot por ciudad:</strong>
+          {ciudades.map((c) => (
+            <a href={c.href}>{c.label} <i class="ti ti-arrow-right"></i></a>
+          ))}
+        </div>
+      )}
     </div>
   </section>
 
@@ -425,24 +433,21 @@ const schema = [
           <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de pymes y empresas de todo Chile, para que ningún cliente se quede sin respuesta.</p>
         </div>
         <div>
-          <h3>En esta página</h3>
+          <h3>Chatbot por rubro</h3>
           <ul class="footer-links">
-            <li><a href="#que-es">¿Qué es un chatbot con IA?</a></li>
-            <li><a href="#como-funciona">Cómo funciona</a></li>
-            <li><a href="#rubros">Chatbot por rubro</a></li>
-            <li><a href="#planes">Planes y precios</a></li>
-            <li><a href="#faq">Preguntas frecuentes</a></li>
+            {landings.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+            <li><a href="/#rubros">Ver todos los rubros</a></li>
           </ul>
-          {landings.length > 0 && (
-            <>
-              <h3 style="margin-top:24px">Chatbot por rubro</h3>
-              <ul class="footer-links">
-                {landings.map((l) => (
-                  <li><a href={l.href}>{l.label}</a></li>
-                ))}
-              </ul>
-            </>
-          )}
+        </div>
+        <div>
+          <h3>Chatbot por ciudad</h3>
+          <ul class="footer-links">
+            {ciudades.map((c) => (
+              <li><a href={c.href}>{c.label}</a></li>
+            ))}
+          </ul>
         </div>
         <div>
           <h3>Contacto</h3>

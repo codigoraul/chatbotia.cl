@@ -1,0 +1,614 @@
+---
+import '../../styles/global.css';
+import '../../styles/vertical.css';
+import DemoChatWidget from '../../components/DemoChatWidget.astro';
+import { landings, ciudades } from '../../data/landings';
+import WebOffer from '../../components/WebOffer.astro';
+
+const SITE = "https://chatbotia.cl";
+const URL = `${SITE}/concepcion/`;
+const WA_NUMBER = "56961765268";
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/concepcion. Me interesa un chatbot con IA para mi negocio en Concepción.")}`;
+const PHONE_DISPLAY = "+56 9 6176 5268";
+const EMAIL = "codigoraul@gmail.com";
+const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
+const DISENO_WEB = "https://diseñopaginas.cl";
+
+const H1 = "Chatbot con IA en Concepción y el Biobío";
+const TITLE = "Chatbot con IA en Concepción y Gran Concepción | Chatia";
+const DESCRIPTION = "Chatbot con IA para academias, clínicas, inmobiliarias, estudios y comercios de Concepción y el Biobío. Responde 24/7, toma los datos del interesado y se instala en 24 horas. Desde $12.000 al mes.";
+const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
+const IMG = "/assets/img";
+
+const rubros = [
+  {
+    "icon": "ti-school",
+    "title": "Academias, preuniversitarios y cursos",
+    "text": "Fechas de inicio, modalidades, valores y matrícula, con los datos de apoderados y estudiantes registrados.",
+    "q": "¿Hay cupo para el curso de marzo?"
+  },
+  {
+    "icon": "ti-building",
+    "title": "Arriendos y corretaje de propiedades",
+    "text": "Habitaciones, departamentos y casas para estudiantes y familias: filtra por zona, presupuesto y fecha de ingreso.",
+    "q": "¿Hay departamento cerca de la UdeC?"
+  },
+  {
+    "icon": "ti-stethoscope",
+    "title": "Clínicas, centros médicos y dentales",
+    "text": "Especialidades, convenios, horarios y solicitud de hora, sin saturar secretaría.",
+    "q": "¿Atienden niños? ¿Cómo pido hora?"
+  },
+  {
+    "icon": "ti-briefcase",
+    "title": "Estudios profesionales",
+    "text": "Contadores, arquitectos, abogados y consultores: primera atención, materias y datos para agendar reunión.",
+    "q": "¿Hacen declaración de renta para pymes?"
+  },
+  {
+    "icon": "ti-shopping-cart",
+    "title": "Comercio y tiendas",
+    "text": "Stock, despachos, retiro en tienda, horarios y formas de pago, resueltos al instante.",
+    "q": "¿Tienen retiro en tienda hoy?"
+  },
+  {
+    "icon": "ti-tools-kitchen-2",
+    "title": "Restaurantes, cafés y eventos",
+    "text": "Carta, reservas, cumpleaños y celebraciones: el cliente cierra en el momento en que consulta.",
+    "q": "¿Puedo reservar para una celebración de 20?"
+  }
+];
+
+const faqs = [
+  {
+    "q": "¿Para qué tipo de negocios sirve un chatbot con IA en Concepción?",
+    "a": "Para cualquiera que reciba consultas repetidas por su sitio web: academias y preuniversitarios, arriendos y corretaje, clínicas y centros dentales, estudios profesionales, comercios y restaurantes. Mientras más repetitivas son las preguntas, más tiempo te ahorra."
+  },
+  {
+    "q": "¿Dónde está su oficina? ¿Podemos reunirnos?",
+    "a": "Chatia trabaja 100% online, sin oficina en Concepción. Todo el proceso se coordina por WhatsApp o correo y, si lo necesitas, podemos agendar una videollamada corta para resolver dudas."
+  },
+  {
+    "q": "¿Sirve para períodos de matrícula o inicio de clases, cuando llegan muchas consultas juntas?",
+    "a": "Sí. El chatbot puede mantener varias conversaciones a la vez, así que no se satura cuando aumenta la demanda. Lo que sí tiene un límite es la cantidad de respuestas incluidas en el plan: 1.000 al mes en el Plan Pymes y 2.000 en el Plan Empresas. Cuando se agotan, invita a dejar el contacto."
+  },
+  {
+    "q": "¿El chatbot puede entregar valores y fechas?",
+    "a": "Solo si tú lo autorizas. Puedes cargar valores referenciales, fechas de inicio y requisitos, o dejar que el chatbot tome el contacto y tu equipo confirme los detalles."
+  },
+  {
+    "q": "¿Cuánto cuesta?",
+    "a": "El Plan Pymes cuesta $12.000 CLP al mes y el Plan Empresas $16.000 CLP al mes. La instalación es un pago único de $4.000 CLP. Pago por transferencia, con boleta de honorarios y sin permanencia forzosa."
+  },
+  {
+    "q": "¿Funciona en WordPress, Wix u otra plataforma?",
+    "a": "Funciona en WordPress, en sitios a medida y en la mayoría de las plataformas que permiten agregar un código. Nosotros lo instalamos."
+  },
+  {
+    "q": "¿Puedo tener el chatbot solo unos meses del año?",
+    "a": "Sí, como no hay permanencia forzosa puedes mantenerlo en los períodos en que tu negocio recibe más consultas."
+  },
+  {
+    "q": "¿Qué pasa si el chatbot no tiene la respuesta?",
+    "a": "No inventa. Si no sabe, se lo dice a la persona y le pide su contacto para que tu equipo la contacte."
+  }
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Chatbot con IA para negocios de Concepción",
+    "serviceType": "Chatbot con inteligencia artificial para páginas web",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chatia",
+      "url": SITE,
+      "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
+      "email": EMAIL,
+      "telephone": "+56961765268",
+      "sameAs": [FACEBOOK],
+    },
+    "areaServed": [
+  {
+    "@type": "City",
+    "name": "Concepción"
+  },
+  {
+    "@type": "City",
+    "name": "Talcahuano"
+  },
+  {
+    "@type": "City",
+    "name": "San Pedro de la Paz"
+  },
+  {
+    "@type": "AdministrativeArea",
+    "name": "Región del Biobío"
+  }
+],
+    "offers": [
+      { "@type": "Offer", "name": "Plan Pymes", "price": "12000", "priceCurrency": "CLP" },
+      { "@type": "Offer", "name": "Plan Empresas", "price": "16000", "priceCurrency": "CLP" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chatia", "item": `${SITE}/` },
+      { "@type": "ListItem", "position": 2, "name": H1, "item": URL },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  },
+];
+---
+
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION} />
+  <link rel="canonical" href={URL} />
+  <meta name="theme-color" content="#F5C842" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={URL} />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content={DESCRIPTION} />
+  <meta property="og:image" content={OG_IMAGE} />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Chatia" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body class="vertical vertical v-city">
+  <div class="topbar">
+    <div class="container">
+      <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+      <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+      <span><i class="ti ti-map-pin"></i> Atendemos Concepción y todo Chile</span>
+      <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
+    </div>
+  </div>
+
+  <header class="header-main">
+    <div class="container">
+      <a href="/" class="brand" aria-label="Chatia, inicio">
+        <img src={`${IMG}/brand/chatia-logo-h.webp`} alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
+      </a>
+      <div class="header-cta">
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+        <a href="#contacto" class="btn btn-yellow">Cotizar gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="vtag"><i class="ti ti-map-pin"></i> Concepción · Gran Concepción · Biobío</span>
+        <h1>{H1}</h1>
+        <p class="lead">Concepción es una ciudad de estudiantes, profesionales y servicios, y sus clientes escriben a toda hora y a varios negocios a la vez. El chatbot con IA de tu página responde primero, ordena cada consulta y te entrega el contacto de quien realmente quiere avanzar.</p>
+        <div class="hero-buttons">
+          <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+          <a href="#planes" class="btn btn-white btn-lg">Ver planes</a>
+        </div>
+        <ul class="hero-facts">
+          <li>Funcionando en 24 horas</li>
+          <li>Desde $12.000 al mes</li>
+          <li>Sin contratos largos</li>
+        </ul>
+      </div>
+
+      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA para un preuniversitario en Concepción">
+        <div class="chat-preview-head">
+          <img src={`${IMG}/brand/chatia-avatar.webp`} alt="" width="40" height="40" />
+          <div>
+            <strong>Asistente Preuniversitario</strong>
+            <span><span class="dot"></span> Responde al instante</span>
+          </div>
+        </div>
+        <div class="chat-preview-body">
+          <div class="cp-msg cp-user">Hola, mi hija está en cuarto medio. ¿Cuándo parte el curso y cuánto cuesta?</div>
+          <div class="cp-msg cp-bot">¡Hola! Tenemos cursos para cuarto medio con clases presenciales y online. Para enviarte las fechas y valores exactos, ¿me dejas tu nombre y teléfono?</div>
+          <div class="cp-msg cp-user">Carolina, 9 3333 4567. Presencial, por favor.</div>
+          <div class="cp-msg cp-bot">Gracias, Carolina 😊 Registré tu consulta por el curso presencial. Una persona del preuniversitario te escribirá hoy con las fechas y el detalle.</div>
+        </div>
+        <p class="cp-note">Ejemplo de un chatbot con IA para un preuniversitario (datos ficticios)</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="subnav" aria-label="Secciones">
+    <div class="container">
+      <ul>
+        <li><a href="#que-es">Qué es</a></li>
+        <li><a href="#rubros">Rubros</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#pagina-web">Página web</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Qué es -->
+  <section id="que-es" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>Un asistente 24/7 para negocios que viven de las consultas</h2>
+        <p class="intro">En una ciudad universitaria y de servicios como Concepción, buena parte de las ventas parte con un mensaje: cuánto cuesta, qué horarios hay, tienen cupo, hay disponibilidad. Un chatbot con IA en tu sitio responde esas preguntas al instante y guarda los datos de quien quiere continuar.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-messages"></i></span>
+            <div><strong>Reduce el ir y venir</strong><span>Responde lo básico sin que alguien de tu equipo tenga que escribir lo mismo veinte veces al día.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-calendar-event"></i></span>
+            <div><strong>Útil en períodos de alta demanda</strong><span>Matrículas, inicio de clases, llegada de estudiantes: cuando entran más consultas, el chatbot no se satura.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-users"></i></span>
+            <div><strong>Filtra a los interesados</strong><span>Pide lo que necesitas para evaluar (qué busca, para cuándo, qué presupuesto) antes de que tú intervengas.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-mail-check"></i></span>
+            <div><strong>Te avisa por correo</strong><span>Cada contacto llega con la conversación entera, para que respondas con contexto.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <figure class="photo"><img src={`${IMG}/servicios/chatbot-robot-ia.webp`} alt="Robot de inteligencia artificial atendiendo consultas en un chat" width="1500" height="1000" loading="lazy" /></figure>
+      <div class="quote-box">
+        <h3>Mientras respondes un mensaje, entran otros tres</h3>
+        <p>Cuando el equipo es chico, las consultas se acumulan en los momentos de más trabajo y la gente termina escribiéndole a la competencia.</p>
+        <p class="mb-0">El chatbot no reemplaza tu trato personal: ordena la fila y te deja a mano a quienes vale la pena llamar.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rubros -->
+  <section id="rubros" class="band band-yellow">
+    <div class="container">
+      <div class="band-head">
+        <h2>Rubros donde el chatbot rinde más en Concepción</h2>
+        <p>Educación, salud, propiedades y servicios profesionales: las consultas se parecen, y eso es lo que el chatbot aprende a resolver.</p>
+      </div>
+      <div class="rubros rubros-3">
+        {rubros.map((r) => (
+          <div class="rubro">
+            <div class="bubble">{r.q}</div>
+            <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+      <p class="plans-note" style="margin-top:24px">
+        También tenemos páginas por rubro:
+        {landings.map((l, i) => (
+          <>{i > 0 ? (i === landings.length - 1 ? " y " : ", ") : " "}<a href={l.href}>{l.short}</a></>
+        ))}.
+      </p>
+    </div>
+  </section>
+
+  <!-- Planes -->
+  <section id="planes" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Planes para academias, pymes y empresas del Biobío</h2>
+        <p>Mismos precios para todos: fijos, en pesos chilenos y sin sorpresas.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Plan Pymes</h3>
+          <p class="price">$12.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> 1 chatbot instalado en tu página web</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualización de la información 1 vez al mes</li>
+          </ul>
+          <a href="#contacto" class="btn btn-white btn-block" data-plan="Plan Pymes - $12.000 CLP/mes">Cotizar plan Pymes</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Más elegido</span>
+          <h3>Plan Empresas</h3>
+          <p class="price">$16.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Hasta 2 chatbots (otro sitio o sucursal)</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualizaciones de información ilimitadas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-dark btn-block" data-plan="Plan Empresas - $16.000 CLP/mes">Cotizar plan Empresas</a>
+        </div>
+      </div>
+      <p class="plans-note">Instalación: pago único de $4.000 CLP. Mensualidad por transferencia bancaria, con boleta de honorarios. Sin permanencia forzosa.</p>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona" class="band band-dark">
+    <div class="container">
+      <div class="band-head">
+        <h2>En tres pasos, con tu información</h2>
+        <p>No tienes que armar nada ni escribir código: lo hacemos nosotros.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Reunimos tu información</h3>
+          <p>Servicios o cursos, valores si quieres publicarlos, horarios, ubicación y preguntas frecuentes.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Entrenamos y probamos</h3>
+          <p>Configuramos el asistente para que hable como tu negocio y probamos juntos sus respuestas.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Instalación en tu web</h3>
+          <p>Queda activo en 24 horas. Desde ahí, los contactos llegan a tu correo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Diseño o rediseño web -->
+  <WebOffer
+    title="Tu chatbot necesita una página web que acompañe"
+    intro="Si tu negocio en Concepción no tiene sitio web, o el que tiene se ve antiguo o no se ve bien en el celular, DiseñoPáginas.cl lo crea o lo rediseña y lo deja con el chatbot instalado."
+    items={[
+      {icon: "ti-device-desktop-analytics", title: "Pensada para ser encontrada", text: "Estructura clara y contenidos útiles para que quien te busca en Google llegue a ti."},
+      {icon: "ti-device-mobile", title: "Cómoda en el celular", text: "La mayoría de las consultas llegan desde el teléfono, y la web está pensada para eso."},
+      {icon: "ti-robot", title: "Con el asistente incluido", text: "Sale con el chatbot funcionando, sin trabajos extra."},
+    ]}
+    quoteTitle="Una cosa a la vez"
+    quoteParagraphs={["Si ya tienes web, partimos solo con el chatbot. Si no la tienes o no cumple su función, la resolvemos juntos.", "La web se cotiza aparte, según el alcance que necesites."]}
+    href={DISENO_WEB}
+    image={{ src: `${IMG}/heroes/chatbot-whatsapp-ia-hero-v3.webp`, alt: "Sitio web con asistente de IA visto en un celular" }}
+  />
+
+  <!-- Atención online / cómo trabajamos -->
+  <section id="online" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>Online desde el primer día, para todo el Gran Concepción y el Biobío</h2>
+        <p class="intro">Trabajamos con negocios de Concepción, Talcahuano, San Pedro de la Paz, Chiguayante, Hualpén, Coronel, Los Ángeles y el resto de la región sin necesidad de reunirnos en persona.</p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-brand-whatsapp"></i></span>
+            <div><strong>Contacto directo</strong><span>WhatsApp y correo con una persona real.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-map-pin-off"></i></span>
+            <div><strong>Sin oficina local</strong><span>Atendemos a distancia; así los costos se mantienen bajos.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-adjustments-horizontal"></i></span>
+            <div><strong>Control de contenidos</strong><span>Tú autorizas qué valores y datos puede entregar el chatbot.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-calendar-off"></i></span>
+            <div><strong>Sin permanencia forzosa</strong><span>Si tu negocio cambia, el plan también puede cambiar.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <div class="quote-box">
+        <h3>Dale una consulta real</h3>
+        <p>Abre el chat y pregúntale como lo haría un estudiante o un apoderado. También puedes pedirle que actúe como asistente de una academia, un arriendo o tu propio rubro.</p>
+        <p class="mb-0"><button type="button" class="btn btn-dark" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button></p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="band">
+    <div class="container">
+      <div class="band-head">
+        <h2>Lo que suelen preguntar en Concepción</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f, i) => (
+          <div class={`faq-item${i === 0 ? " open" : ""}`}>
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? "true" : "false"}>
+              {f.q}
+              <i class="ti ti-chevron-down chev"></i>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">{f.a}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="band band-soft">
+    <div class="container contact-grid">
+      <div>
+        <h2>Pide tu propuesta para Concepción</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos qué consultas recibes más seguido y te mostramos cómo las resolvería el chatbot.</p>
+        <div class="contact-direct">
+          <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 class="contact-form-title">Formulario de contacto</h3>
+        <form class="form-grid" id="contactForm">
+          <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+          <input type="tel" name="fono" placeholder="Teléfono" aria-label="Teléfono" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <select name="plan" id="planSelect" aria-label="Plan de interés" required>
+            <option value="">¿Qué plan te interesa?</option>
+            <option value="Plan Pymes - $12.000 CLP/mes">Plan Pymes ($12.000 al mes)</option>
+            <option value="Plan Empresas - $16.000 CLP/mes">Plan Empresas ($16.000 al mes)</option>
+            <option value="Chatbot + página web nueva o rediseño">Chatbot y página web (nueva o rediseño)</option>
+            <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
+          </select>
+          <input class="full" type="text" name="web" placeholder="Página web de tu negocio (si tienes)" aria-label="Página web" />
+          <textarea class="full" name="mensaje" placeholder="¿Qué preguntas te hacen más seguido tus clientes?" aria-label="Mensaje" rows="4" required></textarea>
+          <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
+        </form>
+        <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band cta">
+    <div class="container cta-inner">
+      <h2>Responde a tiempo en la próxima temporada de más consultas</h2>
+      <div class="cta-buttons">
+        <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src={`${IMG}/brand/chatia-logo-h-white.webp`} alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de academias, clínicas, estudios y comercios de Concepción y todo Chile, para que ninguna consulta se quede sin respuesta.</p>
+        </div>
+        <div>
+          <h3>Chatbot por rubro</h3>
+          <ul class="footer-links">
+            {landings.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+            <li><a href="/#rubros">Ver todos los rubros</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chatbot por ciudad</h3>
+          <ul class="footer-links">
+            {ciudades.map((c) => (
+              <li><a href={c.href}>{c.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
+            <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
+            <p><i class="ti ti-map-pin"></i> Atendemos Concepción y todo Chile</p>
+            <p><i class="ti ti-clock"></i> Lunes a sábado</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
+        <p class="mb-0">Un servicio de <a href="https://diseñopaginas.cl" target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <DemoChatWidget
+    vertical="concepcion"
+    botStatus="Asistente IA · Concepción"
+    welcomeMessage="¡Hola! 👋 Soy Chatia, un chatbot con IA. Así atendería las consultas de tu academia, clínica o negocio en Concepción, 24/7. Pídeme que actúe como asistente de tu rubro, o pregúntame por el servicio."
+    quickReplies={[
+  {
+    "label": "Actúa como asistente de una academia",
+    "reply": ""
+  },
+  {
+    "label": "Pregunta como un estudiante buscando arriendo",
+    "reply": ""
+  },
+  {
+    "label": "¿Cuánto cuesta?",
+    "reply": ""
+  },
+  {
+    "label": "¿Pueden reunirse conmigo?",
+    "reply": ""
+  }
+]}
+    disclaimer="Esta es una demo real con IA. Tu chatbot se entrena con la información de tu negocio."
+  />
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const btn = item.querySelector('.faq-q');
+      btn?.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-open-chat]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const root = document.getElementById('demoChat');
+        const bubble = document.getElementById('demoChatBubble');
+        if (root && bubble && !root.classList.contains('is-open')) bubble.click();
+      });
+    });
+
+    const planSelect = document.getElementById('planSelect') as HTMLSelectElement | null;
+    document.querySelectorAll('[data-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (planSelect) planSelect.value = (btn as HTMLElement).dataset.plan || '';
+      });
+    });
+
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const web = String(data.get('web') || '').trim();
+      const text =
+        `Hola, los contacto desde chatbotia.cl/concepcion.\n` +
+        `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
+        `Plan: ${data.get('plan')}\n` +
+        (web ? `Web: ${web}\n` : '') +
+        `Consultas frecuentes: ${data.get('mensaje')}`;
+      window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
+    });
+  </script>
+</body>
+</html>
