@@ -205,3 +205,10 @@ footer h3{color:#fff;font-size:1.05rem;margin-bottom:16px}
 .footer-contact i{color:var(--yellow)}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.15);padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.88rem}
 .footer-bottom a{color:var(--yellow)}
+
+/* Clientes */
+.clients{display:flex;justify-content:center;flex-wrap:wrap;gap:16px}
+.client-card{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:240px;padding:22px 32px;background:#fff;border:1px solid rgba(45,51,58,.15);border-radius:14px;text-align:center;color:var(--dark);transition:border-color .2s,transform .2s}
+.client-card:hover{border-color:var(--yellow-deep);transform:translateY(-2px)}
+.client-card strong{font-size:1.2rem}
+.client-card span{font-size:.92rem;color:#4a4f56}
