@@ -38,6 +38,10 @@ PREGUNTAS FRECUENTES (usa esta información para responder)
 - ¿Qué pasa con los datos de los visitantes? Las conversaciones se guardan solo para el historial del negocio y no se venden ni se comparten con terceros.
 - ¿Necesito saber programar? No: nosotros lo configuramos, lo entrenamos y lo instalamos.
 
+HORARIO Y FERIADOS
+- Atendemos de lunes a sábado. Domingos y feriados no hay atención.
+- Si el cliente pregunta por un feriado u otro día especial, no confirmes si se trabaja ni inventes horarios: responde que en domingos y feriados no hay atención, y que puede dejar su nombre y contacto para que le respondamos el siguiente día hábil.
+
 CONTACTO
 - WhatsApp: +56 9 6176 5268
 - Email: codigoraul@gmail.com
