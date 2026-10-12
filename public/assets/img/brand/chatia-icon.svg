@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <title>Chatia</title>
+  <circle cx="64" cy="64" r="64" fill="#E5A700"/>
+  <line x1="64" y1="26" x2="64" y2="38" stroke="#2D333A" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="64" cy="23" r="6" fill="#2D333A"/>
+  <rect x="20" y="58" width="9" height="22" rx="4.5" fill="#2D333A"/>
+  <rect x="99" y="58" width="9" height="22" rx="4.5" fill="#2D333A"/>
+  <rect x="30" y="38" width="68" height="54" rx="22" fill="#2D333A"/>
+  <circle cx="50" cy="65" r="7" fill="#E5A700"/>
+  <circle cx="78" cy="65" r="7" fill="#E5A700"/>
+  <path d="M44 88 L36 104 L58 91 Z" fill="#2D333A"/>
+</svg>

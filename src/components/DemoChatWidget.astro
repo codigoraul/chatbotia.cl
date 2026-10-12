@@ -33,7 +33,7 @@ const {
   <!-- Botón flotante -->
   <button type="button" class="demo-chat-bubble" id="demoChatBubble" aria-label="Abrir chat con IA">
     <span class="demo-chat-bubble-icon">
-      <i class="ti ti-message-2"></i>
+      <img src="/assets/img/brand/chatia-mark.svg" alt="" width="40" height="40">
     </span>
     <span class="demo-chat-ping"></span>
   </button>
@@ -47,7 +47,7 @@ const {
   <div class="demo-chat-panel" id="demoChatPanel" role="dialog" aria-label="Chat de demostración con inteligencia artificial">
     <div class="demo-chat-header">
       <div class="demo-chat-avatar">
-        <img src="/assets/img/brand/chatia-avatar.webp" alt="Chatia" width="42" height="42">
+        <img class="demo-chat-avatar-mark" src="/assets/img/brand/chatia-mark.svg" alt="Chatia" width="42" height="42">
       </div>
       <span class="demo-chat-sep"></span>
       <div class="demo-chat-header-text">
@@ -61,7 +61,7 @@ const {
 
     <div class="demo-chat-body" id="demoChatBody">
       <div class="demo-chat-row demo-chat-row-bot">
-        <div class="demo-chat-avatar-sm"><img src="/assets/img/brand/chatia-avatar.webp" alt="Chatia" width="28" height="28"></div>
+        <div class="demo-chat-avatar-sm"><img src="/assets/img/brand/chatia-icon.svg" alt="Chatia" width="28" height="28"></div>
         <div class="demo-chat-bubble-wrap">
           <div class="demo-chat-msg demo-chat-msg-bot">{welcomeMessage}</div>
           <span class="demo-chat-time" data-now></span>
@@ -115,6 +115,17 @@ const {
   .demo-chat-bubble:hover {
     transform: translateY(-4px) scale(1.05);
     box-shadow: 0 16px 36px rgba(229, 167, 0, 0.55);
+  }
+
+  .demo-chat-bubble-icon img {
+    display: block;
+    width: 40px;
+    height: 40px;
+  }
+
+  .demo-chat-avatar img.demo-chat-avatar-mark {
+    padding: 5px;
+    object-fit: contain;
   }
 
   .demo-chat-bubble-icon i {
@@ -548,7 +559,7 @@ const {
       if (!isUser) {
         const avatar = document.createElement('div');
         avatar.className = 'demo-chat-avatar-sm';
-        avatar.innerHTML = '<img src="/assets/img/brand/chatia-avatar.webp" alt="Chatia" width="28" height="28">';
+        avatar.innerHTML = '<img src="/assets/img/brand/chatia-icon.svg" alt="Chatia" width="28" height="28">';
         row.appendChild(avatar);
       }
 
@@ -578,7 +589,7 @@ const {
 
       const avatar = document.createElement('div');
       avatar.className = 'demo-chat-avatar-sm';
-      avatar.innerHTML = '<img src="/assets/img/brand/chatia-avatar.webp" alt="Chatia" width="28" height="28">';
+      avatar.innerHTML = '<img src="/assets/img/brand/chatia-icon.svg" alt="Chatia" width="28" height="28">';
 
       const typing = document.createElement('div');
       typing.className = 'demo-chat-typing';
