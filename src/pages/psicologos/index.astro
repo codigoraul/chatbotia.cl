@@ -1,0 +1,615 @@
+---
+import '../../styles/global.css';
+import '../../styles/vertical.css';
+import DemoChatWidget from '../../components/DemoChatWidget.astro';
+import { landings, ciudades } from '../../data/landings';
+import WebOffer from '../../components/WebOffer.astro';
+
+const SITE = "https://chatbotia.cl";
+const URL = `${SITE}/psicologos/`;
+const WA_NUMBER = "56961765268";
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/psicologos. Me interesa un chatbot con IA para mi consulta de psicología.")}`;
+const PHONE_DISPLAY = "+56 9 6176 5268";
+const EMAIL = "codigoraul@gmail.com";
+const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
+const DISENO_WEB = "https://diseñopaginas.cl";
+
+const H1 = "Chatbot con IA para psicólogos";
+const TITLE = "Chatbot con IA para Psicólogos y Centros de Terapia | Chatia";
+const DESCRIPTION = "Chat con IA para psicólogos y centros de terapia: da la primera respuesta con calidez y discreción, ordena las solicitudes de sesión y te entrega los datos de contacto. Desde $12.000 al mes.";
+const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
+const IMG = "/assets/img";
+
+const items = [
+  {
+    "icon": "ti-user",
+    "title": "Terapia individual para adultos",
+    "text": "Cómo se desarrolla una primera sesión, duración y frecuencia habitual.",
+    "q": "¿Cómo es la primera sesión?"
+  },
+  {
+    "icon": "ti-users",
+    "title": "Terapia de pareja",
+    "text": "Formato de las sesiones, si se atiende a ambas personas juntas y cómo reservar.",
+    "q": "¿Atienden terapia de pareja online?"
+  },
+  {
+    "icon": "ti-mood-kid",
+    "title": "Niños y adolescentes",
+    "text": "Edades que atiendes, participación de los padres y cómo se coordina el primer encuentro.",
+    "q": "¿Desde qué edad atienden niños?"
+  },
+  {
+    "icon": "ti-cloud-rain",
+    "title": "Ansiedad, estrés y duelo",
+    "text": "Se presentan las áreas en las que trabajas, sin pedir al visitante que describa lo que le pasa.",
+    "q": "¿Trabajan con ansiedad?"
+  },
+  {
+    "icon": "ti-video",
+    "title": "Atención online",
+    "text": "Plataforma que usas, cómo se coordina el enlace y qué se necesita para conectarse.",
+    "q": "¿Cómo funciona una sesión por videollamada?"
+  },
+  {
+    "icon": "ti-file-text",
+    "title": "Evaluaciones e informes",
+    "text": "Qué evaluaciones realizas, tiempos de entrega y cómo solicitar un informe.",
+    "q": "¿Hacen informes psicológicos?"
+  }
+];
+
+const faqs = [
+  {
+    "q": "¿Qué hace exactamente un chatbot en el sitio de un psicólogo?",
+    "a": "Recibe a quien escribe, responde las preguntas prácticas (modalidad, horarios, edades que atiendes, cómo se reserva) y toma un nombre y un medio de contacto para que tú o tu equipo respondan. No hace de terapeuta ni conversa sobre el problema de la persona."
+  },
+  {
+    "q": "¿Puede el chatbot dar contención o consejos?",
+    "a": "No, y está configurado para no hacerlo. Agradece el mensaje con calidez, aclara que los detalles se conversan con el profesional y deriva a la primera sesión."
+  },
+  {
+    "q": "¿Qué pasa si alguien escribe que está en una crisis o en riesgo?",
+    "a": "El asistente deja de lado la coordinación de la sesión, expresa preocupación, invita a comunicarse de inmediato con un servicio de emergencia o una línea de ayuda y pide que busque a alguien cercano. No reemplaza la atención de urgencia, pero evita que la persona quede esperando un correo."
+  },
+  {
+    "q": "¿Qué datos se piden y qué se guarda?",
+    "a": "Solo nombre, un teléfono o correo, y la modalidad o el horario preferido. No se solicitan relatos clínicos. Las conversaciones se guardan para tu historial y no se venden ni se comparten."
+  },
+  {
+    "q": "¿Puede informar mis valores?",
+    "a": "Si quieres. Puedes publicar el valor de la sesión, o preferir que el chatbot invite a una conversación inicial sin mencionar montos. Siempre usa solo lo que tú autorizas."
+  },
+  {
+    "q": "¿Cuál es el costo mensual?",
+    "a": "El plan base cuesta $12.000 CLP al mes (1.000 respuestas, un chatbot) y el plan ampliado $16.000 CLP al mes (2.000 respuestas, hasta dos chatbots). La puesta en marcha tiene un costo único de $4.000 CLP. Se paga por transferencia, con boleta de honorarios, sin permanencia."
+  },
+  {
+    "q": "¿Cuánto tarda en estar listo?",
+    "a": "Una vez que definimos contigo el tono y la información, queda instalado en 24 horas."
+  },
+  {
+    "q": "¿Y si necesito crear mi sitio web desde cero?",
+    "a": "Lo podemos hacer desde DiseñoPáginas.cl, con un diseño pensado para consultas de salud mental, y entregarlo con el chatbot instalado. Se cotiza aparte."
+  }
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Chatbot con IA para psicólogos y centros de terapia",
+    "serviceType": "Chatbot con inteligencia artificial para sitios web de consultas de psicología",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chatia",
+      "url": SITE,
+      "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
+      "email": EMAIL,
+      "telephone": "+56961765268",
+      "sameAs": [FACEBOOK],
+    },
+    "areaServed": {
+        "@type": "Country",
+        "name": "Chile"
+    },
+    "offers": [
+        {
+            "@type": "Offer",
+            "name": "Plan Pymes",
+            "price": "12000",
+            "priceCurrency": "CLP"
+        },
+        {
+            "@type": "Offer",
+            "name": "Plan Empresas",
+            "price": "16000",
+            "priceCurrency": "CLP"
+        }
+    ]
+},
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chatia", "item": `${SITE}/` },
+      { "@type": "ListItem", "position": 2, "name": "Chatbot con IA para psicólogos", "item": URL },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  },
+];
+---
+
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION} />
+  <link rel="canonical" href={URL} />
+  <meta name="theme-color" content="#F5C842" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={URL} />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content={DESCRIPTION} />
+  <meta property="og:image" content={OG_IMAGE} />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Chatia" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body class="vertical v-psi">
+  <div class="topbar">
+    <div class="container">
+      <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+      <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+      <span><i class="ti ti-map-pin"></i> Atendemos todo Chile</span>
+      <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
+    </div>
+  </div>
+
+  <header class="header-main">
+    <div class="container">
+      <a href="/" class="brand" aria-label="Chatia, inicio">
+        <img src={`${IMG}/brand/chatia-logo-h.webp`} alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
+      </a>
+      <div class="header-cta">
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+        <a href="#contacto" class="btn btn-yellow">Cotizar gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero hero-photo" style={`--bg:url('${IMG}/psicologos/psicologos-sesion.webp')`}>
+    <div class="container hero-grid">
+      <div>
+        <span class="vtag"><i class="ti ti-brain"></i> Para psicólogos y centros de terapia</span>
+        <h1>{H1}</h1>
+        <p class="lead">
+          La primera respuesta de tu consulta, con cercanía y sin invadir. El asistente con IA recibe a quien escribe, aclara cómo trabajas y toma lo mínimo para que tú o tu equipo se comuniquen, sin pedir ni guardar detalles clínicos.
+        </p>
+        <div class="hero-buttons">
+          <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+          <a href="#planes" class="btn btn-white btn-lg">Ver planes</a>
+        </div>
+        <ul class="hero-facts">
+          <li>Listo en 24 horas</li>
+          <li>Desde $12.000 al mes</li>
+          <li>Sin contrato de permanencia</li>
+        </ul>
+      </div>
+
+      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA para una consulta de psicología">
+        <div class="chat-preview-head">
+          <img src={`${IMG}/brand/chatia-avatar.webp`} alt="" width="40" height="40" />
+          <div>
+            <strong>Asistente Centro Psicológico</strong>
+            <span><span class="dot"></span> Responde al instante</span>
+          </div>
+        </div>
+        <div class="chat-preview-body">
+          <div class="cp-msg cp-user">Hola, busco terapia online. Llevo semanas durmiendo mal y no sé por dónde partir.</div>
+          <div class="cp-msg cp-bot">Gracias por escribir y por dar este paso. El centro atiende en modalidad online. Los detalles prefiero que los converses directamente con la psicóloga. ¿Me dejas tu nombre y un teléfono o correo para que te contacte?</div>
+          <div class="cp-msg cp-user">Claro, soy Daniela, dani@correo.cl</div>
+          <div class="cp-msg cp-bot">Gracias, Daniela. Le avisé al equipo y te escriben pronto para coordinar una primera sesión. Si en algún momento sientes que no puedes esperar, avísame y te indico a dónde llamar ahora mismo.</div>
+        </div>
+        <p class="cp-note">Ejemplo de un chatbot con IA para una consulta de psicología</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="subnav" aria-label="Secciones">
+    <div class="container">
+      <ul>
+        <li><a href="#que-es">Qué es</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#terapias">Áreas de atención</a></li>
+        <li><a href="#confidencialidad">Discreción</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#pagina-web">Página web</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Qué es -->
+  <section id="que-es" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>¿Qué es un chatbot con IA para una consulta de psicología?</h2>
+        <p class="intro">
+          Es un asistente en el sitio web de tu consulta que acompaña el primer contacto. Responde lo práctico (cómo trabajas, modalidad, horarios, valores si quieres publicarlos) y recoge un teléfono o correo para que tú des el siguiente paso. No conversa sobre la situación de la persona ni hace de terapeuta.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-heart-handshake"></i></span>
+            <div><strong>Primer contacto cálido</strong><span>Responde con un tono amable y sobrio, sin presionar y sin pedir que la persona cuente su historia.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-device-laptop"></i></span>
+            <div><strong>Aclara la modalidad</strong><span>Presencial u online, edades que atiendes y enfoques de trabajo, tal como tú los quieras presentar.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-address-book"></i></span>
+            <div><strong>Recoge solo lo necesario</strong><span>Nombre, un medio de contacto y la preferencia de horario. Nada más.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-first-aid-kit"></i></span>
+            <div><strong>Sabe cuándo derivar</strong><span>Si alguien expresa que está en riesgo, el chatbot deja de lado el trámite y entrega números de ayuda inmediata.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <figure class="photo"><img src={`${IMG}/psicologos/psicologos-escucha.webp`} alt="Mujer conversando con una psicóloga durante una sesión en una consulta" width="1500" height="1000" loading="lazy" /></figure>
+      <div class="quote-box">
+        <h3>A veces el primer mensaje es el más difícil de enviar</h3>
+        <p>Quien decide escribirle a un psicólogo suele haberlo pensado varios días. Si su mensaje queda sin respuesta, puede no volver a intentarlo.</p>
+        <p class="mb-0">Con el chatbot, esa persona recibe una respuesta amable de inmediato y tú retomas el contacto cuando tengas un espacio, con calma.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona" class="band band-dark">
+    <div class="container">
+      <div class="band-head">
+        <h2>Cómo lo ponemos en marcha</h2>
+        <p>Una conversación contigo y un día de trabajo; no necesitas conocimientos técnicos.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Defines cómo quieres hablar</h3>
+          <p>Enfoques, edades, modalidad y el tono de las respuestas. Tú decides qué se publica y qué se deja para la primera sesión.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Fijamos los límites</h3>
+          <p>Configuramos que el bot no haga terapia, no pida relatos del problema y siga el protocolo de ayuda inmediata cuando corresponda.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Lo instalamos en tu sitio</h3>
+          <p>En 24 horas queda activo y te llega un correo cada vez que alguien deja sus datos de contacto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Áreas de atención -->
+  <section id="terapias" class="band band-yellow">
+    <div class="container">
+      <div class="band-head">
+        <h2>Un chatbot que presenta tu manera de trabajar</h2>
+        <p>Cada consulta explica su oferta de forma distinta; el asistente usa solo la tuya.</p>
+      </div>
+      <div class="rubros rubros-3">
+        {items.map((r) => (
+          <div class="rubro">
+            <div class="bubble">{r.q}</div>
+            <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Discreción y límites -->
+  <section id="confidencialidad" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>Discreción primero: el chatbot no hace terapia</h2>
+        <p class="intro">
+          En psicología la confianza lo es todo. Por eso el asistente se diseña para acompañar el trámite, no el contenido de lo que vive la persona.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-message-off"></i></span>
+            <div><strong>No indaga ni aconseja</strong><span>No pide que le cuenten el problema ni da consejos clínicos o emocionales; reconoce el mensaje y deriva a la sesión.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-urgent"></i></span>
+            <div><strong>Protocolo ante riesgo</strong><span>Si alguien menciona que quiere hacerse daño o está en peligro, entrega teléfonos de ayuda inmediata e insiste en comunicarse ya.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-eye-off"></i></span>
+            <div><strong>Poca información, bien cuidada</strong><span>Se pide nombre y un contacto. Las conversaciones se guardan para tu historial y no se comparten con terceros.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-adjustments-horizontal"></i></span>
+            <div><strong>Tú defines el alcance</strong><span>Valores, enfoques, horarios y modalidades: el chatbot solo habla de lo que tú autorizas.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <div class="quote-box">
+        <h3>Revisa tú mismo el tono</h3>
+        <p>Abre el chat de esta página y escríbele como lo haría alguien que consulta por primera vez. Puedes pedirle que actúe como asistente de una consulta y comprobar cómo responde sin invadir.</p>
+        <p class="mb-0"><button type="button" class="btn btn-dark" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button></p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planes -->
+  <section id="planes" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Planes y precios</h2>
+        <p>Chatbot con IA para tu consulta de psicología, con precios fijos y claros.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Psicólogos independientes</h3>
+          <p class="price">$12.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> 1 chatbot instalado en tu página web</li>
+            <li><i class="ti ti-check"></i> Entrenado con tu forma de trabajar y tus horarios</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada persona que deja su contacto</li>
+            <li><i class="ti ti-check"></i> Actualización de la información 1 vez al mes</li>
+          </ul>
+          <a href="#contacto" class="btn btn-white btn-block" data-plan="Plan Pymes - $12.000 CLP/mes">Cotizar plan Pymes</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Más elegido</span>
+          <h3>Centros con equipo</h3>
+          <p class="price">$16.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Hasta 2 chatbots (otro profesional o centro)</li>
+            <li><i class="ti ti-check"></i> Entrenado con tu forma de trabajar y tus horarios</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada persona que deja su contacto</li>
+            <li><i class="ti ti-check"></i> Actualizaciones de información ilimitadas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-dark btn-block" data-plan="Plan Empresas - $16.000 CLP/mes">Cotizar plan Empresas</a>
+        </div>
+      </div>
+      <p class="plans-note">Instalación: pago único de $4.000 CLP. Mensualidad por transferencia bancaria, con boleta de honorarios. Sin permanencia forzosa.</p>
+    </div>
+  </section>
+
+  <!-- Diseño o rediseño web (oferta secundaria) -->
+  <WebOffer
+    title={"¿Todavía no tienes un sitio web para tu consulta?"}
+    intro={"Un chatbot necesita una página donde recibir a las personas. DiseñoPáginas.cl puede diseñar tu sitio profesional o rediseñar el actual, con un estilo sobrio y tranquilo, y entregarlo con el asistente ya instalado."}
+    items={[
+    {
+        "icon": "ti-leaf",
+        "title": "Un diseño que transmite calma",
+        "text": "Tipografía legible, colores suaves y textos claros sobre quién eres y cómo trabajas."
+    },
+    {
+        "icon": "ti-certificate",
+        "title": "Respalda tu formación",
+        "text": "Espacio para tu título, especialidades y enfoque terapéutico, para que quien llega sepa con quién se atenderá."
+    },
+    {
+        "icon": "ti-message-circle",
+        "title": "Con el chatbot incluido",
+        "text": "El primer contacto queda resuelto desde el primer día de publicación."
+    }
+]}
+    quoteTitle={"Si ya tienes sitio, instalamos el chatbot ahí"}
+    quoteParagraphs={[
+    "No necesitas empezar de cero. Si tu página funciona, solo agregamos el asistente. Si todavía no existe, o quedó atrás, la diseñamos contigo.",
+    "El sitio web se cotiza por separado, según lo que necesites mostrar."
+]}
+    href={DISENO_WEB}
+  />
+
+  <!-- FAQ -->
+  <section id="faq" class="band">
+    <div class="container">
+      <div class="band-head">
+        <h2>Preguntas frecuentes</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f, i) => (
+          <div class={`faq-item${i === 0 ? " open" : ""}`}>
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? "true" : "false"}>
+              {f.q}
+              <i class="ti ti-chevron-down chev"></i>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">{f.a}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="band band-soft">
+    <div class="container contact-grid">
+      <div>
+        <h2>Cotiza un chatbot con IA para tu consulta</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos cómo trabajas y te preparamos una propuesta sin compromiso.</p>
+        <div class="contact-direct">
+          <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 class="contact-form-title">Formulario de contacto</h3>
+        <form class="form-grid" id="contactForm">
+          <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+          <input type="tel" name="fono" placeholder="Teléfono" aria-label="Teléfono" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <select name="plan" id="planSelect" aria-label="Plan de interés" required>
+            <option value="">¿Qué plan te interesa?</option>
+            <option value="Plan Pymes - $12.000 CLP/mes">Plan Pymes ($12.000 al mes)</option>
+            <option value="Plan Empresas - $16.000 CLP/mes">Plan Empresas ($16.000 al mes)</option>
+            <option value="Chatbot + página web nueva o rediseño">Chatbot y página web (nueva o rediseño)</option>
+            <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
+          </select>
+          <input class="full" type="text" name="web" placeholder="Sitio web de tu consulta (si tienes)" aria-label="Página web" />
+          <textarea class="full" name="mensaje" placeholder="¿Qué tipo de atención ofreces y en qué modalidad?" aria-label="Mensaje" rows="4" required></textarea>
+          <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
+        </form>
+        <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band cta band-photo-cta" style={`--bg:url('${IMG}/psicologos/psicologos-sesion.webp')`}>
+    <div class="container cta-inner">
+      <h2>Que el primer mensaje de cada persona tenga una respuesta amable</h2>
+      <div class="cta-buttons">
+        <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src={`${IMG}/brand/chatia-logo-h-white.webp`} alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en sitios web de psicólogos, consultas y pymes de todo Chile, con límites claros y respeto por la privacidad.</p>
+        </div>
+        <div>
+          <h3>Chatbot por rubro</h3>
+          <ul class="footer-links">
+            {landings.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+            <li><a href="/#rubros">Ver todos los rubros</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chatbot por ciudad</h3>
+          <ul class="footer-links">
+            {ciudades.map((c) => (
+              <li><a href={c.href}>{c.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
+            <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
+            <p><i class="ti ti-map-pin"></i> Atendemos todo Chile</p>
+            <p><i class="ti ti-clock"></i> Lunes a sábado</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
+        <p class="mb-0">Clientes: <a href="https://hielosdelsur.cl" target="_blank" rel="noopener">Hielos del Sur</a></p>
+        <p class="mb-0">Un servicio de <a href="https://diseñopaginas.cl" target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
+        <p class="credits">Imágenes: <a href="https://www.freepik.com" target="_blank" rel="noopener">Freepik</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <DemoChatWidget
+    vertical="psicologos"
+    botStatus="Asistente IA · Psicología"
+    welcomeMessage="Hola, soy Chatia, un chatbot con IA. Así recibiría el primer contacto de tu consulta de psicología, con calidez y sin invadir. Pídeme que actúe como asistente de una consulta, o pregúntame por el servicio."
+    quickReplies={[
+      { label: "Actúa como asistente de una consulta de psicología", reply: "" },
+      { label: "Busco terapia online", reply: "" },
+      { label: "¿El chatbot hace terapia?", reply: "" },
+      { label: "¿Cuánto cuesta?", reply: "" },
+    ]}
+    disclaimer="Esta es una demo real con IA. Tu chatbot se entrena con la información de tu consulta."
+  />
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const btn = item.querySelector('.faq-q');
+      btn?.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-open-chat]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const root = document.getElementById('demoChat');
+        const bubble = document.getElementById('demoChatBubble');
+        if (root && bubble && !root.classList.contains('is-open')) bubble.click();
+      });
+    });
+
+    const planSelect = document.getElementById('planSelect') as HTMLSelectElement | null;
+    document.querySelectorAll('[data-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (planSelect) planSelect.value = (btn as HTMLElement).dataset.plan || '';
+      });
+    });
+
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const web = String(data.get('web') || '').trim();
+      const text =
+        `Hola, los contacto desde chatbotia.cl/psicologos.\n` +
+        `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
+        `Plan: ${data.get('plan')}\n` +
+        (web ? `Web: ${web}\n` : '') +
+        `Tipo de atención: ${data.get('mensaje')}`;
+      window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
+    });
+  </script>
+</body>
+</html>

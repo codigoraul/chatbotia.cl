@@ -1,0 +1,615 @@
+---
+import '../../styles/global.css';
+import '../../styles/vertical.css';
+import DemoChatWidget from '../../components/DemoChatWidget.astro';
+import { landings, ciudades } from '../../data/landings';
+import WebOffer from '../../components/WebOffer.astro';
+
+const SITE = "https://chatbotia.cl";
+const URL = `${SITE}/inmobiliarias/`;
+const WA_NUMBER = "56961765268";
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/inmobiliarias. Me interesa un chatbot con IA para mi corredora de propiedades.")}`;
+const PHONE_DISPLAY = "+56 9 6176 5268";
+const EMAIL = "codigoraul@gmail.com";
+const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
+const DISENO_WEB = "https://diseñopaginas.cl";
+
+const H1 = "Chatbot con IA para inmobiliarias y corredores";
+const TITLE = "Chatbot con IA para Inmobiliarias y Corredores de Propiedades | Chatia";
+const DESCRIPTION = "Chat con IA para inmobiliarias y corredores: atiende consultas por propiedades las 24 horas, califica al interesado y te entrega nombre, teléfono y lo que busca. Desde $12.000 al mes.";
+const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
+const IMG = "/assets/img";
+
+const items = [
+  {
+    "icon": "ti-home-dollar",
+    "title": "Venta de casas y departamentos",
+    "text": "Califica por comuna, presupuesto y número de dormitorios, y deja el contacto listo para el corredor.",
+    "q": "¿Tienen casas de 3 dormitorios en venta?"
+  },
+  {
+    "icon": "ti-key",
+    "title": "Arriendos",
+    "text": "Plazo de ingreso, número de personas, mascotas y documentos que se piden para postular.",
+    "q": "¿Aceptan mascotas en los arriendos?"
+  },
+  {
+    "icon": "ti-map-pin-2",
+    "title": "Parcelas y terrenos",
+    "text": "Superficie, servicios disponibles y cómo se visita un terreno fuera de la ciudad.",
+    "q": "¿Las parcelas tienen derechos de agua?"
+  },
+  {
+    "icon": "ti-building-skyscraper",
+    "title": "Proyectos nuevos",
+    "text": "Entregas, tipologías y cómo cotizar un departamento de un proyecto en construcción.",
+    "q": "¿Cuándo se entrega el proyecto?"
+  },
+  {
+    "icon": "ti-report-money",
+    "title": "Tasaciones y captación",
+    "text": "El propietario que quiere vender o arrendar deja sus datos para una evaluación.",
+    "q": "Quiero vender mi casa, ¿cómo parto?"
+  },
+  {
+    "icon": "ti-clipboard-list",
+    "title": "Administración de arriendos",
+    "text": "Cómo funciona el servicio, qué cobra la corredora y qué se informa al propietario.",
+    "q": "¿Administran arriendos de propiedades?"
+  }
+];
+
+const faqs = [
+  {
+    "q": "¿Cómo ayuda un chatbot a una corredora de propiedades?",
+    "a": "Responde al instante a quien visita tu sitio, hace preguntas para calificar la búsqueda (operación, zona, presupuesto, plazo) y te deja un contacto con contexto, incluso fuera de horario o en fin de semana."
+  },
+  {
+    "q": "¿Puede informar sobre propiedades específicas?",
+    "a": "Sí, las que tú cargues en su información: ubicación, características y condiciones que autorices. Si una propiedad no está en su base o el dato no está claro, avisa que un corredor confirmará."
+  },
+  {
+    "q": "¿Agenda las visitas directamente?",
+    "a": "No agenda en un calendario. Recoge día y horario preferidos y te avisa por correo para que confirmes con el propietario y con el interesado."
+  },
+  {
+    "q": "¿También sirve para captar propietarios?",
+    "a": "Sí. Puede atender a quien quiere vender o arrendar, recoger los datos básicos de la propiedad y dejar el contacto para que ofrezcas una tasación."
+  },
+  {
+    "q": "¿Qué pasa si preguntan por créditos hipotecarios?",
+    "a": "El chatbot no asesora en financiamiento ni promete aprobaciones. Puede explicar qué información general tú quieras compartir y dejar el contacto para que tu equipo responda."
+  },
+  {
+    "q": "¿Cuánto cuesta para mi corredora?",
+    "a": "Dos planes mensuales: $12.000 CLP (1.000 respuestas y un chatbot) y $16.000 CLP (2.000 respuestas y hasta dos chatbots). Instalación única de $4.000 CLP. Pago por transferencia, con boleta de honorarios y sin permanencia forzosa."
+  },
+  {
+    "q": "¿Cuánto demora en quedar activo?",
+    "a": "Con tu información reunida, el chatbot queda instalado y respondiendo en 24 horas."
+  },
+  {
+    "q": "¿Funciona si solo publico en portales?",
+    "a": "El chatbot se instala en una página propia. Si solo publicas en portales de terceros, podemos crear tu sitio desde DiseñoPáginas.cl y dejarlo con el asistente funcionando; la web se cotiza aparte."
+  }
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Chatbot con IA para inmobiliarias y corredores de propiedades",
+    "serviceType": "Chatbot con inteligencia artificial para sitios web inmobiliarios",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chatia",
+      "url": SITE,
+      "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
+      "email": EMAIL,
+      "telephone": "+56961765268",
+      "sameAs": [FACEBOOK],
+    },
+    "areaServed": {
+        "@type": "Country",
+        "name": "Chile"
+    },
+    "offers": [
+        {
+            "@type": "Offer",
+            "name": "Plan Pymes",
+            "price": "12000",
+            "priceCurrency": "CLP"
+        },
+        {
+            "@type": "Offer",
+            "name": "Plan Empresas",
+            "price": "16000",
+            "priceCurrency": "CLP"
+        }
+    ]
+},
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chatia", "item": `${SITE}/` },
+      { "@type": "ListItem", "position": 2, "name": "Chatbot con IA para inmobiliarias", "item": URL },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  },
+];
+---
+
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION} />
+  <link rel="canonical" href={URL} />
+  <meta name="theme-color" content="#F5C842" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={URL} />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content={DESCRIPTION} />
+  <meta property="og:image" content={OG_IMAGE} />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Chatia" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body class="vertical v-realty">
+  <div class="topbar">
+    <div class="container">
+      <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+      <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+      <span><i class="ti ti-map-pin"></i> Atendemos todo Chile</span>
+      <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
+    </div>
+  </div>
+
+  <header class="header-main">
+    <div class="container">
+      <a href="/" class="brand" aria-label="Chatia, inicio">
+        <img src={`${IMG}/brand/chatia-logo-h.webp`} alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
+      </a>
+      <div class="header-cta">
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+        <a href="#contacto" class="btn btn-yellow">Cotizar gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero hero-photo" style={`--bg:url('${IMG}/inmobiliarias/inmobiliarias-visita.webp')`}>
+    <div class="container hero-grid">
+      <div>
+        <span class="vtag"><i class="ti ti-home-search"></i> Para corredores e inmobiliarias</span>
+        <h1>{H1}</h1>
+        <p class="lead">
+          Quien mira propiedades en tu sitio suele escribir de noche o en el fin de semana. Un asistente con IA responde por la ficha, pregunta lo que necesitas saber (comuna, presupuesto, dormitorios) y te deja el contacto calificado.
+        </p>
+        <div class="hero-buttons">
+          <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+          <a href="#planes" class="btn btn-white btn-lg">Ver planes</a>
+        </div>
+        <ul class="hero-facts">
+          <li>Instalación en 24 horas</li>
+          <li>Desde $12.000 al mes</li>
+          <li>Cancelas cuando quieras</li>
+        </ul>
+      </div>
+
+      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA para una corredora de propiedades">
+        <div class="chat-preview-head">
+          <img src={`${IMG}/brand/chatia-avatar.webp`} alt="" width="40" height="40" />
+          <div>
+            <strong>Asistente Corredora de Propiedades</strong>
+            <span><span class="dot"></span> Responde al instante</span>
+          </div>
+        </div>
+        <div class="chat-preview-body">
+          <div class="cp-msg cp-user">Busco depto de 2 dormitorios para arrendar en Temuco, hasta $450.000.</div>
+          <div class="cp-msg cp-bot">¡Hola! Puedo dejar tu búsqueda para que un corredor te envíe opciones. ¿Para cuándo lo necesitas y cuántas personas vivirían?</div>
+          <div class="cp-msg cp-user">Para marzo, somos dos. Soy Felipe, 9 5566 7788.</div>
+          <div class="cp-msg cp-bot">Gracias, Felipe. Registré: arriendo, 2 dormitorios, hasta $450.000, ingreso en marzo. Un corredor te contactará hoy con propiedades disponibles y fechas de visita.</div>
+        </div>
+        <p class="cp-note">Ejemplo de un chatbot con IA para una corredora de propiedades</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="subnav" aria-label="Secciones">
+    <div class="container">
+      <ul>
+        <li><a href="#que-es">Qué es</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#servicios">Qué puede atender</a></li>
+        <li><a href="#calificacion">Contactos calificados</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#pagina-web">Página web</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Qué es -->
+  <section id="que-es" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>¿Qué es un chatbot con IA para una corredora de propiedades?</h2>
+        <p class="intro">
+          Es un asistente de chat en tu sitio que conversa con quien visita tus propiedades. Responde lo básico (ubicación, tipo de inmueble, cómo se visita), pregunta qué busca la persona y te entrega un contacto con contexto, en lugar de un correo con un solo "me interesa".
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-building-store"></i></span>
+            <div><strong>Conoce tu cartera</strong><span>Se alimenta con tus fichas: ubicación, características y condiciones que quieras informar.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-adjustments-search"></i></span>
+            <div><strong>Hace las preguntas correctas</strong><span>Compra o arriendo, comuna, presupuesto, dormitorios y plazo, antes de que tú lo llames.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-calendar-time"></i></span>
+            <div><strong>Pide visitas</strong><span>Recoge preferencia de día y horario y te avisa para que confirmes con el propietario.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-user-plus"></i></span>
+            <div><strong>Capta propietarios</strong><span>También atiende a quien quiere vender o arrendar y deja sus datos para una tasación.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <figure class="photo"><img src={`${IMG}/inmobiliarias/inmobiliarias-llaves.webp`} alt="Pareja recibiendo las llaves de su nuevo hogar de manos de una corredora de propiedades" width="1500" height="1000" loading="lazy" /></figure>
+      <div class="quote-box">
+        <h3>El interesado que no recibe respuesta mira otra publicación</h3>
+        <p>Quien busca una propiedad compara varias a la vez y suele avanzar con la primera corredora que le contesta. Entre una visita y otra, tu bandeja puede tardar horas.</p>
+        <p class="mb-0">Con el chatbot, esa persona recibe respuesta en segundos y tú empiezas la llamada sabiendo qué busca.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona" class="band band-dark">
+    <div class="container">
+      <div class="band-head">
+        <h2>Puesta en marcha</h2>
+        <p>Entregas tu información y el asistente queda trabajando; sin tocar código.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Nos pasas tu cartera y reglas</h3>
+          <p>Propiedades destacadas, zonas, condiciones de visita y qué datos necesitas de cada interesado.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Entrenamos el asistente</h3>
+          <p>Aprende a responder con tu información y a hacer las preguntas que ordenan cada contacto.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Lo publicamos en tu sitio</h3>
+          <p>En 24 horas queda activo y recibes por correo cada solicitud con la conversación completa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="band band-yellow">
+    <div class="container">
+      <div class="band-head">
+        <h2>Un chatbot para cada tipo de consulta inmobiliaria</h2>
+        <p>Se ajusta a lo que ofreces: ventas, arriendos, terrenos o administración.</p>
+      </div>
+      <div class="rubros rubros-3">
+        {items.map((r) => (
+          <div class="rubro">
+            <div class="bubble">{r.q}</div>
+            <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contactos calificados -->
+  <section id="calificacion" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>Cada contacto llega con la información que necesitas</h2>
+        <p class="intro">
+          La diferencia entre un correo suelto y un lead útil es el contexto. El asistente lo reúne en una conversación corta y simple.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-list-details"></i></span>
+            <div><strong>Resumen de la búsqueda</strong><span>Operación, zona, presupuesto y plazo, ordenados en el correo que recibes.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-phone"></i></span>
+            <div><strong>Mejor hora para llamar</strong><span>Pregunta cuándo prefiere el contacto y lo deja anotado.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-ban"></i></span>
+            <div><strong>No inventa disponibilidad</strong><span>Si una propiedad no está en su información, lo dice y ofrece que un corredor confirme.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-scale"></i></span>
+            <div><strong>No asesora en créditos ni promete aprobaciones</strong><span>Informa lo que tú autorices y deriva las dudas financieras a tu equipo.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <div class="quote-box">
+        <h3>Pruébalo como lo haría un interesado</h3>
+        <p>Abre el chat de esta página y pídele ayuda para encontrar un departamento o una parcela. También puedes decirle que actúe como asistente de una corredora de propiedades.</p>
+        <p class="mb-0"><button type="button" class="btn btn-dark" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button></p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planes -->
+  <section id="planes" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Planes y precios</h2>
+        <p>Chatbot con IA para tu corredora de propiedades, con precios fijos y claros.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Corredores independientes</h3>
+          <p class="price">$12.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> 1 chatbot instalado en tu página web</li>
+            <li><i class="ti ti-check"></i> Entrenado con tu cartera y tus condiciones de visita</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada interesado calificado</li>
+            <li><i class="ti ti-check"></i> Actualización de la información 1 vez al mes</li>
+          </ul>
+          <a href="#contacto" class="btn btn-white btn-block" data-plan="Plan Pymes - $12.000 CLP/mes">Cotizar plan Pymes</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Más elegido</span>
+          <h3>Inmobiliarias con más cartera</h3>
+          <p class="price">$16.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Hasta 2 chatbots (otra sucursal u otro sitio)</li>
+            <li><i class="ti ti-check"></i> Entrenado con tu cartera y tus condiciones de visita</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada interesado calificado</li>
+            <li><i class="ti ti-check"></i> Actualizaciones de información ilimitadas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-dark btn-block" data-plan="Plan Empresas - $16.000 CLP/mes">Cotizar plan Empresas</a>
+        </div>
+      </div>
+      <p class="plans-note">Instalación: pago único de $4.000 CLP. Mensualidad por transferencia bancaria, con boleta de honorarios. Sin permanencia forzosa.</p>
+    </div>
+  </section>
+
+  <!-- Diseño o rediseño web (oferta secundaria) -->
+  <WebOffer
+    title={"¿Tu corredora aún no tiene un buen sitio de propiedades?"}
+    intro={"Un chatbot funciona mejor sobre una página ordenada. DiseñoPáginas.cl puede crear o rediseñar el sitio de tu corredora, con fichas claras y filtros simples, y entregarlo con el asistente ya instalado."}
+    items={[
+    {
+        "icon": "ti-photo",
+        "title": "Fichas que venden",
+        "text": "Galería, características y ubicación de cada propiedad, pensadas para leerse bien en el celular."
+    },
+    {
+        "icon": "ti-filter",
+        "title": "Búsqueda simple",
+        "text": "Filtros por operación, comuna y precio para que el interesado llegue rápido a lo que busca."
+    },
+    {
+        "icon": "ti-message-circle",
+        "title": "Con el chatbot incluido",
+        "text": "Cada ficha puede abrir una conversación en lugar de un formulario que nadie llena."
+    }
+]}
+    quoteTitle={"Primero el chatbot; la página, si la necesitas"}
+    quoteParagraphs={[
+    "Si ya tienes un portal o sitio, instalamos el asistente ahí. Si todavía publicas solo en portales de terceros, te ayudamos a tener tu propia vitrina.",
+    "La página web se cotiza aparte, según el tamaño de tu cartera."
+]}
+    href={DISENO_WEB}
+  />
+
+  <!-- FAQ -->
+  <section id="faq" class="band">
+    <div class="container">
+      <div class="band-head">
+        <h2>Preguntas frecuentes</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f, i) => (
+          <div class={`faq-item${i === 0 ? " open" : ""}`}>
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? "true" : "false"}>
+              {f.q}
+              <i class="ti ti-chevron-down chev"></i>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">{f.a}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="band band-soft">
+    <div class="container contact-grid">
+      <div>
+        <h2>Cotiza tu chatbot con IA inmobiliario</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos qué operaciones manejas y te enviamos una propuesta sin compromiso.</p>
+        <div class="contact-direct">
+          <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 class="contact-form-title">Formulario de contacto</h3>
+        <form class="form-grid" id="contactForm">
+          <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+          <input type="tel" name="fono" placeholder="Teléfono" aria-label="Teléfono" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <select name="plan" id="planSelect" aria-label="Plan de interés" required>
+            <option value="">¿Qué plan te interesa?</option>
+            <option value="Plan Pymes - $12.000 CLP/mes">Plan Pymes ($12.000 al mes)</option>
+            <option value="Plan Empresas - $16.000 CLP/mes">Plan Empresas ($16.000 al mes)</option>
+            <option value="Chatbot + página web nueva o rediseño">Chatbot y página web (nueva o rediseño)</option>
+            <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
+          </select>
+          <input class="full" type="text" name="web" placeholder="Sitio web o portal de tu corredora (si tienes)" aria-label="Página web" />
+          <textarea class="full" name="mensaje" placeholder="¿Qué tipo de propiedades manejas y en qué zonas?" aria-label="Mensaje" rows="4" required></textarea>
+          <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
+        </form>
+        <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band cta band-photo-cta" style={`--bg:url('${IMG}/inmobiliarias/inmobiliarias-visita.webp')`}>
+    <div class="container cta-inner">
+      <h2>Que cada interesado en tus propiedades deje su contacto hoy</h2>
+      <div class="cta-buttons">
+        <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src={`${IMG}/brand/chatia-logo-h-white.webp`} alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en sitios web de corredores, inmobiliarias y pymes de todo Chile, para que cada interesado deje sus datos.</p>
+        </div>
+        <div>
+          <h3>Chatbot por rubro</h3>
+          <ul class="footer-links">
+            {landings.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+            <li><a href="/#rubros">Ver todos los rubros</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chatbot por ciudad</h3>
+          <ul class="footer-links">
+            {ciudades.map((c) => (
+              <li><a href={c.href}>{c.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
+            <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
+            <p><i class="ti ti-map-pin"></i> Atendemos todo Chile</p>
+            <p><i class="ti ti-clock"></i> Lunes a sábado</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
+        <p class="mb-0">Clientes: <a href="https://hielosdelsur.cl" target="_blank" rel="noopener">Hielos del Sur</a></p>
+        <p class="mb-0">Un servicio de <a href="https://diseñopaginas.cl" target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
+        <p class="credits">Imágenes: <a href="https://www.freepik.com" target="_blank" rel="noopener">Freepik</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <DemoChatWidget
+    vertical="inmobiliarias"
+    botStatus="Asistente IA · Inmobiliarias"
+    welcomeMessage="Hola, soy Chatia, un chatbot con IA para corredoras de propiedades. Así atendería a los interesados de tu sitio, a cualquier hora. Pídeme que actúe como asistente de una corredora, o pregúntame por el servicio."
+    quickReplies={[
+      { label: "Actúa como asistente de una corredora", reply: "" },
+      { label: "Busco un departamento para arrendar", reply: "" },
+      { label: "Quiero vender mi casa", reply: "" },
+      { label: "¿Cuánto cuesta?", reply: "" },
+    ]}
+    disclaimer="Esta es una demo real con IA. Tu chatbot se entrena con la información de tu cartera."
+  />
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const btn = item.querySelector('.faq-q');
+      btn?.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-open-chat]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const root = document.getElementById('demoChat');
+        const bubble = document.getElementById('demoChatBubble');
+        if (root && bubble && !root.classList.contains('is-open')) bubble.click();
+      });
+    });
+
+    const planSelect = document.getElementById('planSelect') as HTMLSelectElement | null;
+    document.querySelectorAll('[data-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (planSelect) planSelect.value = (btn as HTMLElement).dataset.plan || '';
+      });
+    });
+
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const web = String(data.get('web') || '').trim();
+      const text =
+        `Hola, los contacto desde chatbotia.cl/inmobiliarias.\n` +
+        `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
+        `Plan: ${data.get('plan')}\n` +
+        (web ? `Web: ${web}\n` : '') +
+        `Cartera y zonas: ${data.get('mensaje')}`;
+      window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
+    });
+  </script>
+</body>
+</html>

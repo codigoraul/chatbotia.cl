@@ -1,0 +1,629 @@
+---
+import '../../styles/global.css';
+import '../../styles/vertical.css';
+import DemoChatWidget from '../../components/DemoChatWidget.astro';
+import { landings, ciudades } from '../../data/landings';
+import WebOffer from '../../components/WebOffer.astro';
+
+const SITE = "https://chatbotia.cl";
+const URL = `${SITE}/valparaiso/`;
+const WA_NUMBER = "56961765268";
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/valparaiso. Me interesa un chatbot con IA para mi negocio en Valparaíso o Viña del Mar.")}`;
+const PHONE_DISPLAY = "+56 9 6176 5268";
+const EMAIL = "codigoraul@gmail.com";
+const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
+const DISENO_WEB = "https://diseñopaginas.cl";
+
+const H1 = "Chatbot con IA en Valparaíso y Viña del Mar";
+const TITLE = "Chatbot con IA en Valparaíso, Viña del Mar y Región de Valparaíso | Chatia";
+const DESCRIPTION = "Chat con IA para negocios de Valparaíso, Viña del Mar y alrededores: atiende turistas y clientes 24/7 en tu web, responde consultas y deja sus datos. Desde $12.000 al mes.";
+const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
+const IMG = "/assets/img";
+
+const items = [
+  {
+    "icon": "ti-bed",
+    "title": "Hostales y alojamientos en los cerros",
+    "text": "Habitaciones, tarifas por fecha, cómo llegar y qué hay cerca, también fuera de horario.",
+    "q": "¿Tienen estacionamiento cerca del hostal?"
+  },
+  {
+    "icon": "ti-map-route",
+    "title": "Tours y experiencias",
+    "text": "Recorridos a pie, paseos en lancha, bodegas del valle cercano: horarios, duración y cupos.",
+    "q": "¿Hacen tours en inglés?"
+  },
+  {
+    "icon": "ti-tools-kitchen-2",
+    "title": "Restaurantes y cafés",
+    "text": "Carta, reservas para grupos y eventos, y horarios de verano o de invierno.",
+    "q": "¿Puedo reservar para 12 personas el sábado?"
+  },
+  {
+    "icon": "ti-ship",
+    "title": "Servicios portuarios y logística",
+    "text": "Cotizaciones, plazos y documentos para empresas que mueven carga o necesitan apoyo en el puerto.",
+    "q": "¿Cómo cotizo el traslado de un contenedor?"
+  },
+  {
+    "icon": "ti-school",
+    "title": "Universidades, institutos y cursos",
+    "text": "Programas, matrículas y fechas, con los datos del postulante listos para contactar.",
+    "q": "¿Cuándo abren las postulaciones?"
+  },
+  {
+    "icon": "ti-home-2",
+    "title": "Arriendos de temporada y corretaje",
+    "text": "Departamentos para el verano en Viña, Reñaca o Concón: fechas, capacidad y condiciones.",
+    "q": "¿Tienen departamento para 4 en febrero?"
+  }
+];
+
+const faqs = [
+  {
+    "q": "¿Para qué sirve un chatbot con IA en Valparaíso o Viña del Mar?",
+    "a": "Sirve para responder al instante a visitantes, turistas y clientes que escriben a cualquier hora, con la información de tu negocio, y dejarte sus datos. En una zona donde la demanda se concentra en ciertas semanas del año, evita que se te acumulen mensajes sin contestar."
+  },
+  {
+    "q": "¿Hay un local de Chatia en Valparaíso o Viña del Mar?",
+    "a": "No, Chatia trabaja 100% online. Atendemos negocios de la Región de Valparaíso igual que al resto del país, con coordinación por WhatsApp y correo."
+  },
+  {
+    "q": "¿Puede informar tarifas distintas según la temporada?",
+    "a": "Sí. Tú le entregas las tarifas de temporada alta y baja y las fechas en que cambian; las puedes actualizar cuando quieras y el chatbot las usará de inmediato."
+  },
+  {
+    "q": "¿Responde en otros idiomas?",
+    "a": "Si el visitante escribe en inglés u otro idioma, el chatbot puede responderle en ese idioma usando la información que tú cargaste. Siempre se apoya en tus datos para no inventar condiciones."
+  },
+  {
+    "q": "¿Se conecta con mi sistema de reservas?",
+    "a": "No se integra con calendarios ni motores de reserva. Recoge los datos de la consulta (fechas, personas, contacto) y te avisa por correo para que confirmes tú."
+  },
+  {
+    "q": "¿Cuánto cuesta?",
+    "a": "Dos planes mensuales: $12.000 CLP (1.000 respuestas al mes y un chatbot) y $16.000 CLP (2.000 respuestas y hasta dos chatbots). La instalación es un pago único de $4.000 CLP. Se paga por transferencia, con boleta de honorarios y sin permanencia forzosa."
+  },
+  {
+    "q": "¿Cuánto tarda en quedar instalado?",
+    "a": "Una vez que tenemos la información de tu negocio, queda funcionando en 24 horas."
+  },
+  {
+    "q": "¿Y si mi negocio no tiene sitio web?",
+    "a": "Lo podemos crear desde DiseñoPáginas.cl y entregarlo con el chatbot instalado. La página se cotiza aparte; el chatbot funciona en cualquier sitio que permita agregar un código."
+  }
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Chatbot con IA para negocios de Valparaíso y Viña del Mar",
+    "serviceType": "Chatbot con inteligencia artificial para páginas web",
+    "provider": {
+      "@type": "Organization",
+      "name": "Chatia",
+      "url": SITE,
+      "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
+      "email": EMAIL,
+      "telephone": "+56961765268",
+      "sameAs": [FACEBOOK],
+    },
+    "areaServed": [
+        {
+            "@type": "City",
+            "name": "Valparaíso"
+        },
+        {
+            "@type": "City",
+            "name": "Viña del Mar"
+        },
+        {
+            "@type": "AdministrativeArea",
+            "name": "Región de Valparaíso"
+        }
+    ],
+    "offers": [
+        {
+            "@type": "Offer",
+            "name": "Plan Pymes",
+            "price": "12000",
+            "priceCurrency": "CLP"
+        },
+        {
+            "@type": "Offer",
+            "name": "Plan Empresas",
+            "price": "16000",
+            "priceCurrency": "CLP"
+        }
+    ]
+},
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chatia", "item": `${SITE}/` },
+      { "@type": "ListItem", "position": 2, "name": "Chatbot con IA en Valparaíso y Viña del Mar", "item": URL },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  },
+];
+---
+
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION} />
+  <link rel="canonical" href={URL} />
+  <meta name="theme-color" content="#F5C842" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={URL} />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content={DESCRIPTION} />
+  <meta property="og:image" content={OG_IMAGE} />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Chatia" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body class="vertical v-city">
+  <div class="topbar">
+    <div class="container">
+      <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+      <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+      <span><i class="ti ti-map-pin"></i> Atendemos Valparaíso, Viña y todo Chile</span>
+      <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
+    </div>
+  </div>
+
+  <header class="header-main">
+    <div class="container">
+      <a href="/" class="brand" aria-label="Chatia, inicio">
+        <img src={`${IMG}/brand/chatia-logo-h.webp`} alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
+      </a>
+      <div class="header-cta">
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+        <a href="#contacto" class="btn btn-yellow">Cotizar gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="vtag"><i class="ti ti-map-pin"></i> Valparaíso, Viña del Mar y alrededores</span>
+        <h1>{H1}</h1>
+        <p class="lead">
+          Entre turistas que planean su fin de semana, estudiantes y empresas del puerto, las consultas llegan a cualquier hora. Un asistente con IA responde en tu sitio, guía al visitante y te deja su contacto para que cierres tú.
+        </p>
+        <div class="hero-buttons">
+          <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+          <a href="#planes" class="btn btn-white btn-lg">Ver planes</a>
+        </div>
+        <ul class="hero-facts">
+          <li>Listo en 24 horas</li>
+          <li>Desde $12.000 al mes</li>
+          <li>Sin permanencia</li>
+        </ul>
+      </div>
+
+      <div class="chat-preview" aria-label="Ejemplo de conversación con un chatbot con IA para un hostal en Valparaíso">
+        <div class="chat-preview-head">
+          <img src={`${IMG}/brand/chatia-avatar.webp`} alt="" width="40" height="40" />
+          <div>
+            <strong>Asistente Hostal del Cerro</strong>
+            <span><span class="dot"></span> Responde al instante</span>
+          </div>
+        </div>
+        <div class="chat-preview-body">
+          <div class="cp-msg cp-user">Hola, ¿tienen pieza para 2 personas el último fin de semana de enero? ¿Queda cerca de los ascensores?</div>
+          <div class="cp-msg cp-bot">¡Hola! El hostal está en un cerro con acceso a pie a un ascensor cercano. Para confirmar disponibilidad en esas fechas, ¿me dejas tu nombre y un teléfono o correo?</div>
+          <div class="cp-msg cp-user">Sí, soy Ignacio, ignacio@correo.cl</div>
+          <div class="cp-msg cp-bot">Gracias, Ignacio. Le pasé tu consulta al equipo del hostal y te escriben hoy con disponibilidad y tarifa para esas fechas.</div>
+        </div>
+        <p class="cp-note">Ejemplo de un chatbot con IA para un alojamiento en Valparaíso</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="subnav" aria-label="Secciones">
+    <div class="container">
+      <ul>
+        <li><a href="#que-es">Qué es</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#rubros">Rubros</a></li>
+        <li><a href="#online">100% online</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#pagina-web">Página web</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Qué es -->
+  <section id="que-es" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>¿Qué es un chat con IA para negocios de Valparaíso y Viña?</h2>
+        <p class="intro">
+          Es un asistente con inteligencia artificial que vive en la página de tu negocio. Recibe a quien llega buscando alojamiento, un tour, una mesa o un servicio, contesta lo básico con tu información y toma su contacto. Funciona igual un martes de invierno que en pleno verano.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-sun-wind"></i></span>
+            <div><strong>Rinde en temporada alta</strong><span>Cuando llegan decenas de consultas a la vez, el chatbot responde a todas sin hacerlas esperar.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-language"></i></span>
+            <div><strong>Orienta al visitante</strong><span>Ubicación, cómo llegar, horarios y qué incluye cada servicio, explicado con tus propias palabras.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-user-plus"></i></span>
+            <div><strong>Te deja el contacto</strong><span>Nombre, teléfono o correo y lo que busca la persona, en tu bandeja con la conversación completa.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-shield-check"></i></span>
+            <div><strong>No inventa información</strong><span>Si no sabe algo, lo dice y pide un contacto para que alguien de tu equipo responda.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <div class="quote-box">
+        <h3>El turista decide en minutos</h3>
+        <p>Quien planea una escapada a Valparaíso o a Viña del Mar suele pedir precio a varios alojamientos o tours y reservar con el primero que le responde con claridad.</p>
+        <p class="mb-0">Si tu negocio contesta al instante, aunque estés atendiendo o sea domingo en la noche, es más probable que esa persona se quede contigo.</p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona" class="band band-dark">
+    <div class="container">
+      <div class="band-head">
+        <h2>Cómo funciona</h2>
+        <p>Tres pasos, sin programar y sin interrumpir tu atención.</p>
+      </div>
+      <div class="steps">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Nos entregas tu información</h3>
+          <p>Servicios, tarifas por temporada, horarios, ubicación y las preguntas que más recibes.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Entrenamos el chatbot</h3>
+          <p>Aprende solo con tus datos y responde con el tono que quieras para tu marca.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Queda instalado en tu sitio</h3>
+          <p>En 24 horas atiende a tus visitantes y te avisa por correo cada vez que alguien deja sus datos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rubros -->
+  <section id="rubros" class="band band-yellow">
+    <div class="container">
+      <div class="band-head">
+        <h2>Chatbot con IA para los negocios del puerto y la costa</h2>
+        <p>Cada rubro de la zona tiene preguntas distintas; el asistente se prepara con las tuyas.</p>
+      </div>
+      <div class="rubros rubros-3">
+        {items.map((r) => (
+          <div class="rubro">
+            <div class="bubble">{r.q}</div>
+            <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+      <p class="plans-note" style="margin-top:24px">
+        También tenemos páginas especializadas para
+        {landings.map((l, i) => (
+          <>{i > 0 ? (i === landings.length - 1 ? " y " : ", ") : " "}<a href={l.href}>{l.short}</a></>
+        ))}.
+      </p>
+    </div>
+  </section>
+
+  <!-- Atención online -->
+  <section id="online" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>Atención 100% online para toda la Región de Valparaíso</h2>
+        <p class="intro">
+          No hace falta que nos veamos en persona. Todo se coordina por WhatsApp y correo, y tu chatbot queda activo en tu página web en 24 horas.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-brand-whatsapp"></i></span>
+            <div><strong>Trato directo</strong><span>Hablas con una persona por WhatsApp, no con un formulario sin respuesta.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-map-2"></i></span>
+            <div><strong>Del puerto a la costa</strong><span>Valparaíso, Viña del Mar, Concón, Quilpué, Villa Alemana y el resto de la región.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-adjustments"></i></span>
+            <div><strong>Tarifas de temporada a tu medida</strong><span>Cambias las tarifas o los horarios de verano cuando quieras y el bot los usa al instante.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-calendar-off"></i></span>
+            <div><strong>Sin permanencia forzosa</strong><span>Plan mensual, útil también para negocios que mueven más en ciertos meses.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+      <div class="quote-box">
+        <h3>Pruébalo como lo haría un visitante</h3>
+        <p>Abre el chat de esta página y escribe como alguien que planea un fin de semana en la costa: una consulta de tarifas, de horarios o de reserva. Puedes pedirle que actúe como asistente de un hostal o un restaurante porteño.</p>
+        <p class="mb-0"><button type="button" class="btn btn-dark" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button></p>
+      </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Planes -->
+  <section id="planes" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Planes y precios</h2>
+        <p>Chatbot con IA para tu negocio en Valparaíso o Viña del Mar, con precios fijos y claros.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>Pymes</h3>
+          <p class="price">$12.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> 1 chatbot instalado en tu página web</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualización de la información 1 vez al mes</li>
+          </ul>
+          <a href="#contacto" class="btn btn-white btn-block" data-plan="Plan Pymes - $12.000 CLP/mes">Cotizar plan Pymes</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Más elegido</span>
+          <h3>Empresas</h3>
+          <p class="price">$16.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Hasta 2 chatbots (otro sitio o sucursal)</li>
+            <li><i class="ti ti-check"></i> Entrenado con la información de tu negocio</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Aviso por correo de cada contacto</li>
+            <li><i class="ti ti-check"></i> Actualizaciones de información ilimitadas</li>
+          </ul>
+          <a href="#contacto" class="btn btn-dark btn-block" data-plan="Plan Empresas - $16.000 CLP/mes">Cotizar plan Empresas</a>
+        </div>
+      </div>
+      <p class="plans-note">Instalación: pago único de $4.000 CLP. Mensualidad por transferencia bancaria, con boleta de honorarios. Sin permanencia forzosa.</p>
+    </div>
+  </section>
+
+  <!-- Diseño o rediseño web (oferta secundaria) -->
+  <WebOffer
+    title={"¿Tu negocio aún no tiene página web, o la que tienes se ve antigua?"}
+    intro={"El chatbot necesita un sitio donde atender. DiseñoPáginas.cl puede crear la página de tu negocio en Valparaíso o Viña, o rediseñar la actual, y dejarla con el asistente instalado."}
+    items={[
+    {
+        "icon": "ti-world-search",
+        "title": "Tu negocio en Google",
+        "text": "Que quien busca dónde alojar, comer o hacer un tour en la zona llegue a tu sitio y no solo a una plataforma de reservas."
+    },
+    {
+        "icon": "ti-photo",
+        "title": "Tus mejores imágenes",
+        "text": "Una página que muestra tu lugar, con fotos y textos que reflejan lo que ofreces."
+    },
+    {
+        "icon": "ti-message-circle",
+        "title": "Con el chatbot incluido",
+        "text": "Sale lista para responder consultas desde el primer día."
+    }
+]}
+    quoteTitle={"Primero el chatbot; la página, si la necesitas"}
+    quoteParagraphs={[
+    "Si ya tienes un sitio, instalamos el asistente en él. Si dependes solo de plataformas de terceros o redes sociales, podemos crear tu propia página.",
+    "El sitio web se cotiza por separado, según lo que necesite tu negocio."
+]}
+    href={DISENO_WEB}
+  />
+
+  <!-- FAQ -->
+  <section id="faq" class="band">
+    <div class="container">
+      <div class="band-head">
+        <h2>Preguntas frecuentes</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f, i) => (
+          <div class={`faq-item${i === 0 ? " open" : ""}`}>
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? "true" : "false"}>
+              {f.q}
+              <i class="ti ti-chevron-down chev"></i>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">{f.a}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="band band-soft">
+    <div class="container contact-grid">
+      <div>
+        <h2>Cotiza tu chatbot con IA en Valparaíso o Viña</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos de tu negocio y te enviamos una propuesta sin compromiso.</p>
+        <div class="contact-direct">
+          <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 class="contact-form-title">Formulario de contacto</h3>
+        <form class="form-grid" id="contactForm">
+          <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+          <input type="tel" name="fono" placeholder="Teléfono" aria-label="Teléfono" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <select name="plan" id="planSelect" aria-label="Plan de interés" required>
+            <option value="">¿Qué plan te interesa?</option>
+            <option value="Plan Pymes - $12.000 CLP/mes">Plan Pymes ($12.000 al mes)</option>
+            <option value="Plan Empresas - $16.000 CLP/mes">Plan Empresas ($16.000 al mes)</option>
+            <option value="Chatbot + página web nueva o rediseño">Chatbot y página web (nueva o rediseño)</option>
+            <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
+          </select>
+          <input class="full" type="text" name="web" placeholder="Página web de tu negocio (si tienes)" aria-label="Página web" />
+          <textarea class="full" name="mensaje" placeholder="¿A qué se dedica tu negocio?" aria-label="Mensaje" rows="4" required></textarea>
+          <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
+        </form>
+        <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band cta">
+    <div class="container cta-inner">
+      <h2>Que ningún visitante se vaya sin respuesta esta temporada</h2>
+      <div class="cta-buttons">
+        <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src={`${IMG}/brand/chatia-logo-h-white.webp`} alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en páginas web de pymes y empresas de Valparaíso, Viña del Mar y todo Chile, para que cada visitante reciba respuesta.</p>
+        </div>
+        <div>
+          <h3>Chatbot por rubro</h3>
+          <ul class="footer-links">
+            {landings.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+            <li><a href="/#rubros">Ver todos los rubros</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chatbot por ciudad</h3>
+          <ul class="footer-links">
+            {ciudades.map((c) => (
+              <li><a href={c.href}>{c.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
+            <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
+            <p><i class="ti ti-map-pin"></i> Atendemos Valparaíso, Viña y todo Chile</p>
+            <p><i class="ti ti-clock"></i> Lunes a sábado</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
+        <p class="mb-0">Clientes: <a href="https://hielosdelsur.cl" target="_blank" rel="noopener">Hielos del Sur</a></p>
+        <p class="mb-0">Un servicio de <a href="https://diseñopaginas.cl" target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <DemoChatWidget
+    vertical="valparaiso"
+    botStatus="Asistente IA · Valparaíso y Viña"
+    welcomeMessage="Hola, soy Chatia, un chatbot con IA. Así atendería a los clientes de tu negocio en Valparaíso o Viña del Mar, a cualquier hora. Pídeme que actúe como asistente de tu rubro, o pregúntame por el servicio."
+    quickReplies={[
+      { label: "Actúa como asistente de un hostal", reply: "" },
+      { label: "Tengo un negocio en Viña, ¿cómo parto?", reply: "" },
+      { label: "¿Cuánto cuesta?", reply: "" },
+      { label: "¿Tienen oficina en Valparaíso?", reply: "" },
+    ]}
+    disclaimer="Esta es una demo real con IA. Tu chatbot se entrena con la información de tu negocio."
+  />
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const btn = item.querySelector('.faq-q');
+      btn?.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-open-chat]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const root = document.getElementById('demoChat');
+        const bubble = document.getElementById('demoChatBubble');
+        if (root && bubble && !root.classList.contains('is-open')) bubble.click();
+      });
+    });
+
+    const planSelect = document.getElementById('planSelect') as HTMLSelectElement | null;
+    document.querySelectorAll('[data-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (planSelect) planSelect.value = (btn as HTMLElement).dataset.plan || '';
+      });
+    });
+
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const web = String(data.get('web') || '').trim();
+      const text =
+        `Hola, los contacto desde chatbotia.cl/valparaiso.\n` +
+        `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
+        `Plan: ${data.get('plan')}\n` +
+        (web ? `Web: ${web}\n` : '') +
+        `Negocio: ${data.get('mensaje')}`;
+      window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
+    });
+  </script>
+</body>
+</html>

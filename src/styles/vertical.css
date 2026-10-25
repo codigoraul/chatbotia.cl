@@ -4,6 +4,10 @@
 .v-beauty{--accent:#A65A5F;--accent-deep:#7F3F45;--accent-deep-rgb:127,63,69;--accent-soft:#F7E6E4}
 .v-city{--accent:#1E7F66;--accent-deep:#14594A;--accent-deep-rgb:20,89,74;--accent-soft:#E2F3EE}
 .v-auto{--accent:#1B4B82;--accent-deep:#122E54;--accent-deep-rgb:18,46,84;--accent-soft:#E3ECF7}
+.v-dental{--accent:#0E8A9B;--accent-deep:#0A6270;--accent-deep-rgb:10,98,112;--accent-soft:#E1F4F6}
+.v-psi{--accent:#5B6BB0;--accent-deep:#434F8A;--accent-deep-rgb:67,79,138;--accent-soft:#E9ECF8}
+.v-realty{--accent:#2F6B4F;--accent-deep:#1F4A37;--accent-deep-rgb:31,74,55;--accent-soft:#E3F1EA}
+.v-vet{--accent:#5E8C2F;--accent-deep:#44661F;--accent-deep-rgb:68,102,31;--accent-soft:#EDF4E1}
 
 .vertical .header-main{border-bottom:3px solid var(--accent)}
 
