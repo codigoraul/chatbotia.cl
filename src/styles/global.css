@@ -212,3 +212,7 @@ footer h3{color:#fff;font-size:1.05rem;margin-bottom:16px}
 .client-card:hover{border-color:var(--yellow-deep);transform:translateY(-2px)}
 .client-card strong{font-size:1.2rem}
 .client-card span{font-size:.92rem;color:#4a4f56}
+.client-card-shot{min-width:0;width:320px;padding:0 0 22px;gap:4px;overflow:hidden}
+.client-phone{width:100%;aspect-ratio:520/536;margin:0 0 14px;border:0;border-bottom:1px solid #eceef1;border-radius:0;overflow:hidden;background:#fff;box-shadow:none}
+.client-phone img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+@media (max-width:700px){.client-card-shot{width:100%;max-width:340px}}
