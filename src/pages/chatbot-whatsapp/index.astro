@@ -1,0 +1,609 @@
+---
+import '../../styles/global.css';
+import '../../styles/vertical.css';
+import DemoChatWidget from '../../components/DemoChatWidget.astro';
+import { landings, ciudades } from '../../data/landings';
+
+const SITE = "https://chatbotia.cl";
+const URL = `${SITE}/chatbot-whatsapp/`;
+const WA_NUMBER = "56961765268";
+const WHATSAPP = `https://api.whatsapp.com/send?phone=${WA_NUMBER}&text=${encodeURIComponent("Hola, los contacto desde chatbotia.cl/chatbot-whatsapp. Me interesa un chatbot con IA para el WhatsApp de mi negocio.")}`;
+const PHONE_DISPLAY = "+56 9 6176 5268";
+const EMAIL = "codigoraul@gmail.com";
+const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
+
+const H1 = "Chatbot para WhatsApp con IA que responde precios y stock";
+const TITLE = "Chatbot para WhatsApp con IA en Chile: precios y stock al instante | Chatia";
+const DESCRIPTION = "Chatbot con IA para el WhatsApp de tu negocio: responde precios, stock y productos desde tu propia lista, a cualquier hora, y no inventa datos. Desde $24.000 al mes en todo Chile.";
+const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
+const IMG = "/assets/img";
+
+// Ejemplo de lista de precios (ficticia) para mostrar cómo responde el bot
+const sheet = [
+  { cod: "18154", desc: "Taladro percutor inalámbrico 1/2\" 20V", precio: "$64.990", stock: 4 },
+  { cod: "26118", desc: "Atornillador inalámbrico 12V + 2 baterías", precio: "$42.990", stock: 0 },
+  { cod: "45231", desc: "Cartucho cerámico monomando lavaplatos", precio: "$8.490", stock: 31 },
+  { cod: "22345", desc: "Disco de corte metal 4 1/2\"", precio: "$990", stock: 180 },
+];
+
+const rubros = [
+  { icon: "ti-tool", title: "Ferreterías y materiales", text: "Cientos de códigos, precios que cambian y clientes que preguntan por WhatsApp antes de ir al local.", q: "¿Tienen cemento especial? ¿A cuánto el saco?" },
+  { icon: "ti-car", title: "Repuestos y lubricentros", text: "Preguntan por marca, modelo y año. El bot busca en tu lista y responde con el repuesto y el valor.", q: "¿Tienen pastillas de freno para Yaris 2018?" },
+  { icon: "ti-truck-delivery", title: "Distribuidoras y mayoristas", text: "Precios por unidad o por caja, stock disponible y pedido mínimo, sin que tu equipo pierda la mañana respondiendo.", q: "¿Cuál es el precio por caja y el pedido mínimo?" },
+  { icon: "ti-bottle", title: "Botillerías y minimarkets", text: "Disponibilidad, precios y horario de despacho, también de noche y los fines de semana.", q: "¿Les queda cerveza en lata? ¿Hacen despacho?" },
+  { icon: "ti-device-mobile", title: "Tiendas de tecnología y accesorios", text: "Modelos, compatibilidad y stock por producto, con el precio que tú definiste.", q: "¿Tienen cargador tipo C de 25W?" },
+  { icon: "ti-building-store", title: "Tiendas de insumos y comercio", text: "Librerías, pinturerías, bazares, insumos médicos o agrícolas: cualquier negocio con lista de productos.", q: "¿Tienen esmalte al agua blanco de galón?" },
+];
+
+const comparacion = [
+  { item: "Dónde responde", web: "En el chat de tu página web", wa: "En el WhatsApp de tu negocio y en tu web" },
+  { item: "Qué sabe", web: "Servicios, horarios, precios y preguntas frecuentes", wa: "Lo mismo, y si vendes productos, también tu lista de precios y stock" },
+  { item: "Ideal si", web: "Tus clientes te encuentran y consultan en tu página web", wa: "Tus clientes te escriben por WhatsApp: comercios, clínicas, servicios, cualquier rubro" },
+  { item: "Precio", web: "Desde $12.000 al mes", wa: "Desde $24.000 al mes" },
+];
+
+const faqs = [
+  {
+    q: "¿Qué es un chatbot para WhatsApp con IA?",
+    a: "Es un asistente que contesta automáticamente los mensajes que llegan al WhatsApp de tu negocio. Usa inteligencia artificial para entender lo que pregunta cada cliente, aunque escriba con errores o con sus propias palabras, y responde con la información real de tu negocio: productos, precios, stock, horarios y formas de pago.",
+  },
+  {
+    q: "¿Puede inventar precios o productos?",
+    a: "No. El chatbot solo responde con lo que está en tu lista de precios. Si un cliente pregunta por algo que no está en la lista o sin stock, lo dice claramente y ofrece tomar sus datos para que tú lo contactes. Esa es la gran diferencia con un bot genérico.",
+  },
+  {
+    q: "¿Necesito tener WhatsApp Business?",
+    a: "Se conecta a través de la plataforma oficial de WhatsApp Business de Meta (no es la app del celular). Necesitas una cuenta comercial de Meta, que es gratuita, y un número de teléfono para el bot. Nosotros te guiamos en todo el proceso de alta. En muchos casos se puede usar el mismo número que ya usas con la app WhatsApp Business; lo revisamos contigo antes de instalar.",
+  },
+  {
+    q: "¿WhatsApp cobra algo aparte?",
+    a: "Meta entrega 1.000 mensajes de atención gratis al mes por cada número. Sobre esa cantidad, Meta cobra un valor por mensaje directamente en la cuenta de WhatsApp Business del negocio, según su tarifa para Chile. El plan WhatsApp Pyme está pensado para quedar dentro de ese tramo gratuito.",
+  },
+  {
+    q: "¿Cómo le entrego mi lista de precios?",
+    a: "En una planilla de Excel o Google Sheets con código, nombre del producto, precio y stock. En el plan WhatsApp + Catálogo la conectamos a una Google Sheet: cambias un precio o el stock en la planilla y el chatbot usa el dato nuevo, sin que tengas que avisarnos.",
+  },
+  {
+    q: "¿Toma pedidos o cobra?",
+    a: "Toma el pedido: qué productos, cantidades, nombre, teléfono y si es retiro o despacho, y te lo envía por correo para que tú confirmes y cobres. No procesa pagos ni descuenta stock de un sistema de inventario.",
+  },
+  {
+    q: "¿Qué pasa si el cliente quiere hablar con una persona?",
+    a: "El chatbot toma sus datos y el motivo, y te avisa al instante por correo para que lo contactes. También puedes definir temas que siempre se derivan a una persona, como reclamos o cotizaciones grandes.",
+  },
+  {
+    q: "¿Cuánto tarda en quedar funcionando?",
+    a: "Entre 3 y 5 días hábiles. La mayor parte del tiempo depende de la verificación del número y la cuenta en Meta; la configuración del chatbot y la carga de tu lista de precios la hacemos nosotros.",
+  },
+  {
+    q: "¿Cuánto cuesta?",
+    a: "Plan WhatsApp Pyme: $24.000 CLP al mes, con 1.000 respuestas y hasta 300 productos. Plan WhatsApp + Catálogo: $34.000 CLP al mes, con 2.000 respuestas, hasta 3.000 productos y lista conectada a Google Sheets. Instalación: pago único de $20.000 CLP. Sin permanencia, con boleta de honorarios.",
+  },
+  {
+    q: "¿También funciona en mi página web?",
+    a: "Sí. Los planes de WhatsApp incluyen el mismo chatbot en tu sitio web, con la misma información y el mismo cupo de respuestas. Si solo necesitas el chat en tu página, el chatbot web parte en $12.000 al mes.",
+  },
+];
+
+const schema = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Chatbot para WhatsApp con IA",
+    "serviceType": "Chatbot con inteligencia artificial para WhatsApp Business",
+    "description": DESCRIPTION,
+    "url": URL,
+    "provider": {
+      "@type": "Organization",
+      "name": "Chatia",
+      "url": SITE,
+      "logo": `${SITE}/assets/img/brand/chatia-icon-512.png`,
+      "email": EMAIL,
+      "telephone": "+56961765268",
+      "sameAs": [FACEBOOK],
+    },
+    "areaServed": { "@type": "Country", "name": "Chile" },
+    "offers": [
+      { "@type": "Offer", "name": "Plan WhatsApp Pyme", "price": "24000", "priceCurrency": "CLP" },
+      { "@type": "Offer", "name": "Plan WhatsApp + Catálogo", "price": "34000", "priceCurrency": "CLP" },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Chatia", "item": `${SITE}/` },
+      { "@type": "ListItem", "position": 2, "name": "Chatbot para WhatsApp con IA", "item": URL },
+    ],
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((f) => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a },
+    })),
+  },
+];
+---
+
+<!doctype html>
+<html lang="es-CL">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{TITLE}</title>
+  <meta name="description" content={DESCRIPTION} />
+  <link rel="canonical" href={URL} />
+  <meta name="theme-color" content="#F5C842" />
+  <link rel="icon" href="/favicon.ico?v=2" sizes="48x48" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png?v=2" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={URL} />
+  <meta property="og:title" content={TITLE} />
+  <meta property="og:description" content={DESCRIPTION} />
+  <meta property="og:image" content={OG_IMAGE} />
+  <meta property="og:locale" content="es_CL" />
+  <meta property="og:site_name" content="Chatia" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preload" as="image" href={`${IMG}/whatsapp/chatbot-whatsapp-negocio-celular.webp`} />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3/dist/tabler-icons.min.css" />
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+</head>
+<body class="vertical v-wa">
+  <div class="topbar">
+    <div class="container">
+      <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+      <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+      <span><i class="ti ti-map-pin"></i> Atendemos todo Chile</span>
+      <a href={FACEBOOK} target="_blank" rel="noopener" class="topbar-social" aria-label="Chatbotia en Facebook"><i class="ti ti-brand-facebook"></i> Facebook</a>
+    </div>
+  </div>
+
+  <header class="header-main">
+    <div class="container">
+      <a href="/" class="brand" aria-label="Chatia, inicio">
+        <img src={`${IMG}/brand/chatia-logo-h.webp`} alt="Chatia – Chatbot con IA" width="565" height="120" loading="eager" />
+      </a>
+      <div class="header-cta">
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="header-phone"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+        <a href="#contacto" class="btn btn-yellow">Cotizar gratis</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero hero-photo" style={`--bg:url('${IMG}/whatsapp/chatbot-whatsapp-negocio-celular.webp')`}>
+    <div class="container hero-grid">
+      <div>
+        <span class="vtag"><i class="ti ti-brand-whatsapp"></i> Chatbot para WhatsApp Business</span>
+        <h1>{H1}</h1>
+        <p class="lead">
+          Tus clientes preguntan por WhatsApp "¿tienen?" y "¿cuánto vale?" todo el día. Chatia responde al instante con tu propia lista de productos, precios y stock, toma el pedido y te lo envía listo. Si algo no está en tu lista, no lo inventa.
+        </p>
+        <div class="hero-buttons">
+          <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+          <a href="#planes" class="btn btn-white btn-lg">Ver planes</a>
+        </div>
+        <ul class="hero-facts">
+          <li>Responde con tus precios reales</li>
+          <li>Desde $24.000 al mes</li>
+          <li>Sin permanencia</li>
+        </ul>
+      </div>
+
+      <div class="chat-preview wa-preview" aria-label="Ejemplo de conversación de un chatbot de WhatsApp para una ferretería">
+        <div class="chat-preview-head">
+          <span class="wa-avatar"><i class="ti ti-tool"></i></span>
+          <div>
+            <strong>Ferretería El Roble</strong>
+            <span><span class="dot"></span> WhatsApp · responde al instante</span>
+          </div>
+        </div>
+        <div class="chat-preview-body">
+          <div class="cp-msg cp-user">Hola, ¿tienen taladro inalámbrico? ¿A cuánto?</div>
+          <div class="cp-msg cp-bot">¡Hola! Sí, tenemos el taladro percutor inalámbrico 1/2" 20V (código 18154) a $64.990. Quedan 4 unidades. ¿Te lo reservo para retiro?</div>
+          <div class="cp-msg cp-user">¿Y el atornillador de 12V?</div>
+          <div class="cp-msg cp-bot">El atornillador 12V con 2 baterías está agotado por ahora. Si me dejas tu nombre, te avisamos cuando llegue.</div>
+        </div>
+        <p class="cp-note">Ejemplo con una lista de precios ficticia</p>
+      </div>
+    </div>
+  </section>
+
+  <nav class="subnav" aria-label="Secciones">
+    <div class="container">
+      <ul>
+        <li><a href="#que-es">Qué es</a></li>
+        <li><a href="#lista-de-precios">Lista de precios</a></li>
+        <li><a href="#como-funciona">Cómo funciona</a></li>
+        <li><a href="#rubros">Rubros</a></li>
+        <li><a href="#comparar">Web o WhatsApp</a></li>
+        <li><a href="#planes">Planes</a></li>
+        <li><a href="#faq">Preguntas frecuentes</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Qué es -->
+  <section id="que-es" class="band">
+    <div class="container about-grid">
+      <div>
+        <h2>¿Qué hace un chatbot con IA en el WhatsApp de tu negocio?</h2>
+        <p class="intro">
+          Atiende los mensajes de WhatsApp como un vendedor que se sabe el catálogo de memoria: entiende lo que el cliente busca aunque lo escriba a su manera, revisa tu lista, responde el precio y el stock, y deja el pedido anotado. Funciona mientras atiendes el mesón, de noche y los domingos.
+        </p>
+        <ul class="feature-list">
+          <li>
+            <span class="ico"><i class="ti ti-clock-24"></i></span>
+            <div><strong>Responde al instante, 24/7</strong><span>Nadie se queda esperando un "¿tienen?" sin respuesta y se va a la competencia.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-table"></i></span>
+            <div><strong>Usa tu lista de precios</strong><span>Precio, stock y código salen de tu planilla, no de internet ni de la imaginación de la IA.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-shopping-bag-check"></i></span>
+            <div><strong>Toma el pedido completo</strong><span>Productos, cantidades, nombre, teléfono y si es retiro o despacho, y te lo envía por correo.</span></div>
+          </li>
+          <li>
+            <span class="ico"><i class="ti ti-user-share"></i></span>
+            <div><strong>Deriva cuando hace falta</strong><span>Reclamos, cotizaciones grandes o dudas técnicas pasan a una persona de tu equipo.</span></div>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <figure class="photo"><img src={`${IMG}/whatsapp/chatbot-whatsapp-pedidos-catalogo.webp`} alt="Dueño de una tienda anotando pedidos de clientes que llegaron por WhatsApp" width="1500" height="1001" loading="lazy" /></figure>
+        <div class="quote-box">
+          <h3>El cliente le escribe a tres negocios y compra en el que contesta primero</h3>
+          <p>En WhatsApp la gente pregunta lo mismo una y otra vez: si hay, cuánto vale y hasta qué hora atienden. Responder eso a mano se come horas del día.</p>
+          <p class="mb-0">Con Chatia esas preguntas se responden solas y tú te dedicas a cerrar las ventas.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lista de precios -->
+  <section id="lista-de-precios" class="band band-soft">
+    <div class="container about-grid">
+      <div>
+        <h2>Responde solo con lo que está en tu lista de precios</h2>
+        <p class="intro">
+          El problema de muchos bots con IA es que inventan: un precio que no existe o un producto que no vendes. Chatia trabaja amarrado a tu planilla. Primero busca el producto en tu lista y la IA responde solo con esos datos.
+        </p>
+        <ul class="wa-rules">
+          <li><i class="ti ti-circle-check"></i> Si el producto está en la lista, entrega el precio y el stock exactos.</li>
+          <li><i class="ti ti-circle-check"></i> Si está agotado, lo dice y ofrece avisar cuando llegue.</li>
+          <li><i class="ti ti-circle-check"></i> Si no está en la lista, no inventa: toma los datos del cliente y te avisa.</li>
+          <li><i class="ti ti-circle-check"></i> Cambias un precio en la planilla y el bot usa el valor nuevo.</li>
+        </ul>
+      </div>
+      <div>
+        <div class="price-sheet" aria-label="Ejemplo de lista de precios que usa el chatbot">
+          <div class="price-sheet-head">
+            <strong><i class="ti ti-table"></i> Lista de precios</strong>
+            <span>Ejemplo ficticio</span>
+          </div>
+          <table>
+            <thead>
+              <tr><th>Código</th><th>Producto</th><th>Precio</th><th>Stock</th></tr>
+            </thead>
+            <tbody>
+              {sheet.map((p) => (
+                <tr class={p.stock === 0 ? "is-out" : ""}>
+                  <td>{p.cod}</td>
+                  <td>{p.desc}</td>
+                  <td><strong>{p.precio}</strong></td>
+                  <td>{p.stock === 0 ? "Agotado" : p.stock}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <p class="price-sheet-foot"><i class="ti ti-shield-check"></i> El chatbot responde solo con esta hoja. ¿Un producto que no aparece? Dice que no lo tiene y toma el contacto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cómo funciona -->
+  <section id="como-funciona" class="band band-dark">
+    <div class="container">
+      <div class="band-head">
+        <h2>Cómo se instala el chatbot en tu WhatsApp</h2>
+        <p>Nosotros hacemos la parte técnica. Tú solo nos entregas tu información.</p>
+      </div>
+      <div class="steps steps-4">
+        <div class="step">
+          <span class="step-num">1</span>
+          <h3>Conectamos tu WhatsApp</h3>
+          <p>Te guiamos para activar la cuenta oficial de WhatsApp Business de Meta y verificar el número del negocio.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <h3>Cargamos tu lista de precios</h3>
+          <p>Nos envías tu Excel o Google Sheets con productos, precios y stock, y lo dejamos ordenado para el bot.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <h3>Definimos cómo atiende</h3>
+          <p>Horarios, despacho, formas de pago, tono de las respuestas y qué casos pasan a una persona.</p>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <h3>Empieza a responder</h3>
+          <p>En 3 a 5 días hábiles atiende en tu WhatsApp y en tu web, y te envía cada pedido o contacto por correo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rubros -->
+  <section id="rubros" class="band band-yellow">
+    <div class="container">
+      <div class="band-head">
+        <h2>Donde más rinde: negocios con lista de productos</h2>
+        <p>Sirve para cualquier negocio que atiende por WhatsApp. Si además vendes productos y te preguntan qué tienes y a cuánto, el catálogo de precios marca la diferencia.</p>
+      </div>
+      <div class="rubros rubros-3">
+        {rubros.map((r) => (
+          <div class="rubro">
+            <div class="bubble">{r.q}</div>
+            <h3 class="rubro-name"><i class={`ti ${r.icon}`}></i> {r.title}</h3>
+            <p>{r.text}</p>
+          </div>
+        ))}
+      </div>
+      <p class="compare-note"><strong>¿Tu negocio es de servicios?</strong> Clínicas, centros de estética, estudios jurídicos o talleres también pueden atender por WhatsApp con Chatia: responde horarios, valores y servicios, y toma los datos para agendar.</p>
+    </div>
+  </section>
+
+  <!-- Web vs WhatsApp -->
+  <section id="comparar" class="band">
+    <div class="container">
+      <div class="band-head">
+        <h2>¿Chatbot web o chatbot para WhatsApp?</h2>
+        <p>Los dos usan la misma inteligencia artificial y sirven para cualquier rubro. La diferencia está en el canal: tu página web o tu WhatsApp.</p>
+      </div>
+      <div class="compare-wrap">
+        <table class="compare">
+          <thead>
+            <tr>
+              <th></th>
+              <th><i class="ti ti-world"></i> Chatbot web</th>
+              <th class="hl"><i class="ti ti-brand-whatsapp"></i> Chatbot WhatsApp</th>
+            </tr>
+          </thead>
+          <tbody>
+            {comparacion.map((c) => (
+              <tr>
+                <th scope="row">{c.item}</th>
+                <td>{c.web}</td>
+                <td class="hl">{c.wa}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p class="compare-note">¿Tus clientes llegan sobre todo por tu página y no necesitas WhatsApp? <a href="/#planes">Ver chatbot web desde $12.000 al mes <i class="ti ti-arrow-right"></i></a></p>
+    </div>
+  </section>
+
+  <!-- Planes -->
+  <section id="planes" class="band band-soft">
+    <div class="container">
+      <div class="band-head">
+        <h2>Planes del chatbot para WhatsApp</h2>
+        <p>Precios fijos en pesos chilenos. Incluyen también el chatbot en tu página web.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <h3>WhatsApp Pyme</h3>
+          <p class="price">$24.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>1.000 respuestas al mes</strong> (aprox. 250 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Chatbot en tu WhatsApp Business y en tu página web</li>
+            <li><i class="ti ti-check"></i> Lista de precios de hasta 300 productos</li>
+            <li><i class="ti ti-check"></i> Toma pedidos y contactos, y te los envía por correo</li>
+            <li><i class="ti ti-check"></i> Historial de conversaciones</li>
+            <li><i class="ti ti-check"></i> Actualización de la lista de precios 2 veces al mes</li>
+          </ul>
+          <a href="#contacto" class="btn btn-white btn-block" data-plan="Plan WhatsApp Pyme - $24.000 CLP/mes">Cotizar WhatsApp Pyme</a>
+        </div>
+        <div class="plan featured">
+          <span class="plan-tag">Más completo</span>
+          <h3>WhatsApp + Catálogo</h3>
+          <p class="price">$34.000 <span>CLP al mes</span></p>
+          <ul>
+            <li><i class="ti ti-check"></i> <span><strong>2.000 respuestas al mes</strong> (aprox. 500 conversaciones)</span></li>
+            <li><i class="ti ti-check"></i> Chatbot en tu WhatsApp Business y en tu página web</li>
+            <li><i class="ti ti-check"></i> Lista de precios de hasta 3.000 productos</li>
+            <li><i class="ti ti-check"></i> <span><strong>Conectado a tu Google Sheets:</strong> cambias precio o stock y el bot lo usa</span></li>
+            <li><i class="ti ti-check"></i> Toma pedidos y contactos, y te los envía por correo</li>
+            <li><i class="ti ti-check"></i> Cambios de configuración ilimitados</li>
+          </ul>
+          <a href="#contacto" class="btn btn-dark btn-block" data-plan="Plan WhatsApp + Catálogo - $34.000 CLP/mes">Cotizar WhatsApp + Catálogo</a>
+        </div>
+      </div>
+      <p class="plans-note">Instalación: pago único de $20.000 CLP (alta en WhatsApp Business, verificación del número y carga de tu lista). Mensualidad por transferencia, con boleta de honorarios. Sin permanencia forzosa. Meta entrega 1.000 mensajes de atención gratis al mes por número; sobre eso, cobra por mensaje directamente en la cuenta del negocio.</p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="band">
+    <div class="container">
+      <div class="band-head">
+        <h2>Preguntas frecuentes sobre el chatbot para WhatsApp</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((f, i) => (
+          <div class={`faq-item${i === 0 ? " open" : ""}`}>
+            <button class="faq-q" type="button" aria-expanded={i === 0 ? "true" : "false"}>
+              {f.q}
+              <i class="ti ti-chevron-down chev"></i>
+            </button>
+            <div class="faq-a"><div class="faq-a-inner">{f.a}</div></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="band band-soft">
+    <div class="container contact-grid">
+      <div>
+        <h2>Cotiza tu chatbot para WhatsApp</h2>
+        <p class="intro" style="font-size:1.15rem;color:#4a4f56">Cuéntanos qué vendes y cuántos productos tienes, y te enviamos una propuesta sin compromiso.</p>
+        <div class="contact-direct">
+          <a href={WHATSAPP} target="_blank" rel="noopener"><i class="ti ti-brand-whatsapp"></i> {PHONE_DISPLAY}</a>
+          <a href={`mailto:${EMAIL}`}><i class="ti ti-mail"></i> {EMAIL}</a>
+          <a href={FACEBOOK} target="_blank" rel="noopener"><i class="ti ti-brand-facebook"></i> facebook.com/chatbotia.cl</a>
+        </div>
+      </div>
+      <div class="contact-form">
+        <h3 class="contact-form-title">Formulario de contacto</h3>
+        <form class="form-grid" id="contactForm">
+          <input type="text" name="nombre" placeholder="Nombre" aria-label="Nombre" required />
+          <input type="tel" name="fono" placeholder="Teléfono" aria-label="Teléfono" required />
+          <input type="email" name="email" placeholder="Email" aria-label="Email" required />
+          <select name="plan" id="planSelect" aria-label="Plan de interés" required>
+            <option value="">¿Qué plan te interesa?</option>
+            <option value="Plan WhatsApp Pyme - $24.000 CLP/mes">WhatsApp Pyme ($24.000 al mes)</option>
+            <option value="Plan WhatsApp + Catálogo - $34.000 CLP/mes">WhatsApp + Catálogo ($34.000 al mes)</option>
+            <option value="Solo chatbot web - desde $12.000 CLP/mes">Solo chatbot web (desde $12.000 al mes)</option>
+            <option value="No estoy seguro, quiero asesoría">No estoy seguro, quiero asesoría</option>
+          </select>
+          <input class="full" type="text" name="rubro" placeholder="¿Qué vende tu negocio? (ej. ferretería, repuestos)" aria-label="Rubro" />
+          <textarea class="full" name="mensaje" placeholder="¿Cuántos productos tienes y en qué formato está tu lista de precios?" aria-label="Mensaje" rows="4" required></textarea>
+          <button type="submit" class="btn btn-dark btn-block full"><i class="ti ti-brand-whatsapp"></i> Enviar por WhatsApp</button>
+        </form>
+        <p class="form-note">Al enviar se abrirá WhatsApp con tu mensaje listo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="band cta band-photo-cta" style={`--bg:url('${IMG}/whatsapp/chatbot-whatsapp-pedidos-catalogo.webp')`}>
+    <div class="container cta-inner">
+      <h2>Que ningún "¿tienen?" se quede sin respuesta en tu WhatsApp</h2>
+      <div class="cta-buttons">
+        <button type="button" class="btn btn-dark btn-lg" data-open-chat><i class="ti ti-message-circle"></i> Probar la demo</button>
+        <a href={WHATSAPP} target="_blank" rel="noopener" class="btn btn-white btn-lg"><i class="ti ti-brand-whatsapp"></i> Escríbenos</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <img class="footer-logo" src={`${IMG}/brand/chatia-logo-h-white.webp`} alt="Chatia" width="565" height="120" loading="lazy" />
+          <p style="max-width:420px">Chatia instala chatbots con inteligencia artificial en el WhatsApp y el sitio web de pymes y empresas de todo Chile, para que ninguna consulta quede sin respuesta.</p>
+        </div>
+        <div>
+          <h3>Chatbot por rubro</h3>
+          <ul class="footer-links">
+            {landings.map((l) => (
+              <li><a href={l.href}>{l.label}</a></li>
+            ))}
+            <li><a href="/#rubros">Ver todos los rubros</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3>Chatbot por ciudad</h3>
+          <ul class="footer-links">
+            {ciudades.map((c) => (
+              <li><a href={c.href}>{c.label}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3>Contacto</h3>
+          <div class="footer-contact">
+            <p><i class="ti ti-brand-whatsapp"></i> <a href={WHATSAPP} target="_blank" rel="noopener">{PHONE_DISPLAY}</a></p>
+            <p><i class="ti ti-mail"></i> <a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
+            <p><i class="ti ti-brand-facebook"></i> <a href={FACEBOOK} target="_blank" rel="noopener">Síguenos en Facebook</a></p>
+            <p><i class="ti ti-map-pin"></i> Atendemos todo Chile</p>
+            <p><i class="ti ti-clock"></i> Lunes a sábado</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="mb-0">&copy; {new Date().getFullYear()} Chatia, chatbot con IA en Chile</p>
+        <p class="mb-0">Clientes: <a href="https://hielosdelsur.cl" target="_blank" rel="noopener">Hielos del Sur</a></p>
+        <p class="mb-0">Un servicio de <a href="https://diseñopaginas.cl" target="_blank" rel="noopener">DiseñoPáginas.cl</a></p>
+        <p class="mb-0"><a href="https://chatbotia.cl/">Chatbot con IA · chatbotia.cl</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <DemoChatWidget
+    vertical="whatsapp"
+    botStatus="Asistente IA · WhatsApp"
+    welcomeMessage="Hola, soy Chatia. Así respondería el WhatsApp de tu negocio usando tu lista de precios. Pregúntame como cliente de una ferretería de ejemplo (por ejemplo, el precio de un taladro) o consúltame por el servicio."
+    quickReplies={[
+      { label: "¿Tienen taladro inalámbrico?", reply: "" },
+      { label: "¿A cuánto el disco de corte?", reply: "" },
+      { label: "¿Tienen sierra circular?", reply: "" },
+      { label: "¿Cuánto cuesta el servicio?", reply: "" },
+    ]}
+    disclaimer="Demo real con IA y una lista de precios ficticia. Tu chatbot usa la lista de tu negocio."
+  />
+
+  <script>
+    document.querySelectorAll('.faq-item').forEach((item) => {
+      const btn = item.querySelector('.faq-q');
+      btn?.addEventListener('click', () => {
+        const isOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach((el) => {
+          el.classList.remove('open');
+          el.querySelector('.faq-q')?.setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    document.querySelectorAll('[data-open-chat]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const root = document.getElementById('demoChat');
+        const bubble = document.getElementById('demoChatBubble');
+        if (root && bubble && !root.classList.contains('is-open')) bubble.click();
+      });
+    });
+
+    const planSelect = document.getElementById('planSelect') as HTMLSelectElement | null;
+    document.querySelectorAll('[data-plan]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        if (planSelect) planSelect.value = (btn as HTMLElement).dataset.plan || '';
+      });
+    });
+
+    const form = document.getElementById('contactForm') as HTMLFormElement | null;
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      const rubro = String(data.get('rubro') || '').trim();
+      const text =
+        `Hola, los contacto desde chatbotia.cl/chatbot-whatsapp.\n` +
+        `Nombre: ${data.get('nombre')}\nTeléfono: ${data.get('fono')}\nEmail: ${data.get('email')}\n` +
+        `Plan: ${data.get('plan')}\n` +
+        (rubro ? `Rubro: ${rubro}\n` : '') +
+        `Productos y lista de precios: ${data.get('mensaje')}`;
+      window.open(`https://api.whatsapp.com/send?phone=56961765268&text=${encodeURIComponent(text)}`, '_blank');
+    });
+  </script>
+</body>
+</html>

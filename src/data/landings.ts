@@ -8,6 +8,7 @@ export interface Landing {
 }
 
 export const landings: Landing[] = [
+  { key: "chatbot-whatsapp", href: "/chatbot-whatsapp/", label: "Chatbot para WhatsApp con IA", short: "WhatsApp" },
   { key: "abogados", href: "/abogados/", label: "Chatbot con IA para abogados", short: "abogados" },
   { key: "estetica", href: "/estetica/", label: "Chatbot con IA para centros de estética", short: "centros de estética" },
   { key: "automotoras", href: "/automotoras/", label: "Chatbot con IA para automotoras y rent a car", short: "automotoras y rent a car" },

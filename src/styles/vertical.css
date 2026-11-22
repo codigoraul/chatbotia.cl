@@ -57,3 +57,52 @@
 .v-auto .hero-photo .btn-dark{background:var(--yellow);color:var(--dark)}
 .v-auto .hero-photo .btn-dark:hover{background:var(--yellow-deep)}
 .v-auto .hero-photo .chat-preview{color:var(--dark)}
+
+/* ===== Chatbot para WhatsApp (.v-wa): verde WhatsApp oscuro + amarillo Chatia ===== */
+.v-wa{--accent:#128C7E;--accent-deep:#075E54;--accent-deep-rgb:7,94,84;--accent-soft:#E1F5F1}
+.v-wa .hero-photo{--v1:.92;--v2:.78;--v3:.45;--vm:.86;color:#fff;background-image:linear-gradient(100deg,rgba(7,94,84,var(--v1)) 0%,rgba(7,94,84,var(--v2)) 50%,rgba(7,94,84,var(--v3)) 100%),var(--bg)}
+@media (max-width:920px){.v-wa .hero-photo{background-image:linear-gradient(rgba(7,94,84,var(--vm)),rgba(7,94,84,var(--vm))),var(--bg)}}
+.v-wa .hero-photo h1,.v-wa .hero-photo .lead,.v-wa .hero-photo .hero-facts li{color:#fff}
+.v-wa .hero-photo .hero-facts li::before{background:var(--yellow)}
+.v-wa .hero-photo .vtag{background:var(--yellow);color:var(--dark)}
+.v-wa .hero-photo .btn-dark{background:var(--yellow);color:var(--dark)}
+.v-wa .hero-photo .btn-dark:hover{background:var(--yellow-deep)}
+.v-wa .hero-photo .chat-preview{color:var(--dark)}
+.wa-preview .chat-preview-head{background:#075E54;color:#fff}
+.wa-preview .chat-preview-head span{color:rgba(255,255,255,.85)}
+.wa-preview .chat-preview-body{background:#ECE5DD}
+.wa-preview .cp-user{background:#fff;color:#1f2328}
+.wa-preview .cp-bot{background:#DCF8C6;color:#1f2328}
+.wa-avatar{width:40px;height:40px;border-radius:50%;background:var(--yellow);color:var(--dark);display:inline-flex;align-items:center;justify-content:center;font-size:1.3rem;flex:0 0 40px}
+
+.wa-rules{list-style:none;padding:0;margin:22px 0 0;display:grid;gap:12px}
+.wa-rules li{display:flex;gap:10px;align-items:flex-start;font-size:1.02rem}
+.wa-rules i{color:var(--accent);font-size:1.3rem;margin-top:1px}
+
+.price-sheet{background:#fff;color:var(--dark);border-radius:16px;overflow:hidden;box-shadow:0 18px 40px rgba(0,0,0,.25);border:3px solid var(--yellow)}
+.price-sheet-head{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#F7F4EC;border-bottom:1px solid #e6e1d3}
+.price-sheet-head strong{display:flex;gap:8px;align-items:center}
+.price-sheet-head span{font-size:.8rem;color:#6b6f76}
+.price-sheet table{width:100%;border-collapse:collapse;font-size:.92rem}
+.price-sheet th{text-align:left;font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;color:#6b6f76;padding:10px 14px;border-bottom:1px solid #eee}
+.price-sheet td{padding:11px 14px;border-bottom:1px solid #f0f0f0;vertical-align:top}
+.price-sheet td:first-child{font-family:ui-monospace,monospace;color:#6b6f76}
+.price-sheet tr.is-out td{color:#9a9da3}
+.price-sheet tr.is-out td:last-child{color:#B3261E;font-weight:700}
+.price-sheet-foot{margin:0;padding:12px 18px;font-size:.88rem;background:var(--accent-soft);color:var(--accent-deep);display:flex;gap:8px;align-items:flex-start}
+@media (max-width:560px){.price-sheet table{font-size:.82rem}.price-sheet th,.price-sheet td{padding:8px 8px}}
+
+.steps.steps-4{grid-template-columns:repeat(4,1fr)}
+@media (max-width:1000px){.steps.steps-4{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.steps.steps-4{grid-template-columns:1fr}}
+
+.compare-wrap{overflow-x:auto;border-radius:16px;box-shadow:var(--pop)}
+.compare{width:100%;border-collapse:collapse;background:#fff;min-width:620px}
+.compare th,.compare td{padding:16px 18px;text-align:left;border-bottom:1px solid #eee;vertical-align:top}
+.compare thead th{font-size:1.05rem;background:#F7F4EC}
+.compare thead th i{margin-right:6px}
+.compare tbody th{font-weight:700;width:22%;color:#4a4f56}
+.compare .hl{background:var(--accent-soft)}
+.compare thead .hl{background:var(--accent);color:#fff}
+.compare-note{text-align:center;margin-top:22px}
+.compare-note a{font-weight:700;color:var(--accent-deep)}

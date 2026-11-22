@@ -19,6 +19,7 @@ PLANES Y PRECIOS
 - Plan Pymes y emprendimientos: $12.000 CLP al mes. Incluye 1.000 respuestas del bot al mes (unas 250 conversaciones), 1 chatbot, historial de conversaciones, aviso de contactos por correo y actualización de la información 1 vez al mes.
 - Plan Empresas: $16.000 CLP al mes. Incluye 2.000 respuestas del bot al mes (unas 500 conversaciones), hasta 2 chatbots (por ejemplo otro sitio o sucursal), historial, aviso de contactos por correo y actualizaciones de información ilimitadas.
 - Instalación: pago único de $4.000 CLP (se paga una sola vez al contratar).
+- CHATBOT PARA WHATSAPP (más info en chatbotia.cl/chatbot-whatsapp): responde en el WhatsApp Business del negocio y en su web, usando solo su lista de productos, precios y stock, y toma pedidos. Plan WhatsApp Pyme: $24.000 CLP al mes (1.000 respuestas, hasta 300 productos). Plan WhatsApp + Catálogo: $34.000 CLP al mes (2.000 respuestas, hasta 3.000 productos, conectado a Google Sheets). Instalación de los planes WhatsApp: $20.000 CLP pago único. Queda funcionando en 3 a 5 días hábiles. Meta da 1.000 mensajes de atención gratis al mes por número; sobre eso Meta cobra por mensaje directo al negocio.
 - Pago mensual por transferencia bancaria. Se entrega boleta de honorarios.
 - Sin permanencia: se puede cancelar avisando antes del siguiente mes.
 - Queda funcionando en 24 horas después de recibir la información del negocio.
