@@ -64,6 +64,9 @@ p{margin:0 0 1rem}
 .header-cta{display:flex;align-items:center;gap:18px}
 .header-phone{display:flex;align-items:center;gap:8px;font-weight:700}
 .header-phone i{font-size:1.5rem;color:#1fa855}
+.header-wa{font-weight:700;padding:8px 14px;border:2px solid #1fa855;border-radius:10px;color:#128C7E;white-space:nowrap}
+.header-wa:hover{background:#1fa855;color:#fff}
+@media (max-width:900px){.header-wa{display:none}}
 @media (max-width:640px){
   .topbar a:not(:first-child):not(.topbar-social),.topbar span{display:none}
   .header-phone{display:none}
