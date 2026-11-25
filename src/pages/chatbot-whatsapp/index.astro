@@ -12,9 +12,9 @@ const PHONE_DISPLAY = "+56 9 6176 5268";
 const EMAIL = "codigoraul@gmail.com";
 const FACEBOOK = "https://www.facebook.com/chatbotia.cl";
 
-const H1 = "Chatbot para WhatsApp con IA que responde precios y stock";
-const TITLE = "Chatbot para WhatsApp con IA en Chile: precios y stock al instante | Chatia";
-const DESCRIPTION = "Chatbot con IA para el WhatsApp de tu negocio: responde precios, stock y productos desde tu propia lista, a cualquier hora, y no inventa datos. Desde $24.000 al mes en todo Chile.";
+const H1 = "Chatbot para WhatsApp con IA: tu agente que responde precios y stock";
+const TITLE = "Chatbot y Agente IA para WhatsApp en Chile | Chatia";
+const DESCRIPTION = "Agente de WhatsApp con IA para tu negocio: responde precios y stock desde tu lista, toma pedidos 24/7 y no inventa datos. Chatbot para WhatsApp desde $24.000 al mes.";
 const OG_IMAGE = `${SITE}/assets/img/brand/og-chatia.jpg`;
 const IMG = "/assets/img";
 
@@ -43,6 +43,14 @@ const comparacion = [
 ];
 
 const faqs = [
+  {
+    q: "¿Qué es un agente de WhatsApp?",
+    a: "Es un asistente con inteligencia artificial conectado al WhatsApp de tu negocio. Lee los mensajes de tus clientes, los entiende y responde con la información de tu lista de precios y stock, a cualquier hora. También toma pedidos y te los envía por correo.",
+  },
+  {
+    q: "¿Es lo mismo un agente IA que un chatbot para WhatsApp?",
+    a: "Se usan casi como sinónimos. Un chatbot clásico responde con menús y frases fijas. Un agente IA entiende preguntas escritas libremente y busca la respuesta en los datos de tu negocio. El chatbot para WhatsApp de Chatia funciona como un agente IA.",
+  },
   {
     q: "¿Qué es un chatbot para WhatsApp con IA?",
     a: "Es un asistente que contesta automáticamente los mensajes que llegan al WhatsApp de tu negocio. Usa inteligencia artificial para entender lo que pregunta cada cliente, aunque escriba con errores o con sus propias palabras, y responde con la información real de tu negocio: productos, precios, stock, horarios y formas de pago.",
@@ -239,7 +247,7 @@ const schema = [
   <section id="que-es" class="band">
     <div class="container about-grid">
       <div>
-        <h2>¿Qué hace un chatbot con IA en el WhatsApp de tu negocio?</h2>
+        <h2>¿Qué hace un agente IA en el WhatsApp de tu negocio?</h2>
         <p class="intro">
           Atiende los mensajes de WhatsApp como un vendedor que se sabe el catálogo de memoria: entiende lo que el cliente busca aunque lo escriba a su manera, revisa tu lista, responde el precio y el stock, y deja el pedido anotado. Funciona mientras atiendes el mesón, de noche y los domingos.
         </p>
@@ -263,7 +271,7 @@ const schema = [
         </ul>
       </div>
       <div>
-        <figure class="photo"><img src={`${IMG}/whatsapp/chatbot-whatsapp-pedidos-catalogo.webp`} alt="Dueño de una tienda anotando pedidos de clientes que llegaron por WhatsApp" width="1500" height="1001" loading="lazy" /></figure>
+        <figure class="photo"><img src={`${IMG}/whatsapp/chatbot-whatsapp-pedidos-catalogo.webp`} alt="Dueño de una tienda revisando los pedidos que tomó el agente IA en WhatsApp" width="1500" height="1001" loading="lazy" /></figure>
         <div class="quote-box">
           <h3>El cliente le escribe a tres negocios y compra en el que contesta primero</h3>
           <p>En WhatsApp la gente pregunta lo mismo una y otra vez: si hay, cuánto vale y hasta qué hora atienden. Responder eso a mano se come horas del día.</p>
@@ -315,11 +323,27 @@ const schema = [
     </div>
   </section>
 
+  <!-- Agente de WhatsApp -->
+  <section id="agente-whatsapp" class="band">
+    <div class="container">
+      <div class="band-head">
+        <h2>Agente de WhatsApp con IA: automatiza la atención sin perder el control</h2>
+        <p>Más que un bot de WhatsApp con respuestas fijas.</p>
+      </div>
+      <p class="intro">
+        Un agente IA para WhatsApp entiende lo que el cliente escribe, aunque lo diga a su manera ("¿tienen cemento?", "precio del saco"), busca en tu lista de productos y responde con el precio y el stock reales. Así automatizas WhatsApp sin que el bot invente datos: si algo no está en tu lista, toma el contacto y te lo envía.
+      </p>
+      <p class="intro">
+        Los agentes de WhatsApp de Chatia trabajan las 24 horas, atienden varias conversaciones a la vez, toman pedidos y hablan en español de Chile, como lo haría alguien de tu equipo.
+      </p>
+    </div>
+  </section>
+
   <!-- Cómo funciona -->
   <section id="como-funciona" class="band band-dark">
     <div class="container">
       <div class="band-head">
-        <h2>Cómo se instala el chatbot en tu WhatsApp</h2>
+        <h2>Cómo se instala tu agente de WhatsApp</h2>
         <p>Nosotros hacemos la parte técnica. Tú solo nos entregas tu información.</p>
       </div>
       <div class="steps steps-4">
